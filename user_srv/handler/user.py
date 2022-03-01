@@ -1,8 +1,11 @@
 from user_srv.proto import user_pb2_grpc, user_pb2
 from user_srv.model.model import User
 
+from loguru import logger
+
 
 class UserService(user_pb2_grpc.UserServicer):
+    @logger.catch()
     def GetUserList(self, req: user_pb2.PageInfo, context):
         page = 1
         limit = 15
