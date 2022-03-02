@@ -20,11 +20,11 @@ def on_exit(signum, frame):
 
 
 if __name__ == '__main__':
-    logger.add("logs/user_srv_{time}.log")
+    logger.add("logs/user_srv_{time}.log",rotation='1day')
 
     argument = argparse.ArgumentParser()
-    argument.add_argument('--port',nargs='?',type=int,default=5002,help='listen port')
-    argument.add_argument('--host',nargs='?',type=str,default='127.0.0.1',help='listen host')
+    argument.add_argument('--port', nargs='?', type=int, default=5002, help='listen port')
+    argument.add_argument('--host', nargs='?', type=str, default='127.0.0.1', help='listen host')
     args = argument.parse_args()
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     user_pb2_grpc.add_UserServicer_to_server(UserService(), server)

@@ -16,7 +16,7 @@ class User(BaseModel):
     )
     mobile = CharField(max_length=11, index=True, verbose_name="电话号码")
     name = CharField(max_length=20, null=True, verbose_name="姓名")
-    nick_name = CharField(max_length=255, null=True, verbose_name="昵称")
+    nickName = CharField(max_length=255, null=True, verbose_name="昵称",column_name='nick_name')
     avatar = CharField(max_length=255, null=True, verbose_name="头像")
     sex = BooleanField(verbose_name="性别",choices=SEX_ENUM)
     password = CharField(max_length=255,null=True,verbose_name="密码")

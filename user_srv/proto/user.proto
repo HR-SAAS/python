@@ -31,7 +31,6 @@ message MobileRequest{
 }
 
 message UserRequest{
-  int64 id = 1;
   string name = 2;
   string mobile = 3;
   string nickName = 4;
@@ -40,11 +39,12 @@ message UserRequest{
 }
 
 message UpdateUserRequest{
-  string name = 1;
-  string mobile = 2;
-  string nickName = 3;
-  string password = 4;
-  int32 sex = 5;
+  int64 id = 1;
+  string name = 2;
+  string mobile = 3;
+  string nickName = 4;
+  string password = 5;
+  int32 sex = 6;
 }
 
 message UserResponse{
