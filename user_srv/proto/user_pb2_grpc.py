@@ -40,10 +40,10 @@ class UserStub(object):
                 request_serializer=user__pb2.UpdateUserRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
-        self.DeleteUserById = channel.unary_unary(
-                '/User/DeleteUserById',
-                request_serializer=user__pb2.IdRequest.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        self.CheckPassword = channel.unary_unary(
+                '/User/CheckPassword',
+                request_serializer=user__pb2.CheckPasswordRequest.SerializeToString,
+                response_deserializer=user__pb2.CheckPasswordResult.FromString,
                 )
 
 
@@ -80,7 +80,7 @@ class UserServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def DeleteUserById(self, request, context):
+    def CheckPassword(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -114,10 +114,10 @@ def add_UserServicer_to_server(servicer, server):
                     request_deserializer=user__pb2.UpdateUserRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
-            'DeleteUserById': grpc.unary_unary_rpc_method_handler(
-                    servicer.DeleteUserById,
-                    request_deserializer=user__pb2.IdRequest.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            'CheckPassword': grpc.unary_unary_rpc_method_handler(
+                    servicer.CheckPassword,
+                    request_deserializer=user__pb2.CheckPasswordRequest.FromString,
+                    response_serializer=user__pb2.CheckPasswordResult.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -215,7 +215,7 @@ class User(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def DeleteUserById(request,
+    def CheckPassword(request,
             target,
             options=(),
             channel_credentials=None,
@@ -225,8 +225,8 @@ class User(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/User/DeleteUserById',
-            user__pb2.IdRequest.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        return grpc.experimental.unary_unary(request, target, '/User/CheckPassword',
+            user__pb2.CheckPasswordRequest.SerializeToString,
+            user__pb2.CheckPasswordResult.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

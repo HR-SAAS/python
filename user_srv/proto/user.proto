@@ -9,7 +9,16 @@ service User {
   rpc FindUserById(IdRequest) returns (UserResponse);
   rpc CreateUser(UserRequest) returns(UserResponse);
   rpc UpdateUser(UpdateUserRequest) returns(google.protobuf.Empty);
-  rpc DeleteUserById(IdRequest) returns (google.protobuf.Empty);
+  rpc CheckPassword(CheckPasswordRequest) returns(CheckPasswordResult);
+}
+
+message CheckPasswordRequest{
+  string password = 1;
+  string encrypt = 2;
+}
+
+message CheckPasswordResult{
+  bool result = 1;
 }
 
 message PageInfo{
