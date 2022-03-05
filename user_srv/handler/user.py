@@ -79,3 +79,8 @@ class UserService(user_pb2_grpc.UserServicer):
         print(user)
         user.save()
         return google.protobuf.empty_pb2.Empty()
+
+    @logger.catch()
+    def CheckPassword(self, request:user_pb2.CheckPasswordRequest, context):
+        from passlib.hash import pbkdf2_sha256
+        return user_pb2.CheckPasswordResult(result=pbkdf2_sha256.verify(request.password,request.encrypt))

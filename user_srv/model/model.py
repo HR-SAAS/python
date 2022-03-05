@@ -32,12 +32,14 @@ if __name__ == '__main__':
 
     from passlib.hash import pbkdf2_sha256
     hash = pbkdf2_sha256.hash('123456')
+    print(pbkdf2_sha256.verify('123456',hash))
     # print(hash)
     # print(pbkdf2_sha256.verify('123456',hash))
-    for i in range(19):
-        user = User()
-        user.name = f"{i}"
-        user.sex = i%2
-        user.password = pbkdf2_sha256.hash("123456")
-        user.mobile = f"150700553{random.randint(1,10)}{i%10}"
-        user.save()
+    # for i in range(19):
+    #     user = User()
+    #     user.name = f"{i}"
+    #     user.sex = i%2
+    #     user.password = pbkdf2_sha256.hash("123456")
+    #     user.mobile = f"150700553{random.randint(1,10)}{i%10}"
+    #     user.save()
+
