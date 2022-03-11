@@ -1,6 +1,6 @@
 import grpc
 
-from user_srv.proto import health_pb2,health_pb2_grpc
+from common.health_check.proto import health_pb2,health_pb2_grpc
 
 
 class HealthService(health_pb2_grpc.HealthServicer):
