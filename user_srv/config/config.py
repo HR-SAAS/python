@@ -6,6 +6,11 @@ class ReconnectMysqlDatabase(ReconnectMixin, PooledMySQLDatabase):
     # python mro
     pass
 
+SERVICE_REGISTER_HOST = "localhost"
+SERVICE_REGISTER_PORT = 9001
+SERVICE_NAME = "user-srv"
+SERVICE_ID = "user-srv"
+SERVICE_TAGS = ["grpc", "python", "user"]
 
 MYSQL_DB = "hr-sass-user"
 MYSQL_HOST = "120.79.71.33"

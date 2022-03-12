@@ -1,12 +1,12 @@
 import random
 
 from peewee import *
-from user_srv.config import database
+from user_srv.config import config
 
 
 class BaseModel(Model):
     class Meta:
-        database = database.DB
+        database = config.DB
 
 
 class User(BaseModel):

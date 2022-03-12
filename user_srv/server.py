@@ -19,11 +19,11 @@ from common.register.consul import ConsulRegister
 from user_srv.handler.user import UserService
 from common.health_check.handler.health import HealthService
 from loguru import logger
-from user_srv.config import base
+from user_srv.config import config
 
 
 def on_exit(signum, frame, service_id):
-    c = ConsulRegister(base.SERVICE_REGISTER_HOST, base.SERVICE_REGISTER_PORT)
+    c = ConsulRegister(config.SERVICE_REGISTER_HOST, config.SERVICE_REGISTER_PORT)
     logger.info(f"开始注销服务")
     deregister_res = c.deregister(service_id)
     if deregister_res:
@@ -60,12 +60,12 @@ if __name__ == '__main__':
     user_pb2_grpc.add_UserServicer_to_server(UserService(), server)
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)
     server.add_insecure_port(f"{args.host}:{port}")
-    c = ConsulRegister(base.SERVICE_REGISTER_HOST, base.SERVICE_REGISTER_PORT)
+    c = ConsulRegister(config.SERVICE_REGISTER_HOST, config.SERVICE_REGISTER_PORT)
     import uuid
 
     server_id = str(uuid.uuid1())
     logger.info(f"开始注册服务")
-    register_res = c.register(base.SERVICE_NAME, server_id, args.host, port, base.SERVICE_TAGS)
+    register_res = c.register(config.SERVICE_NAME, server_id, args.host, port, config.SERVICE_TAGS)
     if register_res:
         logger.info("服务注册成功")
     else:
