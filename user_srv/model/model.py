@@ -23,7 +23,7 @@ class User(BaseModel):
 
 
 if __name__ == '__main__':
-    database.DB.create_tables([User])
+    config.DB.create_tables([User])
 
     # import hashlib
     # md5 = hashlib.md5()
