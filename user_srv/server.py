@@ -4,33 +4,44 @@ import signal
 import socket
 import sys
 from concurrent import futures
-
+from functools import partial
 import grpc
 
 # 配置引入路径
-from common.register.consul import ConsulRegister
 
 BASEDIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 sys.path.insert(0, BASEDIR)
+
+
 from user_srv.proto import user_pb2, user_pb2_grpc
 from common.health_check.proto import health_pb2_grpc
+from common.register.consul import ConsulRegister
 from user_srv.handler.user import UserService
 from common.health_check.handler.health import HealthService
 from loguru import logger
 from user_srv.config import base
 
 
-def on_exit(signum, frame):
+def on_exit(signum, frame, service_id):
+    c = ConsulRegister(base.SERVICE_REGISTER_HOST, base.SERVICE_REGISTER_PORT)
+    logger.info(f"开始注销服务")
+    deregister_res = c.deregister(service_id)
+    if deregister_res:
+        logger.info("服务注销成功")
+    else:
+        logger.error("服务注销失败")
     logger.warning('进程中断')
     sys.exit(0)
 
+
 def get_free_tcp_port():
     # 获取
-    tcp = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    tcp.bind(("",0))
-    _,port = tcp.getsockname()
+    tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    tcp.bind(("", 0))
+    _, port = tcp.getsockname()
     tcp.close()
     return port
+
 
 if __name__ == '__main__':
     logger.add("logs/user_srv_{time}.log", rotation='1day')
@@ -49,18 +60,20 @@ if __name__ == '__main__':
     user_pb2_grpc.add_UserServicer_to_server(UserService(), server)
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)
     server.add_insecure_port(f"{args.host}:{port}")
-    c = ConsulRegister(base.SERVICE_REGISTER_HOST,base.SERVICE_REGISTER_PORT)
+    c = ConsulRegister(base.SERVICE_REGISTER_HOST, base.SERVICE_REGISTER_PORT)
+    import uuid
 
+    server_id = str(uuid.uuid1())
     logger.info(f"开始注册服务")
-    register_res = c.register(base.SERVICE_NAME,base.SERVICE_ID,args.host,port,base.SERVICE_TAGS)
+    register_res = c.register(base.SERVICE_NAME, server_id, args.host, port, base.SERVICE_TAGS)
     if register_res:
         logger.info("服务注册成功")
     else:
         logger.error("服务注册失败")
         exit(-1)
 
-    signal.signal(signal.SIGINT, on_exit)
-    signal.signal(signal.SIGTERM, on_exit)
+    signal.signal(signal.SIGINT, partial(on_exit, service_id=server_id))
+    signal.signal(signal.SIGTERM, partial(on_exit, service_id=server_id))
 
     logger.info(f"服务已经启动 {args.host}:{port}")
     server.start()
