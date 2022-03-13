@@ -47,6 +47,5 @@ SERVICE_TAGS = c["tags"]
 # MYSQL_HOST = "120.79.71.33"
 # MYSQL_PORT = 3306
 # MYSQL_USERNAME = "hr-saas"
-
 DB = ReconnectMysqlDatabase(c["mysql"]["database"], host=c["mysql"]["host"], port=c["mysql"]["port"],
                             user=c["mysql"]["user"], password=c["mysql"]["password"])
