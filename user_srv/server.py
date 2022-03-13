@@ -12,7 +12,6 @@ import grpc
 BASEDIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 sys.path.insert(0, BASEDIR)
 
-
 from user_srv.proto import user_pb2, user_pb2_grpc
 from common.health_check.proto import health_pb2_grpc
 from common.register.consul import ConsulRegister
@@ -61,6 +60,7 @@ if __name__ == '__main__':
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)
     server.add_insecure_port(f"{args.host}:{port}")
     c = ConsulRegister(config.SERVICE_REGISTER_HOST, config.SERVICE_REGISTER_PORT)
+
     import uuid
 
     server_id = str(uuid.uuid1())
@@ -76,5 +76,9 @@ if __name__ == '__main__':
     signal.signal(signal.SIGTERM, partial(on_exit, service_id=server_id))
 
     logger.info(f"服务已经启动 {args.host}:{port}")
+
+    config.client.add_config_watcher(config.NACOS_CONFIG["dataId"], config.NACOS_CONFIG["group"], config.update_info)
+
+
     server.start()
     server.wait_for_termination()
