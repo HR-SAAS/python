@@ -44,3 +44,7 @@ class Department(BaseModel, DeletedModel):
     id = PrimaryKeyField()
     name = CharField()
     desc = TextField()
+
+class Post(Model):
+    id = PrimaryKeyField()
+    
