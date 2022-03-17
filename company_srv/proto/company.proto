@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service Company {
+  //  公司
+  rpc GetCompanyList() returns ();
+  rpc CreateCompany() returns ();
+  rpc UpdateCompany() returns ();
+  rpc DeleteCompany() returns ();
+  rpc JoinCompany() returns();
+  rpc BecomeChildrenCompany () returns ();
+
+  rpc GetAllDepartmentList() returns ();
+
+
+}
+
