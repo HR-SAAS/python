@@ -1,5 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
+option go_package='../proto';
 
 service Company {
   rpc GetCompanyList(GetCompanyListRequest) returns (CompanyListResponse);
@@ -9,20 +10,16 @@ service Company {
   rpc DeleteCompany(DeleteCompanyRequest) returns (google.protobuf.Empty);
 }
 
-message SearchInfo{
-  string column = 1;
-  string method = 2;
-  string value = 3;
-}
 
 message GetCompanyDetailRequest{
   int64 id = 1;
 }
 
 message GetCompanyListRequest{
-  SearchInfo search = 1;
-  int32 page = 2;
-  int32 limit = 3;
+  int32 page = 1;
+  int32 limit = 2;
+  string search = 3;
+  string sort = 4;
 }
 
 message CompanyListResponse{

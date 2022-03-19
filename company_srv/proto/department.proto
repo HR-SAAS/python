@@ -1,6 +1,7 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
 
+option go_package = '../proto';
 // 部门
 service Department {
   rpc GetDepartmentList(GetDepartmentListRequest) returns (DepartmentListResponse);
@@ -57,16 +58,12 @@ message DeleteDepartmentRequest{
 }
 
 
-message SearchInfo{
-  string column = 1;
-  string method = 2;
-  string value = 3;
-}
-
 message DepartmentListResponse{
-  SearchInfo search = 1;
-  int32 page = 2;
-  int32 limit = 3;
+  int32 page = 1;
+  int32 limit = 2;
+  int64 company_id = 3;
+  string search = 4;
+  string order = 5;
 }
 
 message GetDepartmentListRequest{

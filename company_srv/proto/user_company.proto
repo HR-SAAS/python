@@ -1,9 +1,43 @@
 syntax = "proto3";
 
+import "google/protobuf/empty.proto";
+
+
 service UserCompany{
-  rpc GetUserListCompany() returns();
-  rpc JoinCompany() returns();
-  rpc DeleteUserListCompany() returns();
-  rpc UpdateUserCompany() returns ();
+  rpc GetCompanyListByUser(GetUserCompanyListRequest) returns();
+  rpc JoinCompany(JoinCompanyRequest) returns(JoinResultResponse);
+  rpc DeleteUserListCompany(DeleteUserCompany) returns(google.protobuf.Empty);
+  rpc UpdateUserCompany(UpdateUserCompany) returns (google.protobuf.Empty);
 }
 
+message JoinResultResponse{
+
+}
+
+message GetUserCompanyListRequest{
+  int64 userId = 1;
+}
+
+message JoinCompanyRequest{
+  int64 userId = 1;
+  int64 companyId = 2;
+}
+
+// 退出?或则删除
+message DeleteUserCompany{
+  int64 userId = 1;
+  int64 companyId = 2;
+
+  enum status {
+    // 离职
+    QUIT = 0;
+    // 删除
+    DELETE = 1;
+    // 解散
+    DISMISS = 2;
+  };
+}
+
+message UpdateUserCompany{
+
+}
