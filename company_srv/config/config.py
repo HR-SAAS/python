@@ -29,7 +29,7 @@ def update_info(args):
 client = nacos.NacosClient(f'{NACOS_CONFIG["host"]}:{NACOS_CONFIG["port"]}', namespace=NACOS_CONFIG["namespace"])
 
 c = json.loads(client.get_config(NACOS_CONFIG["dataId"], NACOS_CONFIG["group"]))
-logger.info(f"配置信息变动:{c}")
+logger.info(f"读取到配置信息:{c}")
 
 SERVICE_REGISTER_HOST = c["consul"]["host"]
 SERVICE_REGISTER_PORT = c["consul"]["port"]

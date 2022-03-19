@@ -2,40 +2,86 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 
 service Company {
-  //  公司
   rpc GetCompanyList(GetCompanyListRequest) returns (CompanyListResponse);
-  rpc CreateCompany(CompanyRequest) returns (CompanyResponse);
-  rpc UpdateCompany(CompanyRequest) returns (google.protobuf.Empty);
-  rpc DeleteCompany(CompanyRequest) returns (google.protobuf.Empty);
-  rpc JoinCompany(JoinCompanyRequest) returns(google.protobuf.Empty);
-  rpc BecomeChildrenCompany (BecomeChildrenCompanyRequest) returns (google.protobuf.Empty);
-  rpc GetChildrenList() returns (CompanyListResponse);
+  rpc GetCompanyDetail(GetCompanyDetailRequest) returns (CompanyResponse);
+  rpc CreateCompany(CreateCompanyRequest) returns (CompanyResponse);
+  rpc UpdateCompany(UpdateCompanyRequest) returns (google.protobuf.Empty);
+  rpc DeleteCompany(DeleteCompanyRequest) returns (google.protobuf.Empty);
+}
 
+message SearchInfo{
+  string column = 1;
+  string method = 2;
+  string value = 3;
+}
 
+message GetCompanyDetailRequest{
+  int64 id = 1;
 }
 
 message GetCompanyListRequest{
+  SearchInfo search = 1;
   int32 page = 2;
   int32 limit = 3;
 }
 
-message CompanyResponse{
-  int64 id = 1;
-}
-
-message CompanyRequest{
-}
-message JoinCompanyRequest{
-}
-message CompanyUpdateRequest{
-  int64 id = 1;
-}
-
-message BecomeChildrenCompanyRequest{
-
-}
 message CompanyListResponse{
   repeated CompanyResponse data = 1;
   int32 total = 2;
 }
+
+message DeleteCompanyRequest{
+  int64 id = 1;
+}
+
+message UpdateCompanyRequest{
+  int64 id = 1;
+  string name = 2;
+  string desc = 3;
+  string website = 4;
+  string config = 5;
+  string tags = 6;
+
+  string address = 7;
+  string info = 8;
+
+  int64 creator_id = 9;
+  int64 parent_id = 10;
+  int32 status = 11;
+}
+
+
+
+
+message CompanyResponse{
+  int64 id = 1;
+  string name = 2;
+  string desc = 3;
+  string website = 4;
+  string config = 5;
+  string tags = 6;
+
+  string address = 7;
+  string info = 8;
+
+  int64 creator_id = 9;
+  int64 parent_id = 10;
+  int32 status = 11;
+}
+
+message CreateCompanyRequest{
+  string name = 1;
+  string desc = 2;
+  string website = 3;
+  string config = 4;
+  string tags = 5;
+
+  string address = 6;
+  string info = 7;
+
+  int64 creator_id = 8;
+  int64 parent_id = 9;
+  int32 status = 10;
+}
+
 

@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+service UserCompany{
+  rpc GetUserListCompany() returns();
+  rpc JoinCompany() returns();
+  rpc DeleteUserListCompany() returns();
+  rpc UpdateUserCompany() returns ();
+}
+

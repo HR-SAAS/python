@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+service Post{
+  // 岗位
+  rpc GetDepartmentList(GetDepartmentListRequest) returns (DepartmentListResponse);
+  rpc CreateDepartment(DepartmentRequest) returns (DepartmentResponse);
+  rpc UpdateDepartment(DepartmentRequest) returns (google.protobuf.Empty);
+  rpc DeleteDepartment(DepartmentRequest) returns (google.protobuf.Empty);
+}
+
+
+
+message GetPostListRequest{
+
+}
+
+message PostListResponse{
+
+}

@@ -1,19 +1,75 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
 
+// 部门
 service Department {
-  // 部门
-  rpc GetAllDepartmentList(GetDepartmentListRequest) returns (DepartmentListResponse);
+  rpc GetDepartmentList(GetDepartmentListRequest) returns (DepartmentListResponse);
+  rpc GetDepartmentDetail(GetDepartmentDetailRequest) returns (DepartmentResponse);
+  rpc CreateDepartment(CreateDepartmentRequest) returns (DepartmentResponse);
+  rpc UpdateDepartment(UpdateDepartmentRequest) returns (google.protobuf.Empty);
+  rpc DeleteDepartment(DeleteDepartmentRequest) returns (google.protobuf.Empty);
 }
 
 message DepartmentResponse{
+  int64 id = 1;
+  int64 company_id = 2;
+  int64 parent_id = 3;
+  int64 icon = 4;
+  string name = 5;
+  string remark = 6;
+  string desc = 7;
+  string info = 8;
+  int64 creator_id = 9;
+  int32 status = 10;
+}
 
+message GetDepartmentDetailRequest{
+  int64 id = 1;
+}
+
+message CreateDepartmentRequest{
+  int64 company_id = 1;
+  int64 parent_id = 2;
+  int64 icon = 3;
+  string name = 4;
+  string remark = 5;
+  string desc = 6;
+  string info = 7;
+  int64 creator_id = 8;
+  int32 status = 9;
+}
+
+message UpdateDepartmentRequest{
+  int64 id = 1;
+  int64 company_id = 2;
+  int64 parent_id = 3;
+  int64 icon = 4;
+  string name = 5;
+  string remark = 6;
+  string desc = 7;
+  string info = 8;
+  int64 creator_id = 9;
+  int32 status = 10;
+}
+
+message DeleteDepartmentRequest{
+  int64 id = 1;
+}
+
+
+message SearchInfo{
+  string column = 1;
+  string method = 2;
+  string value = 3;
 }
 
 message DepartmentListResponse{
-
+  SearchInfo search = 1;
+  int32 page = 2;
+  int32 limit = 3;
 }
 
 message GetDepartmentListRequest{
-
+  repeated DepartmentResponse data = 1;
+  int32 total = 2;
 }
