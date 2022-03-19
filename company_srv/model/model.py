@@ -1,84 +1,78 @@
-from datetime import datetime
-from peewee import *
-from playhouse.pool import PooledMySQLDatabase
-from playhouse.shortcuts import ReconnectMixin
+from common.model.ext import *
+
+from company_srv.config import config
 
 
-class ReconnectMysqlDatabase(ReconnectMixin, PooledMySQLDatabase):
-    pass
-
-
-DB = ReconnectMysqlDatabase("hr-sass-company", host="120.79.71.33", port=3306,
-                            user="hr-saas", password="pPYG7SGihSAS7zE5")
-
-
-class BaseModel(Model):
-    created_at = DateTimeField(default=datetime.now, verbose_name="创建时间")
-    updated_at = DateTimeField(default=datetime.now, verbose_name="更新时间")
-
+class BaseModel(BaseModel):
     class Meta:
-        database = DB
+        database = config.DB
 
 
-class DeletedModel(Model):
-    deleted_at = DateTimeField(default=None, verbose_name="删除时间", null=True)
-
-    def save(self, *args, **kwargs):
-        if self._pk is None:
-            self.updated_at = datetime.now()
-        return super().save(*args, **kwargs)
-
-    @classmethod
-    def delete(cls, permanently=False):
-        if permanently:
-            return super().delete()
-        else:
-            return super().update(deleted_at=datetime.now())
-
-    def delete_instance(self, permanently=False, recursive=False, delete_nullable=False):
-        if permanently:
-            return self.delete().where(self._pk_expr()).execute()
-        else:
-            self.deleted_at = datetime.now()
-            return self.save()
-
-    @classmethod
-    def select(cls, *fields):
-        return super().select().where(cls.deleted_at == None)
-
-
-class Company(BaseModel,DeletedModel):
+class Company(BaseModel, DeletedModel):
     name = CharField(verbose_name='名称')
     desc = TextField(verbose_name='简介')
-    website = CharField(verbose_name='官网')
-    config = TextField(verbose_name='配置信息')
+    website = CharField(verbose_name='官网', null=True)
+    config = TextField(verbose_name='配置信息', null=True)
+    tags = JSONField(verbose_name='标签', null=True)
+
+    address = CharField(verbose_name='地址')
+    info = JSONField(verbose_name='其他信息', null=True)
+
     creator_id = IntegerField(verbose_name='创建者,群主')
-    parent_id = IntegerField(verbose_name='父id,子公司')
-    status = BooleanField('状态')
+    parent_id = IntegerField(verbose_name='父id,子公司', default=0)
+    status = EnumField(verbose_name='状态', default=1)
 
 
-class Department(BaseModel,DeletedModel):
+class Department(BaseModel, DeletedModel):
     company_id = IntegerField(verbose_name='公司id')
     parent_id = IntegerField(verbose_name='父级id')
-    icon = IntegerField(verbose_name='图标')
+    icon = IntegerField(verbose_name='图标', default=0)
     name = CharField(verbose_name='名称')
-    remark = CharField(verbose_name='备注')
-    desc = TextField(verbose_name='简介')
+    remark = CharField(verbose_name='备注', null=True)
+    desc = TextField(verbose_name='简介', null=True)
+
+    info = JSONField(verbose_name='其他信息', null=True)
     creator_id = IntegerField(verbose_name='负责人')
-    status = BooleanField(verbose_name='状态')
+    status = EnumField(verbose_name='状态', default=0)
 
 
 # 用户企业表
-class UserCompany(BaseModel,DeletedModel):
+class UserCompany(BaseModel, DeletedModel):
     user_id = IntegerField(verbose_name='用户id')
     company_id = IntegerField(verbose_name='公司id')
-    department_id = IntegerField(verbose_name='部门id')
-    status = BooleanField(verbose_name='状态,入职,离职,其他')
+    department_id = IntegerField(verbose_name='部门id', default=0)
+    # 别名
+    remark = CharField(verbose_name='备注', null=True)
+    info = JSONField(verbose_name='其他信息', null=True)
+    status = EnumField(verbose_name='状态,入职,离职,其他')
+
+
+class Post(BaseModel, DeletedModel):
+    company_id = IntegerField(verbose_name='公司id')
+    department_id = IntegerField(verbose_name='部门id', default=0)
+    creator_id = IntegerField(verbose_name='发布人')
+    type_id = IntegerField(verbose_name='类型id: 校招,直招,内推等', default=0)
+
+    name = CharField(verbose_name='名称')
+    desc = TextField(verbose_name='简介', null=True)
+    content = TextField(verbose_name='内容')
+    tags = JSONField(verbose_name='标签', null=True)
+
+    experience = EnumField(verbose_name='经验,不限', default=0)
+    education = EnumField(verbose_name='学历:二进制 0不限', default=0)
+    address = CharField(verbose_name='地址')
+
+    view_count = IntegerField(verbose_name='浏览记录', default=0)
+    like_count = IntegerField(verbose_name='收藏', default=0)
+
+    start_at = TimestampField(verbose_name='开始时间')
+    end_at = TimestampField(verbose_name='结束时间')
+    status = EnumField(verbose_name='状态,招满,正常,')
 
 
 if __name__ == '__main__':
     #  打印
-    DB.create_tables([Company])
+    config.DB.create_tables([Company, Department, UserCompany, Post])
     # c1=Company(name="test",desc="test",creator_id=1)
     # c1.save()
     # print()

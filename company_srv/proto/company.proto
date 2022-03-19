@@ -1,16 +1,41 @@
 syntax = "proto3";
+import "google/protobuf/empty.proto";
 
 service Company {
   //  公司
-  rpc GetCompanyList() returns ();
-  rpc CreateCompany() returns ();
-  rpc UpdateCompany() returns ();
-  rpc DeleteCompany() returns ();
-  rpc JoinCompany() returns();
-  rpc BecomeChildrenCompany () returns ();
+  rpc GetCompanyList(GetCompanyListRequest) returns (CompanyListResponse);
+  rpc CreateCompany(CompanyRequest) returns (CompanyResponse);
+  rpc UpdateCompany(CompanyRequest) returns (google.protobuf.Empty);
+  rpc DeleteCompany(CompanyRequest) returns (google.protobuf.Empty);
+  rpc JoinCompany(JoinCompanyRequest) returns(google.protobuf.Empty);
+  rpc BecomeChildrenCompany (BecomeChildrenCompanyRequest) returns (google.protobuf.Empty);
+  rpc GetChildrenList() returns (CompanyListResponse);
 
-  rpc GetAllDepartmentList() returns ();
 
+}
 
+message GetCompanyListRequest{
+  int32 page = 2;
+  int32 limit = 3;
+}
+
+message CompanyResponse{
+  int64 id = 1;
+}
+
+message CompanyRequest{
+}
+message JoinCompanyRequest{
+}
+message CompanyUpdateRequest{
+  int64 id = 1;
+}
+
+message BecomeChildrenCompanyRequest{
+
+}
+message CompanyListResponse{
+  repeated CompanyResponse data = 1;
+  int32 total = 2;
 }
 

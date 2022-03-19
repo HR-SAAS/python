@@ -1,0 +1,19 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+service Department {
+  // 部门
+  rpc GetAllDepartmentList(GetDepartmentListRequest) returns (DepartmentListResponse);
+}
+
+message DepartmentResponse{
+
+}
+
+message DepartmentListResponse{
+
+}
+
+message GetDepartmentListRequest{
+
+}
