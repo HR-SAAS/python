@@ -8,9 +8,18 @@ service Company {
   rpc CreateCompany(CreateCompanyRequest) returns (CompanyResponse);
   rpc UpdateCompany(UpdateCompanyRequest) returns (google.protobuf.Empty);
   rpc DeleteCompany(DeleteCompanyRequest) returns (google.protobuf.Empty);
+  rpc GetCompanyListByUser(GetCompanyListByUserRequest) returns(CompanyListResponse);
+  rpc GetMyCompanyList(GetMyCompanyListRequest) returns (CompanyListResponse);
+
 }
 
+message GetMyCompanyListRequest{
+  int64 user_id = 1;
+}
 
+message GetCompanyListByUserRequest{
+  int64 userId = 1;
+}
 message GetCompanyDetailRequest{
   int64 id = 1;
 }

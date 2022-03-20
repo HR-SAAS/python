@@ -4,7 +4,7 @@ import "google/protobuf/empty.proto";
 option go_package = '../proto';
 // 部门
 service Department {
-  rpc GetDepartmentList(GetDepartmentListRequest) returns (DepartmentListResponse);
+  rpc GetDepartmentList(GetDepartmentListRequest) returns (GetDepartmentListResponse);
   rpc GetDepartmentDetail(GetDepartmentDetailRequest) returns (DepartmentResponse);
   rpc CreateDepartment(CreateDepartmentRequest) returns (DepartmentResponse);
   rpc UpdateDepartment(UpdateDepartmentRequest) returns (google.protobuf.Empty);
@@ -58,7 +58,7 @@ message DeleteDepartmentRequest{
 }
 
 
-message DepartmentListResponse{
+message GetDepartmentListRequest{
   int32 page = 1;
   int32 limit = 2;
   int64 company_id = 3;
@@ -66,7 +66,7 @@ message DepartmentListResponse{
   string order = 5;
 }
 
-message GetDepartmentListRequest{
+message GetDepartmentListResponse{
   repeated DepartmentResponse data = 1;
   int32 total = 2;
 }
