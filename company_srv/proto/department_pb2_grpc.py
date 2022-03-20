@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from . import department_pb2 as department__pb2
+import department_pb2 as department__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
@@ -19,7 +19,7 @@ class DepartmentStub(object):
         self.GetDepartmentList = channel.unary_unary(
                 '/Department/GetDepartmentList',
                 request_serializer=department__pb2.GetDepartmentListRequest.SerializeToString,
-                response_deserializer=department__pb2.DepartmentListResponse.FromString,
+                response_deserializer=department__pb2.GetDepartmentListResponse.FromString,
                 )
         self.GetDepartmentDetail = channel.unary_unary(
                 '/Department/GetDepartmentDetail',
@@ -40,6 +40,11 @@ class DepartmentStub(object):
                 '/Department/DeleteDepartment',
                 request_serializer=department__pb2.DeleteDepartmentRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.GetMyDepartmentList = channel.unary_unary(
+                '/Department/GetMyDepartmentList',
+                request_serializer=department__pb2.GetMyDepartmentListRequest.SerializeToString,
+                response_deserializer=department__pb2.GetDepartmentListResponse.FromString,
                 )
 
 
@@ -77,13 +82,19 @@ class DepartmentServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetMyDepartmentList(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_DepartmentServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'GetDepartmentList': grpc.unary_unary_rpc_method_handler(
                     servicer.GetDepartmentList,
                     request_deserializer=department__pb2.GetDepartmentListRequest.FromString,
-                    response_serializer=department__pb2.DepartmentListResponse.SerializeToString,
+                    response_serializer=department__pb2.GetDepartmentListResponse.SerializeToString,
             ),
             'GetDepartmentDetail': grpc.unary_unary_rpc_method_handler(
                     servicer.GetDepartmentDetail,
@@ -104,6 +115,11 @@ def add_DepartmentServicer_to_server(servicer, server):
                     servicer.DeleteDepartment,
                     request_deserializer=department__pb2.DeleteDepartmentRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'GetMyDepartmentList': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetMyDepartmentList,
+                    request_deserializer=department__pb2.GetMyDepartmentListRequest.FromString,
+                    response_serializer=department__pb2.GetDepartmentListResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -129,7 +145,7 @@ class Department(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Department/GetDepartmentList',
             department__pb2.GetDepartmentListRequest.SerializeToString,
-            department__pb2.DepartmentListResponse.FromString,
+            department__pb2.GetDepartmentListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -198,5 +214,22 @@ class Department(object):
         return grpc.experimental.unary_unary(request, target, '/Department/DeleteDepartment',
             department__pb2.DeleteDepartmentRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetMyDepartmentList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Department/GetMyDepartmentList',
+            department__pb2.GetMyDepartmentListRequest.SerializeToString,
+            department__pb2.GetDepartmentListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

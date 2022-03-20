@@ -9,6 +9,16 @@ service Department {
   rpc CreateDepartment(CreateDepartmentRequest) returns (DepartmentResponse);
   rpc UpdateDepartment(UpdateDepartmentRequest) returns (google.protobuf.Empty);
   rpc DeleteDepartment(DeleteDepartmentRequest) returns (google.protobuf.Empty);
+  rpc GetMyDepartmentList(GetMyDepartmentListRequest) returns(GetDepartmentListResponse);
+}
+
+message GetMyDepartmentListRequest{
+    int64 user_id = 1;
+    int64 company_id = 2;
+}
+
+message GetDepartmentListByUserRequest{
+  int64 user_id = 1;
 }
 
 message DepartmentResponse{
