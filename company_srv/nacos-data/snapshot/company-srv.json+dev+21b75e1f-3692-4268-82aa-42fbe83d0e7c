@@ -1,14 +1,14 @@
 {
     "name":"company-srv",
     "id":"company-srv",
-    "tags":["grpc", "python", "user","srv"],
+    "tags":["grpc", "python", "company","srv"],
 
     "consul":{
         "host":"127.0.0.1",
         "port":"9001"
     },
     "mysql":{
-        "host":"",
+        "host":"120.79.71.33",
         "database":"hr-sass-company",
         "port":3306,
         "user":"hr-saas",

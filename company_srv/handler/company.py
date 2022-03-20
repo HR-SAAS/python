@@ -2,7 +2,7 @@ import google.protobuf.empty_pb2
 import grpc
 
 from company_srv.proto import company_pb2, company_pb2_grpc
-from company_srv.model.model import Company
+from company_srv.model.model import Company, UserCompany
 
 from loguru import logger
 from peewee import DoesNotExist
@@ -20,26 +20,21 @@ def response_convert_company(request):
 
 
 def convert_company(source, to):
-    if source.name:
-        to.name = source.name
-    if source.desc:
-        to.desc = source.desc
-    if source.website:
-        to.website = source.website
-    if source.config:
-        to.config = source.config
-    if source.tags:
-        to.tags = source.tags
-    if source.address:
-        to.address = source.address
-    if source.info:
-        to.info = source.info
-    if source.creator_id:
-        to.creator_id = source.creator_id
-    if source.parent_id:
-        to.parent_id = source.parent_id
-    if source.status:
-        to.status = source.status
+    for i in [
+        "name",
+        "desc",
+        "website",
+        "config",
+        "tags",
+        "address",
+        "info",
+        "creator_id",
+        "parent_id",
+        "status",
+    ]:
+        temp = getattr(source, i)
+        if temp is not None:
+            setattr(to, i, temp)
     return to
 
 
@@ -116,3 +111,17 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
             context.set_details("内部错误")
         finally:
             return google.protobuf.empty_pb2.Empty()
+
+    def GetMyCompanyList(self, req:company_pb2.GetMyCompanyListRequest, context):
+        companyIds = UserCompany.select(UserCompany.company_id).get(UserCompany.user_id==req.user_id)
+        # 获取全部id
+        idList = []
+        for i in companyIds:
+            idList.append(i.company_id)
+        companies = Company.where(Company.id in idList).select()
+        print(companies)
+        rsp = company_pb2.CompanyListResponse()
+        rsp.total = companies.count()
+        for company in companies:
+            rsp.data.append(company_convert_response(company))
+        return rsp
