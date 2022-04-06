@@ -4,21 +4,67 @@ import "google/protobuf/empty.proto";
 option go_package = '../proto';
 // 部门
 service Department {
+  // 获取部门列表
   rpc GetDepartmentList(GetDepartmentListRequest) returns (GetDepartmentListResponse);
+  // 获取部门详情
   rpc GetDepartmentDetail(GetDepartmentDetailRequest) returns (DepartmentResponse);
+  // 创建部门
   rpc CreateDepartment(CreateDepartmentRequest) returns (DepartmentResponse);
+  // 更新部门
   rpc UpdateDepartment(UpdateDepartmentRequest) returns (google.protobuf.Empty);
+  // 删除部门
   rpc DeleteDepartment(DeleteDepartmentRequest) returns (google.protobuf.Empty);
+  // 只需要判断creator_id是否相同,即可确定主要角色
   rpc GetMyDepartmentList(GetMyDepartmentListRequest) returns(GetDepartmentListResponse);
+  // 全部人员分页
+  rpc GetDepartmentUserIdList(GetDepartmentUserListRequest) returns(UserIdList);
+  // 加入部门
+  rpc CreateUserDepartment(SaveUserDepartmentRequest) returns(google.protobuf.Empty);
+  // 人员部门表更新
+  rpc UpdateUserDepartment(SaveUserDepartmentRequest) returns(google.protobuf.Empty);
+  // 人员部门删除(软删除)
+  rpc DeleteUserDepartment(DeleteUserDepartmentRequest) returns (google.protobuf.Empty);
+}
+
+
+// ---------------------------------用户部门相关
+message SaveUserDepartmentRequest{
+  int64 user_id = 1;
+  int64 department_id = 2;
+  int32 nick_name = 3;
+  string remark = 4;
+  string status = 5;
+}
+
+message DeleteUserDepartmentRequest{
+  int64 user_id = 1;
+  int64 department_id = 2;
+}
+
+message UserIdList{
+  repeated int64 user_id = 1;
+  int64 total = 2;
+}
+
+message GetDepartmentUserListRequest{
+  int64 department_id = 1;
+  int32 page = 2;
+  int32 limit = 3;
+  string order = 4;
 }
 
 message GetMyDepartmentListRequest{
-    int64 user_id = 1;
-    int64 company_id = 2;
+  int64 user_id = 1;
+  int64 company_id = 2;
+  string search = 3;
+  int32 page = 4;
+  int32 limit = 5 ;
 }
 
 message GetDepartmentListByUserRequest{
   int64 user_id = 1;
+  int32 page = 2;
+  int32 limit = 3;
 }
 
 message DepartmentResponse{

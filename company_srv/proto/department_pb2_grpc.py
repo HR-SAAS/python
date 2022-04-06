@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import department_pb2 as department__pb2
+from . import department_pb2 as department__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
@@ -46,6 +46,26 @@ class DepartmentStub(object):
                 request_serializer=department__pb2.GetMyDepartmentListRequest.SerializeToString,
                 response_deserializer=department__pb2.GetDepartmentListResponse.FromString,
                 )
+        self.GetDepartmentUserIdList = channel.unary_unary(
+                '/Department/GetDepartmentUserIdList',
+                request_serializer=department__pb2.GetDepartmentUserListRequest.SerializeToString,
+                response_deserializer=department__pb2.UserIdList.FromString,
+                )
+        self.CreateUserDepartment = channel.unary_unary(
+                '/Department/CreateUserDepartment',
+                request_serializer=department__pb2.SaveUserDepartmentRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.UpdateUserDepartment = channel.unary_unary(
+                '/Department/UpdateUserDepartment',
+                request_serializer=department__pb2.SaveUserDepartmentRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.DeleteUserDepartment = channel.unary_unary(
+                '/Department/DeleteUserDepartment',
+                request_serializer=department__pb2.DeleteUserDepartmentRequest.SerializeToString,
+                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
 
 
 class DepartmentServicer(object):
@@ -53,37 +73,71 @@ class DepartmentServicer(object):
     """
 
     def GetDepartmentList(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """获取部门列表
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetDepartmentDetail(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """获取部门详情
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CreateDepartment(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """创建部门
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def UpdateDepartment(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """更新部门
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def DeleteDepartment(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """删除部门
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def GetMyDepartmentList(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """只需要判断creator_id是否相同,即可确定主要角色
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetDepartmentUserIdList(self, request, context):
+        """全部人员分页
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateUserDepartment(self, request, context):
+        """加入部门
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateUserDepartment(self, request, context):
+        """人员部门表更新
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteUserDepartment(self, request, context):
+        """人员部门删除(软删除)
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -120,6 +174,26 @@ def add_DepartmentServicer_to_server(servicer, server):
                     servicer.GetMyDepartmentList,
                     request_deserializer=department__pb2.GetMyDepartmentListRequest.FromString,
                     response_serializer=department__pb2.GetDepartmentListResponse.SerializeToString,
+            ),
+            'GetDepartmentUserIdList': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetDepartmentUserIdList,
+                    request_deserializer=department__pb2.GetDepartmentUserListRequest.FromString,
+                    response_serializer=department__pb2.UserIdList.SerializeToString,
+            ),
+            'CreateUserDepartment': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateUserDepartment,
+                    request_deserializer=department__pb2.SaveUserDepartmentRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'UpdateUserDepartment': grpc.unary_unary_rpc_method_handler(
+                    servicer.UpdateUserDepartment,
+                    request_deserializer=department__pb2.SaveUserDepartmentRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'DeleteUserDepartment': grpc.unary_unary_rpc_method_handler(
+                    servicer.DeleteUserDepartment,
+                    request_deserializer=department__pb2.DeleteUserDepartmentRequest.FromString,
+                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -231,5 +305,73 @@ class Department(object):
         return grpc.experimental.unary_unary(request, target, '/Department/GetMyDepartmentList',
             department__pb2.GetMyDepartmentListRequest.SerializeToString,
             department__pb2.GetDepartmentListResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetDepartmentUserIdList(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Department/GetDepartmentUserIdList',
+            department__pb2.GetDepartmentUserListRequest.SerializeToString,
+            department__pb2.UserIdList.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def CreateUserDepartment(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Department/CreateUserDepartment',
+            department__pb2.SaveUserDepartmentRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def UpdateUserDepartment(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Department/UpdateUserDepartment',
+            department__pb2.SaveUserDepartmentRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def DeleteUserDepartment(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Department/DeleteUserDepartment',
+            department__pb2.DeleteUserDepartmentRequest.SerializeToString,
+            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

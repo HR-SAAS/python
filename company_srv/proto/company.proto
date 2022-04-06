@@ -3,12 +3,56 @@ import "google/protobuf/empty.proto";
 option go_package = '../proto';
 
 service Company {
+  // 获取公司列表
   rpc GetCompanyList(GetCompanyListRequest) returns (CompanyListResponse);
+  // 获取公司详情
   rpc GetCompanyDetail(GetCompanyDetailRequest) returns (CompanyResponse);
+  // 创建公司
   rpc CreateCompany(CreateCompanyRequest) returns (CompanyResponse);
+  // 更新公司信息
   rpc UpdateCompany(UpdateCompanyRequest) returns (google.protobuf.Empty);
+  // 删除公司
   rpc DeleteCompany(DeleteCompanyRequest) returns (google.protobuf.Empty);
+
+  // 获取我都公司列表
   rpc GetMyCompanyList(GetMyCompanyListRequest) returns (CompanyListResponse);
+  // 公司下所有用户,分页
+  rpc GetCompanyUserIdList(GetCompanyUserListRequest)returns(UserIdList);
+  // 加入公司
+  rpc CreateUserCompany(SaveUserCompanyRequest)returns(google.protobuf.Empty);
+  // 关系更新
+  rpc UpdateUserCompany(SaveUserCompanyRequest)returns(google.protobuf.Empty);
+  // 删除用户公司
+  rpc DeleteUserCompany(DeleteUserCompanyRequest)returns(google.protobuf.Empty);
+}
+
+message SaveUserCompanyRequest{
+  int64 user_id = 1;
+  int64 company_id = 2;
+  int32 status = 3;
+  int64 department_id = 4;
+  string nick_name = 5;
+  string remark = 6;
+  string info = 7;
+}
+
+message DeleteUserCompanyRequest{
+  int64 user_id = 1;
+  int64 company_id = 2;
+}
+
+
+message GetCompanyUserListRequest{
+  int32 page = 1;
+  int32 limit = 2;
+  int64 company_id = 3;
+  string order = 5;
+}
+
+// 上层服务根据id获取&查询数据
+message UserIdList{
+  repeated int64 user_id = 1;
+  int32 total = 2;
 }
 
 message GetMyCompanyListRequest{
