@@ -15,10 +15,11 @@ _sym_db = _symbol_database.Default()
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nuser.proto\x1a\x1bgoogle/protobuf/empty.proto\"9\n\x14\x43heckPasswordRequest\x12\x10\n\x08password\x18\x01 \x01(\t\x12\x0f\n\x07\x65ncrypt\x18\x02 \x01(\t\"%\n\x13\x43heckPasswordResult\x12\x0e\n\x06result\x18\x01 \x01(\x08\"\'\n\x08PageInfo\x12\x0c\n\x04page\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\">\n\x10UserListResponse\x12\x1b\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\r.UserResponse\x12\r\n\x05total\x18\x02 \x01(\x05\"\x1f\n\rMobileRequest\x12\x0e\n\x06mobile\x18\x01 \x01(\t\"\\\n\x0bUserRequest\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06mobile\x18\x03 \x01(\t\x12\x10\n\x08nickName\x18\x04 \x01(\t\x12\x10\n\x08password\x18\x05 \x01(\t\x12\x0b\n\x03sex\x18\x06 \x01(\x05\"n\n\x11UpdateUserRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06mobile\x18\x03 \x01(\t\x12\x10\n\x08nickName\x18\x04 \x01(\t\x12\x10\n\x08password\x18\x05 \x01(\t\x12\x0b\n\x03sex\x18\x06 \x01(\x05\"i\n\x0cUserResponse\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06mobile\x18\x03 \x01(\t\x12\x10\n\x08nickName\x18\x04 \x01(\t\x12\x10\n\x08password\x18\x05 \x01(\t\x12\x0b\n\x03sex\x18\x06 \x01(\x05\x32\xb4\x02\n\x04User\x12+\n\x0bGetUserList\x12\t.PageInfo\x1a\x11.UserListResponse\x12\x31\n\x10\x46indUserByMobile\x12\x0e.MobileRequest\x1a\r.UserResponse\x12)\n\x0c\x46indUserById\x12\n.IdRequest\x1a\r.UserResponse\x12)\n\nCreateUser\x12\x0c.UserRequest\x1a\r.UserResponse\x12\x38\n\nUpdateUser\x12\x12.UpdateUserRequest\x1a\x16.google.protobuf.Empty\x12<\n\rCheckPassword\x12\x15.CheckPasswordRequest\x1a\x14.CheckPasswordResultB\tZ\x07.;protob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nuser.proto\x1a\x1bgoogle/protobuf/empty.proto\"&\n\x17GetUserListByIdsRequest\x12\x0b\n\x03ids\x18\x01 \x03(\x03\"9\n\x14\x43heckPasswordRequest\x12\x10\n\x08password\x18\x01 \x01(\t\x12\x0f\n\x07\x65ncrypt\x18\x02 \x01(\t\"%\n\x13\x43heckPasswordResult\x12\x0e\n\x06result\x18\x01 \x01(\x08\"\'\n\x08PageInfo\x12\x0c\n\x04page\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\">\n\x10UserListResponse\x12\x1b\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\r.UserResponse\x12\r\n\x05total\x18\x02 \x01(\x05\"\x1f\n\rMobileRequest\x12\x0e\n\x06mobile\x18\x01 \x01(\t\"l\n\x0bUserRequest\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06mobile\x18\x03 \x01(\t\x12\x10\n\x08nickName\x18\x04 \x01(\t\x12\x10\n\x08password\x18\x05 \x01(\t\x12\x0b\n\x03sex\x18\x06 \x01(\x05\x12\x0e\n\x06\x61vatar\x18\x07 \x01(\t\"~\n\x11UpdateUserRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06mobile\x18\x03 \x01(\t\x12\x10\n\x08nickName\x18\x04 \x01(\t\x12\x10\n\x08password\x18\x05 \x01(\t\x12\x0b\n\x03sex\x18\x06 \x01(\x05\x12\x0e\n\x06\x61vatar\x18\x07 \x01(\t\"y\n\x0cUserResponse\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0e\n\x06mobile\x18\x03 \x01(\t\x12\x10\n\x08nickName\x18\x04 \x01(\t\x12\x10\n\x08password\x18\x05 \x01(\t\x12\x0b\n\x03sex\x18\x06 \x01(\x05\x12\x0e\n\x06\x61vatar\x18\x07 \x01(\t2\xf5\x02\n\x04User\x12+\n\x0bGetUserList\x12\t.PageInfo\x1a\x11.UserListResponse\x12\x31\n\x10\x46indUserByMobile\x12\x0e.MobileRequest\x1a\r.UserResponse\x12)\n\x0c\x46indUserById\x12\n.IdRequest\x1a\r.UserResponse\x12)\n\nCreateUser\x12\x0c.UserRequest\x1a\r.UserResponse\x12\x38\n\nUpdateUser\x12\x12.UpdateUserRequest\x1a\x16.google.protobuf.Empty\x12<\n\rCheckPassword\x12\x15.CheckPasswordRequest\x1a\x14.CheckPasswordResult\x12?\n\x10GetUserListByIds\x12\x18.GetUserListByIdsRequest\x1a\x11.UserListResponseB\tZ\x07.;protob\x06proto3')
 
 
 
+_GETUSERLISTBYIDSREQUEST = DESCRIPTOR.message_types_by_name['GetUserListByIdsRequest']
 _CHECKPASSWORDREQUEST = DESCRIPTOR.message_types_by_name['CheckPasswordRequest']
 _CHECKPASSWORDRESULT = DESCRIPTOR.message_types_by_name['CheckPasswordResult']
 _PAGEINFO = DESCRIPTOR.message_types_by_name['PageInfo']
@@ -28,6 +29,13 @@ _MOBILEREQUEST = DESCRIPTOR.message_types_by_name['MobileRequest']
 _USERREQUEST = DESCRIPTOR.message_types_by_name['UserRequest']
 _UPDATEUSERREQUEST = DESCRIPTOR.message_types_by_name['UpdateUserRequest']
 _USERRESPONSE = DESCRIPTOR.message_types_by_name['UserResponse']
+GetUserListByIdsRequest = _reflection.GeneratedProtocolMessageType('GetUserListByIdsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETUSERLISTBYIDSREQUEST,
+  '__module__' : 'user_pb2'
+  # @@protoc_insertion_point(class_scope:GetUserListByIdsRequest)
+  })
+_sym_db.RegisterMessage(GetUserListByIdsRequest)
+
 CheckPasswordRequest = _reflection.GeneratedProtocolMessageType('CheckPasswordRequest', (_message.Message,), {
   'DESCRIPTOR' : _CHECKPASSWORDREQUEST,
   '__module__' : 'user_pb2'
@@ -96,24 +104,26 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z\007.;proto'
-  _CHECKPASSWORDREQUEST._serialized_start=43
-  _CHECKPASSWORDREQUEST._serialized_end=100
-  _CHECKPASSWORDRESULT._serialized_start=102
-  _CHECKPASSWORDRESULT._serialized_end=139
-  _PAGEINFO._serialized_start=141
-  _PAGEINFO._serialized_end=180
-  _IDREQUEST._serialized_start=182
-  _IDREQUEST._serialized_end=205
-  _USERLISTRESPONSE._serialized_start=207
-  _USERLISTRESPONSE._serialized_end=269
-  _MOBILEREQUEST._serialized_start=271
-  _MOBILEREQUEST._serialized_end=302
-  _USERREQUEST._serialized_start=304
-  _USERREQUEST._serialized_end=396
-  _UPDATEUSERREQUEST._serialized_start=398
-  _UPDATEUSERREQUEST._serialized_end=508
-  _USERRESPONSE._serialized_start=510
-  _USERRESPONSE._serialized_end=615
-  _USER._serialized_start=618
-  _USER._serialized_end=926
+  _GETUSERLISTBYIDSREQUEST._serialized_start=43
+  _GETUSERLISTBYIDSREQUEST._serialized_end=81
+  _CHECKPASSWORDREQUEST._serialized_start=83
+  _CHECKPASSWORDREQUEST._serialized_end=140
+  _CHECKPASSWORDRESULT._serialized_start=142
+  _CHECKPASSWORDRESULT._serialized_end=179
+  _PAGEINFO._serialized_start=181
+  _PAGEINFO._serialized_end=220
+  _IDREQUEST._serialized_start=222
+  _IDREQUEST._serialized_end=245
+  _USERLISTRESPONSE._serialized_start=247
+  _USERLISTRESPONSE._serialized_end=309
+  _MOBILEREQUEST._serialized_start=311
+  _MOBILEREQUEST._serialized_end=342
+  _USERREQUEST._serialized_start=344
+  _USERREQUEST._serialized_end=452
+  _UPDATEUSERREQUEST._serialized_start=454
+  _UPDATEUSERREQUEST._serialized_end=580
+  _USERRESPONSE._serialized_start=582
+  _USERRESPONSE._serialized_end=703
+  _USER._serialized_start=706
+  _USER._serialized_end=1079
 # @@protoc_insertion_point(module_scope)

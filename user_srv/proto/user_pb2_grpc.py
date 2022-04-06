@@ -45,43 +45,61 @@ class UserStub(object):
                 request_serializer=user__pb2.CheckPasswordRequest.SerializeToString,
                 response_deserializer=user__pb2.CheckPasswordResult.FromString,
                 )
+        self.GetUserListByIds = channel.unary_unary(
+                '/User/GetUserListByIds',
+                request_serializer=user__pb2.GetUserListByIdsRequest.SerializeToString,
+                response_deserializer=user__pb2.UserListResponse.FromString,
+                )
 
 
 class UserServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def GetUserList(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """获取用户列表
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def FindUserByMobile(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """根据手机号查找用户
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def FindUserById(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """根据id进行查找
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CreateUser(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """创建用户
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def UpdateUser(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """更新用户
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
     def CheckPassword(self, request, context):
-        """Missing associated documentation comment in .proto file."""
+        """叫用用户密码
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetUserListByIds(self, request, context):
+        """根据id列表进行查找用户
+        """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
@@ -118,6 +136,11 @@ def add_UserServicer_to_server(servicer, server):
                     servicer.CheckPassword,
                     request_deserializer=user__pb2.CheckPasswordRequest.FromString,
                     response_serializer=user__pb2.CheckPasswordResult.SerializeToString,
+            ),
+            'GetUserListByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUserListByIds,
+                    request_deserializer=user__pb2.GetUserListByIdsRequest.FromString,
+                    response_serializer=user__pb2.UserListResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -228,5 +251,22 @@ class User(object):
         return grpc.experimental.unary_unary(request, target, '/User/CheckPassword',
             user__pb2.CheckPasswordRequest.SerializeToString,
             user__pb2.CheckPasswordResult.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetUserListByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/User/GetUserListByIds',
+            user__pb2.GetUserListByIdsRequest.SerializeToString,
+            user__pb2.UserListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

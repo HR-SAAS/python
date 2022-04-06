@@ -4,12 +4,24 @@ option go_package = ".;proto";
 import "google/protobuf/empty.proto";
 
 service User {
+  // 获取用户列表
   rpc GetUserList(PageInfo) returns (UserListResponse);
+  // 根据手机号查找用户
   rpc FindUserByMobile(MobileRequest) returns(UserResponse);
+  // 根据id进行查找
   rpc FindUserById(IdRequest) returns (UserResponse);
+  // 创建用户
   rpc CreateUser(UserRequest) returns(UserResponse);
+  // 更新用户
   rpc UpdateUser(UpdateUserRequest) returns(google.protobuf.Empty);
+  // 叫用用户密码
   rpc CheckPassword(CheckPasswordRequest) returns(CheckPasswordResult);
+  // 根据id列表进行查找用户
+  rpc GetUserListByIds(GetUserListByIdsRequest)returns(UserListResponse);
+}
+
+message GetUserListByIdsRequest{
+  repeated int64 ids = 1;
 }
 
 message CheckPasswordRequest{
@@ -45,6 +57,7 @@ message UserRequest{
   string nickName = 4;
   string password = 5;
   int32 sex = 6;
+  string avatar = 7;
 }
 
 message UpdateUserRequest{
@@ -54,6 +67,7 @@ message UpdateUserRequest{
   string nickName = 4;
   string password = 5;
   int32 sex = 6;
+  string avatar = 7;
 }
 
 message UserResponse{
@@ -63,6 +77,7 @@ message UserResponse{
   string nickName = 4;
   string password = 5;
   int32 sex = 6;
+  string avatar = 7;
 }
 
 
