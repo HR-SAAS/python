@@ -11,14 +11,15 @@ from peewee import DoesNotExist
 def user_convert_response(user):
     item = user_pb2.UserResponse()
     item.id = user.id
-    return convert_user(user,item)
+    return convert_user(user, item)
 
 
 def response_convert_user(request):
     item = User()
-    return convert_user(request,item)
+    return convert_user(request, item)
 
-def convert_user(source,to):
+
+def convert_user(source, to):
     to.mobile = source.mobile
     if source.password:
         to.password = source.password
@@ -30,8 +31,7 @@ def convert_user(source,to):
 
 
 class UserService(user_pb2_grpc.UserServicer):
-
-    @logger.catch()
+    @logger.catch
     def GetUserList(self, req: user_pb2.PageInfo, context):
         page = 1
         limit = 15
@@ -50,7 +50,7 @@ class UserService(user_pb2_grpc.UserServicer):
             rsp.data.append(user_convert_response(user))
         return rsp
 
-    @logger.catch()
+    @logger.catch
     def FindUserByMobile(self, request, context):
         try:
             return user_convert_response(User.get(User.mobile == request.mobile))
@@ -58,7 +58,7 @@ class UserService(user_pb2_grpc.UserServicer):
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("用户不存在")
 
-    @logger.catch()
+    @logger.catch
     def FindUserById(self, request, context):
         try:
             return user_convert_response(User.get(User.id == request.id))
@@ -66,21 +66,30 @@ class UserService(user_pb2_grpc.UserServicer):
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("用户不存在")
 
-    @logger.catch()
-    def CreateUser(self, request:user_pb2.UserRequest, context):
+    @logger.catch
+    def CreateUser(self, request: user_pb2.UserRequest, context):
         user = response_convert_user(request)
         user.save()
         return google.protobuf.empty_pb2.Empty()
 
-    @logger.catch()
-    def UpdateUser(self, request:user_pb2.UserRequest, context):
+    @logger.catch
+    def UpdateUser(self, request: user_pb2.UserRequest, context):
         user = User.get(User.id == request.id)
-        user = convert_user(request,user)
+        user = convert_user(request, user)
         print(user)
         user.save()
         return google.protobuf.empty_pb2.Empty()
 
-    @logger.catch()
-    def CheckPassword(self, request:user_pb2.CheckPasswordRequest, context):
+    @logger.catch
+    def CheckPassword(self, request: user_pb2.CheckPasswordRequest, context):
         from passlib.hash import pbkdf2_sha256
-        return user_pb2.CheckPasswordResult(result=pbkdf2_sha256.verify(request.password,request.encrypt))
+        return user_pb2.CheckPasswordResult(result=pbkdf2_sha256.verify(request.password, request.encrypt))
+
+    @logger.catch
+    def GetUserListByIds(self, request: user_pb2.GetUserListByIdsRequest, context):
+        print(request.ids,type(request.ids))
+        users = User.select().where(User.id.in_(list(request.ids)))
+        rsp = user_pb2.UserListResponse()
+        for user in users:
+            rsp.data.append(user_convert_response(user))
+        return rsp

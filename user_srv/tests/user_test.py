@@ -4,7 +4,7 @@ from user_srv.proto import user_pb2, user_pb2_grpc
 
 class UserTest:
     def __init__(self):
-        channel = grpc.insecure_channel("localhost:5001")
+        channel = grpc.insecure_channel("172.30.240.1:11159")
         self.stub = user_pb2_grpc.UserStub(channel)
 
     def get_user_list(self):
@@ -35,6 +35,11 @@ class UserTest:
             user_pb2.CheckPasswordRequest(password=password,encrypt = encrypt))
         return rsp
 
+    def get_by_ids(self):
+        req=user_pb2.GetUserListByIdsRequest(ids=[1,2,3,4])
+        rsp:user_pb2.UserListResponse=self.stub.GetUserListByIds(req)
+        for user in rsp.data:
+            print(user)
 
 if __name__ == '__main__':
     test = UserTest()
@@ -43,3 +48,4 @@ if __name__ == '__main__':
     test.update_user()
     r = test.find_user_by_id(1)
     print(test.check_password('123456', r.password).result)
+    test.get_by_ids()
