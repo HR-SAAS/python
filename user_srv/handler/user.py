@@ -20,13 +20,17 @@ def response_convert_user(request):
 
 
 def convert_user(source, to):
-    to.mobile = source.mobile
-    if source.password:
-        to.password = source.password
-    if source.name:
-        to.name = source.name
-    if source.nickName:
-        to.nickName = source.nickName
+    for i in [
+        "name",
+        "mobile",
+        "nickName",
+        "password",
+        "sex",
+        "avatar",
+    ]:
+        temp = getattr(source, i)
+        if temp is not None:
+            setattr(to, i, temp)
     return to
 
 
@@ -82,12 +86,15 @@ class UserService(user_pb2_grpc.UserServicer):
 
     @logger.catch
     def CheckPassword(self, request: user_pb2.CheckPasswordRequest, context):
-        from passlib.hash import pbkdf2_sha256
-        return user_pb2.CheckPasswordResult(result=pbkdf2_sha256.verify(request.password, request.encrypt))
+        try:
+            from passlib.hash import pbkdf2_sha256
+            return user_pb2.CheckPasswordResult(result=pbkdf2_sha256.verify(request.password, request.encrypt))
+        except Exception as e:
+            return user_pb2.CheckPasswordResult(result=False)
 
     @logger.catch
     def GetUserListByIds(self, request: user_pb2.GetUserListByIdsRequest, context):
-        print(request.ids,type(request.ids))
+        print(request.ids, type(request.ids))
         users = User.select().where(User.id.in_(list(request.ids)))
         rsp = user_pb2.UserListResponse()
         for user in users:

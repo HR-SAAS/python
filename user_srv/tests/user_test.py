@@ -4,7 +4,7 @@ from user_srv.proto import user_pb2, user_pb2_grpc
 
 class UserTest:
     def __init__(self):
-        channel = grpc.insecure_channel("172.30.240.1:11159")
+        channel = grpc.insecure_channel("192.168.50.1:2646")
         self.stub = user_pb2_grpc.UserStub(channel)
 
     def get_user_list(self):
@@ -47,5 +47,10 @@ if __name__ == '__main__':
     test.create_user()
     test.update_user()
     r = test.find_user_by_id(1)
-    print(test.check_password('123456', r.password).result)
+    from passlib.hash import pbkdf2_sha256
+
+    print(None or 456)
+
+    print(pbkdf2_sha256.verify(pbkdf2_sha256.hash('123'),pbkdf2_sha256.hash('123')))
+    # print(test.check_password('123456', r.password).result)
     test.get_by_ids()

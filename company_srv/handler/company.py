@@ -112,8 +112,8 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         finally:
             return google.protobuf.empty_pb2.Empty()
 
-    def GetMyCompanyList(self, req:company_pb2.GetMyCompanyListRequest, context):
-        companyIds = UserCompany.select(UserCompany.company_id).get(UserCompany.user_id==req.user_id)
+    def GetMyCompanyList(self, req: company_pb2.GetMyCompanyListRequest, context):
+        companyIds = UserCompany.select(UserCompany.company_id).get(UserCompany.user_id == req.user_id)
         # 获取全部id
         idList = []
         for i in companyIds:
@@ -125,3 +125,31 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         for company in companies:
             rsp.data.append(company_convert_response(company))
         return rsp
+
+    def GetCompanyUserIdList(self, request, context):
+        """公司下所有用户,分页
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateUserCompany(self, request, context):
+        """加入公司
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateUserCompany(self, request, context):
+        """关系更新
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteUserCompany(self, request, context):
+        """删除用户公司
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')

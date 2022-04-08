@@ -98,3 +98,38 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
             context.set_details("内部错误")
         finally:
             return google.protobuf.empty_pb2.Empty()
+
+    def GetMyDepartmentList(self, request, context):
+        """只需要判断creator_id是否相同,即可确定主要角色
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetDepartmentUserIdList(self, request, context):
+        """全部人员分页
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def CreateUserDepartment(self, request, context):
+        """加入部门
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def UpdateUserDepartment(self, request, context):
+        """人员部门表更新
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def DeleteUserDepartment(self, request, context):
+        """人员部门删除(软删除)
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
