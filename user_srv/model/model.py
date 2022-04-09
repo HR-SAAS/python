@@ -1,6 +1,8 @@
 import random
 
 from peewee import *
+
+from common.model.ext import EnumField
 from user_srv.config import config
 
 
@@ -20,7 +22,8 @@ class User(BaseModel):
     avatar = CharField(max_length=255, null=True, verbose_name="头像")
     sex = BooleanField(verbose_name="性别",choices=SEX_ENUM)
     password = CharField(max_length=255,null=True,verbose_name="密码")
-
+    current_status = EnumField(verbose_name='当前状态')
+    status = BooleanField(verbose_name='状态')
 
 if __name__ == '__main__':
     config.DB.create_tables([User])
