@@ -14,7 +14,7 @@ class ReconnectMysqlDatabase(ReconnectMixin, PooledMySQLDatabase):
 
 NACOS_CONFIG = {
     "host": os.getenv('NACOS_HOST', 'localhost'),
-    "port": os.getenv('NACOS_PORT', 8848),
+    "port": int(os.getenv('NACOS_PORT', '8848')),
     "namespace": os.getenv('NACOS_NAMESPACE', '92eb12b0-1a27-41ec-a6f8-4a8bb1611e56'),
     "username": os.getenv('NACOS_USERNAME', 'nacos'),
     "password": os.getenv('NACOS_PASSWORD', 'nacos'),
@@ -27,7 +27,8 @@ def update_info(args):
     logger.info(f"配置信息变动:{args}")
 
 
-client = nacos.NacosClient(f'{NACOS_CONFIG["host"]}:{NACOS_CONFIG["port"]}', namespace=NACOS_CONFIG["namespace"])
+client = nacos.NacosClient(f'{NACOS_CONFIG["host"]}:{NACOS_CONFIG["port"]}', namespace=NACOS_CONFIG["namespace"],
+                           username=NACOS_CONFIG['username'], password=NACOS_CONFIG['password'])
 
 c = json.loads(client.get_config(NACOS_CONFIG["dataId"], NACOS_CONFIG["group"]))
 
