@@ -13,6 +13,7 @@ services:
     build:
       context: ./user_srv
     environment:
+      GRPC_POLL_STRATEGY: poll
       NACOS_HOST: "${NACOS_HOST}"
       NACOS_PORT: "${NACOS_PORT}"
       NACOS_NAMESPACE: "${USER_NACOS_NAMESPACE}"
@@ -28,6 +29,7 @@ services:
     build:
       context: ./company_srv
     environment:
+      GRPC_POLL_STRATEGY: poll
       NACOS_HOST: "${NACOS_HOST}"
       NACOS_PORT: "${NACOS_PORT}"
       NACOS_USERNAME: "${NACOS_USERNAME}"
