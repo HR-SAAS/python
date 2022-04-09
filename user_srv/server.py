@@ -53,7 +53,7 @@ if __name__ == '__main__':
 
     argument = argparse.ArgumentParser()
     argument.add_argument('--port', nargs='?', type=int, default=0, help='listen port')
-    argument.add_argument('--host', nargs='?', type=str, default='192.168.50.1', help='listen host')
+    argument.add_argument('--host', nargs='?', type=str, default=0, help='listen host')
     args = argument.parse_args()
 
     if args.port:
