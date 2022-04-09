@@ -42,6 +42,12 @@ def get_free_tcp_port():
     return port
 
 
+def get_ip_addr():
+    host_name = socket.gethostname()
+    host = socket.gethostbyname(host_name)
+    return host
+
+
 if __name__ == '__main__':
     logger.add("logs/user_srv_{time}.log", rotation='1day')
 
@@ -55,17 +61,22 @@ if __name__ == '__main__':
     else:
         port = get_free_tcp_port()
 
+    if args.host:
+        host = args.host
+    else:
+        host = get_ip_addr()
+
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     user_pb2_grpc.add_UserServicer_to_server(UserService(), server)
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)
-    server.add_insecure_port(f"{args.host}:{port}")
+    server.add_insecure_port(f"{host}:{port}")
     c = ConsulRegister(config.SERVICE_REGISTER_HOST, config.SERVICE_REGISTER_PORT)
 
     import uuid
 
     server_id = str(uuid.uuid1())
     logger.info(f"开始注册服务")
-    register_res = c.register(config.SERVICE_NAME, server_id, args.host, port, config.SERVICE_TAGS)
+    register_res = c.register(config.SERVICE_NAME, server_id, host, port, config.SERVICE_TAGS)
     if register_res:
         logger.info("服务注册成功")
     else:
@@ -75,10 +86,9 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, partial(on_exit, service_id=server_id))
     signal.signal(signal.SIGTERM, partial(on_exit, service_id=server_id))
 
-    logger.info(f"服务已经启动 {args.host}:{port}")
+    logger.info(f"服务已经启动 {host}:{port}")
 
     config.client.add_config_watcher(config.NACOS_CONFIG["dataId"], config.NACOS_CONFIG["group"], config.update_info)
-
 
     server.start()
     server.wait_for_termination()
