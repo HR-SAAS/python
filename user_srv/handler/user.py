@@ -20,11 +20,11 @@ def response_convert_user(request):
 
 
 def convert_user(source, to):
+    # 手机号遮蔽
     for i in [
         "name",
         "mobile",
         "nickName",
-        "password",
         "sex",
         "avatar",
     ]:

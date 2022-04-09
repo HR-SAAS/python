@@ -1,0 +1,22 @@
+version: '3'
+
+networks:
+  hr-saas:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.1/24
+
+services:
+  user-srv:
+    build:
+      context: ./user_srv
+    environment:
+      NACOS_HOST: "${NACOS_HOST}"
+      NACOS_PORT: "${NACOS_PORT}"
+      NACOS_NAMESPACE: "${USER_NACOS_NAMESPACE}"
+      NACOS_USERNAME: "${NACOS_USERNAME}"
+      NACOS_PASSWORD: "${NACOS_PASSWORD}"
+      NACOS_DATA_ID: "${USER_NACOS_DATA_ID}"
+      NACOS_GROUP: "${USER_NACOS_GROUP}"
