@@ -22,3 +22,5 @@ services:
       NACOS_GROUP: "${USER_NACOS_GROUP}"
     networks:
       - python
+   volumes:
+     - ./common:/code/common
