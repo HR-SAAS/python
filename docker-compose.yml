@@ -1,7 +1,7 @@
 version: '3'
 
 networks:
-  hr-saas:
+  python:
     driver: bridge
     ipam:
       driver: default
@@ -20,3 +20,5 @@ services:
       NACOS_PASSWORD: "${NACOS_PASSWORD}"
       NACOS_DATA_ID: "${USER_NACOS_DATA_ID}"
       NACOS_GROUP: "${USER_NACOS_GROUP}"
+    networks:
+      - python
