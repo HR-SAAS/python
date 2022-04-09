@@ -1,8 +1,8 @@
 FROM python:3.8
 
-ADD ./ /code
+ADD ./ /code/user_srv
 #设置code文件夹是工作目录
-WORKDIR /code
+WORKDIR /code/user_srv
 #安装支持
 RUN pip install -r requirements.txt -i https://pypi.doubanio.com/simple
 
