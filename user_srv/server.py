@@ -19,6 +19,7 @@ from user_srv.handler.user import UserService
 from common.health_check.handler.health import HealthService
 from loguru import logger
 from user_srv.config import config
+from user_srv.model.model import User
 
 
 def on_exit(signum, frame, service_id):
@@ -52,8 +53,10 @@ if __name__ == '__main__':
     logger.add("logs/user_srv_{time}.log", rotation='1day')
 
     argument = argparse.ArgumentParser()
+
     argument.add_argument('--port', nargs='?', type=int, default=0, help='listen port')
     argument.add_argument('--host', nargs='?', type=str, default=0, help='listen host')
+
     args = argument.parse_args()
 
     if args.port:

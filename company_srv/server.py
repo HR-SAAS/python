@@ -9,6 +9,7 @@ import grpc
 
 # 配置引入路径
 from company_srv.handler.department import DepartmentService
+from company_srv.model.model import Company, Department, UserCompany
 
 BASEDIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 sys.path.insert(0, BASEDIR)
@@ -43,6 +44,12 @@ def get_free_tcp_port():
     return port
 
 
+def get_ip_addr():
+    host_name = socket.gethostname()
+    host = socket.gethostbyname(host_name)
+    return host
+
+
 if __name__ == '__main__':
 
     logger.add("logs/company_srv_{time}.log", rotation='1day')
@@ -56,6 +63,11 @@ if __name__ == '__main__':
         port = args.port
     else:
         port = get_free_tcp_port()
+
+    if args.host:
+        host = args.host
+    else:
+        host = get_ip_addr()
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     # 公司
