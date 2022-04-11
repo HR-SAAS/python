@@ -24,11 +24,11 @@ class UserTest:
 
     def create_user(self):
         rsp: user_pb2.UserListResponse = self.stub.CreateUser(
-            user_pb2.UserRequest(mobile='12345678910', name='test', nickName='test22'))
+            user_pb2.UserRequest(mobile='12345678910', name='test', nick_name='test22'))
 
     def update_user(self):
         rsp: user_pb2.UserListResponse = self.stub.UpdateUser(
-            user_pb2.UpdateUserRequest(id=1, mobile='12345678910', name='test', nickName='test22'))
+            user_pb2.UpdateUserRequest(id=1, mobile='12345678910', name='test', nick_name='test22'))
 
     def check_password(self,password,encrypt ):
         rsp: user_pb2.CheckPasswordResult = self.stub.CheckPassword(
@@ -42,15 +42,15 @@ class UserTest:
             print(user)
 
 if __name__ == '__main__':
-    test = UserTest()
-    # test.get_user_list()
-    test.create_user()
-    test.update_user()
-    r = test.find_user_by_id(1)
+    # test = UserTest()
+    # # test.get_user_list()
+    # test.create_user()
+    # test.update_user()
+    # r = test.find_user_by_id(1)
     from passlib.hash import pbkdf2_sha256
+    #
+    # print(None or 456)
 
-    print(None or 456)
-
-    print(pbkdf2_sha256.verify(pbkdf2_sha256.hash('123'),pbkdf2_sha256.hash('123')))
+    print(pbkdf2_sha256.verify('456',pbkdf2_sha256.hash('456')))
     # print(test.check_password('123456', r.password).result)
-    test.get_by_ids()
+    # test.get_by_ids()

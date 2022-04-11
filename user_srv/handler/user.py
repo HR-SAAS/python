@@ -24,7 +24,7 @@ def convert_user(source, to):
     for i in [
         "name",
         "mobile",
-        "nickName",
+        "nick_name",
         "sex",
         "avatar",
         'current_role'
@@ -58,7 +58,10 @@ class UserService(user_pb2_grpc.UserServicer):
     @logger.catch
     def FindUserByMobile(self, request, context):
         try:
-            return user_convert_response(User.get(User.mobile == request.mobile))
+            user = User.get(User.mobile == request.mobile)
+            res = user_convert_response(user)
+            res.password = user.password
+            return res
         except DoesNotExist as e:
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("用户不存在")
@@ -74,6 +77,8 @@ class UserService(user_pb2_grpc.UserServicer):
     @logger.catch
     def CreateUser(self, request: user_pb2.UserRequest, context):
         user = response_convert_user(request)
+        from passlib.hash import pbkdf2_sha256
+        user.password = pbkdf2_sha256.hash(request.password)
         user.save()
         return google.protobuf.empty_pb2.Empty()
 
