@@ -3,7 +3,7 @@ version: '3'
 networks:
   default:
     external:
-      name: hr-saas
+      name: ${NETWORK_NAME}
 
 services:
   user-srv:
