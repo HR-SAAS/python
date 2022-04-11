@@ -1,12 +1,9 @@
 version: '3'
 
 networks:
-  python:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.168.1.1/24
+  default:
+    external:
+      name: hr-saas
 
 services:
   user-srv:
@@ -21,8 +18,6 @@ services:
       NACOS_PASSWORD: "${NACOS_PASSWORD}"
       NACOS_DATA_ID: "${USER_NACOS_DATA_ID}"
       NACOS_GROUP: "${USER_NACOS_GROUP}"
-    networks:
-      - python
     volumes:
       - ./common:/code/common
   company-srv:
@@ -38,7 +33,5 @@ services:
       NACOS_NAMESPACE: "${COMPANY_NACOS_NAMESPACE}"
       NACOS_DATA_ID: "${COMPANY_NACOS_DATA_ID}"
       NACOS_GROUP: "${COMPANY_NACOS_GROUP}"
-    networks:
-      - python
     volumes:
       - ./common:/code/common
