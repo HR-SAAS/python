@@ -27,6 +27,7 @@ def convert_user(source, to):
         "nickName",
         "sex",
         "avatar",
+        'current_role'
     ]:
         temp = getattr(source, i)
         if temp is not None:

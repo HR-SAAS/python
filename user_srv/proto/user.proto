@@ -54,30 +54,33 @@ message MobileRequest{
 message UserRequest{
   string name = 2;
   string mobile = 3;
-  string nickName = 4;
+  string nick_name = 4;
   string password = 5;
   int32 sex = 6;
   string avatar = 7;
+  int32 current_role = 8;
 }
 
 message UpdateUserRequest{
   int64 id = 1;
   string name = 2;
   string mobile = 3;
-  string nickName = 4;
+  string nick_name = 4;
   string password = 5;
   int32 sex = 6;
   string avatar = 7;
+  int32 current_role = 8;
 }
 
 message UserResponse{
   int64 id = 1;
   string name = 2;
   string mobile = 3;
-  string nickName = 4;
+  string nick_name = 4;
   string password = 5;
   int32 sex = 6;
   string avatar = 7;
+  int32 current_role = 8;
 }
 
 
