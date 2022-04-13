@@ -30,7 +30,7 @@ def convert_user(source, to):
         "current_role"
     ]:
         temp = getattr(source, i)
-        if temp is not None:
+        if temp is not None and temp != "":
             setattr(to, i, temp)
     return to
 
@@ -70,7 +70,7 @@ class UserService(user_pb2_grpc.UserServicer):
     def FindUserById(self, request, context):
         try:
             user = User.get(User.id == request.id)
-            return user_convert_response(User.get(User.id == request.id))
+            return user_convert_response(user)
         except DoesNotExist as e:
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("用户不存在")
@@ -85,7 +85,7 @@ class UserService(user_pb2_grpc.UserServicer):
 
     @logger.catch
     def UpdateUser(self, request: user_pb2.UserRequest, context):
-        user = User.get(User.id == request.id)
+        user = User.get_by_id(request.id)
         user = convert_user(request, user)
         user.save()
         return google.protobuf.empty_pb2.Empty()

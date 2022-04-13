@@ -1,9 +1,9 @@
 FROM python:3.8
 
-ADD ./ /code/company_srv
-#设置code文件夹是工作目录
 WORKDIR /code/company_srv
-#安装支持
+COPY requirements.txt /code/company_srv/requirements.txt
 RUN pip install -r requirements.txt -i https://pypi.doubanio.com/simple
+
+ADD ./ /code/company_srv
 
 CMD ["python", "/code/company_srv/server.py"]

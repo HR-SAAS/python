@@ -20,10 +20,10 @@ class User(BaseModel):
     name = CharField(max_length=20, null=True, verbose_name="姓名")
     nick_name = CharField(max_length=255, null=True, verbose_name="昵称", column_name='nick_name')
     avatar = CharField(max_length=255, null=True, verbose_name="头像")
-    sex = BooleanField(verbose_name="性别", choices=SEX_ENUM)
+    sex = EnumField(verbose_name="性别", choices=SEX_ENUM)
     password = CharField(max_length=255, null=True, verbose_name="密码")
     current_role = EnumField(verbose_name='当前用户角色')
-    status = BooleanField(verbose_name='状态')
+    status = EnumField(verbose_name='状态')
 
 
 if __name__ == '__main__':
