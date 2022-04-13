@@ -27,7 +27,7 @@ def convert_user(source, to):
         "nick_name",
         "sex",
         "avatar",
-        'current_role'
+        "current_role"
     ]:
         temp = getattr(source, i)
         if temp is not None:
@@ -69,6 +69,7 @@ class UserService(user_pb2_grpc.UserServicer):
     @logger.catch
     def FindUserById(self, request, context):
         try:
+            user = User.get(User.id == request.id)
             return user_convert_response(User.get(User.id == request.id))
         except DoesNotExist as e:
             context.set_code(grpc.StatusCode.NOT_FOUND)
@@ -80,13 +81,12 @@ class UserService(user_pb2_grpc.UserServicer):
         from passlib.hash import pbkdf2_sha256
         user.password = pbkdf2_sha256.hash(request.password)
         user.save()
-        return google.protobuf.empty_pb2.Empty()
+        return user_convert_response(user)
 
     @logger.catch
     def UpdateUser(self, request: user_pb2.UserRequest, context):
         user = User.get(User.id == request.id)
         user = convert_user(request, user)
-        print(user)
         user.save()
         return google.protobuf.empty_pb2.Empty()
 
