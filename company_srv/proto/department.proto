@@ -1,6 +1,6 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
-
+import "common.proto";
 option go_package = '../proto';
 // 部门
 service Department {
@@ -41,10 +41,6 @@ message DeleteUserDepartmentRequest{
   int64 department_id = 2;
 }
 
-message UserIdList{
-  repeated int64 user_id = 1;
-  int64 total = 2;
-}
 
 message GetDepartmentUserListRequest{
   int64 department_id = 1;

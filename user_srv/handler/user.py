@@ -30,7 +30,7 @@ def convert_user(source, to):
         "current_role"
     ]:
         temp = getattr(source, i)
-        if temp is not None and temp != "":
+        if temp is not None and temp != -1 and temp != "":
             setattr(to, i, temp)
     return to
 

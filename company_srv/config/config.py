@@ -1,4 +1,5 @@
 import json
+import os
 
 from loguru import logger
 import nacos
@@ -12,13 +13,13 @@ class ReconnectMysqlDatabase(ReconnectMixin, PooledMySQLDatabase):
 
 
 NACOS_CONFIG = {
-    "host": "localhost",
-    "port": 8848,
-    "namespace": "21b75e1f-3692-4268-82aa-42fbe83d0e7c",
-    "username": "nacos",
-    "password": "nacos",
-    "dataId": "company-srv.json",
-    "group": "dev"
+    "host": os.getenv('NACOS_HOST', 'localhost'),
+    "port": int(os.getenv('NACOS_PORT', '8848')),
+    "namespace": os.getenv('NACOS_NAMESPACE', '92eb12b0-1a27-41ec-a6f8-4a8bb1611e56'),
+    "username": os.getenv('NACOS_USERNAME', 'nacos'),
+    "password": os.getenv('NACOS_PASSWORD', 'nacos'),
+    "dataId": os.getenv('NACOS_DATA_ID', 'user-srv.json'),
+    "group": os.getenv('NACOS_GROUP', 'dev')
 }
 
 
@@ -26,10 +27,17 @@ def update_info(args):
     logger.info(f"配置信息变动:{args}")
 
 
-client = nacos.NacosClient(f'{NACOS_CONFIG["host"]}:{NACOS_CONFIG["port"]}', namespace=NACOS_CONFIG["namespace"])
+client = nacos.NacosClient(f'{NACOS_CONFIG["host"]}:{NACOS_CONFIG["port"]}', namespace=NACOS_CONFIG["namespace"],
+                           username=NACOS_CONFIG['username'], password=NACOS_CONFIG['password'])
 
 c = json.loads(client.get_config(NACOS_CONFIG["dataId"], NACOS_CONFIG["group"]))
-logger.info(f"读取到配置信息:{c}")
+
+# SERVICE_REGISTER_HOST = "localhost"
+# SERVICE_REGISTER_PORT = 9001
+# SERVICE_NAME = "user-srv"
+# SERVICE_ID = "user-srv"
+# SERVICE_TAGS = ["grpc", "python", "user"]
+
 
 SERVICE_REGISTER_HOST = c["consul"]["host"]
 SERVICE_REGISTER_PORT = c["consul"]["port"]
@@ -37,5 +45,9 @@ SERVICE_NAME = c["name"]
 SERVICE_ID = c["id"]
 SERVICE_TAGS = c["tags"]
 
+# MYSQL_DB = "hr-sass-user"
+# MYSQL_HOST = "120.79.71.33"
+# MYSQL_PORT = 3306
+# MYSQL_USERNAME = "hr-saas"
 DB = ReconnectMysqlDatabase(c["mysql"]["database"], host=c["mysql"]["host"], port=c["mysql"]["port"],
                             user=c["mysql"]["user"], password=c["mysql"]["password"])

@@ -2,6 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+from . import common_pb2 as common__pb2
 from . import department_pb2 as department__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
@@ -49,7 +50,7 @@ class DepartmentStub(object):
         self.GetDepartmentUserIdList = channel.unary_unary(
                 '/Department/GetDepartmentUserIdList',
                 request_serializer=department__pb2.GetDepartmentUserListRequest.SerializeToString,
-                response_deserializer=department__pb2.UserIdList.FromString,
+                response_deserializer=common__pb2.UserIdList.FromString,
                 )
         self.CreateUserDepartment = channel.unary_unary(
                 '/Department/CreateUserDepartment',
@@ -178,7 +179,7 @@ def add_DepartmentServicer_to_server(servicer, server):
             'GetDepartmentUserIdList': grpc.unary_unary_rpc_method_handler(
                     servicer.GetDepartmentUserIdList,
                     request_deserializer=department__pb2.GetDepartmentUserListRequest.FromString,
-                    response_serializer=department__pb2.UserIdList.SerializeToString,
+                    response_serializer=common__pb2.UserIdList.SerializeToString,
             ),
             'CreateUserDepartment': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateUserDepartment,
@@ -321,7 +322,7 @@ class Department(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Department/GetDepartmentUserIdList',
             department__pb2.GetDepartmentUserListRequest.SerializeToString,
-            department__pb2.UserIdList.FromString,
+            common__pb2.UserIdList.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

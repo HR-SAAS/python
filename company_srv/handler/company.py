@@ -1,7 +1,7 @@
 import google.protobuf.empty_pb2
 import grpc
 
-from company_srv.proto import company_pb2, company_pb2_grpc
+from company_srv.proto import company_pb2, company_pb2_grpc, common_pb2
 from company_srv.model.model import Company, UserCompany
 
 from loguru import logger
@@ -33,7 +33,7 @@ def convert_company(source, to):
         "status",
     ]:
         temp = getattr(source, i)
-        if temp is not None:
+        if temp is not None and temp != -1 and temp != "":
             setattr(to, i, temp)
     return to
 
@@ -87,7 +87,6 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         try:
             company = Company.get(Company.id == Company.id)
             company = convert_company(req, company)
-            print(company)
             company.save()
             return google.protobuf.empty_pb2.Empty()
         except DoesNotExist as e:
@@ -113,43 +112,81 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
             return google.protobuf.empty_pb2.Empty()
 
     def GetMyCompanyList(self, req: company_pb2.GetMyCompanyListRequest, context):
-        companyIds = UserCompany.select(UserCompany.company_id).get(UserCompany.user_id == req.user_id)
+        page = 1
+        limit = 15
+        if req.page:
+            page = req.page
+        if req.limit:
+            limit = req.limit
+        stat = limit * (page - 1)
+        companyIds = UserCompany.select(UserCompany.company_id) \
+            .where(UserCompany.user_id == req.user_id) \
+            .limit(limit).offset(stat).get()
         # 获取全部id
         idList = []
         for i in companyIds:
             idList.append(i.company_id)
         companies = Company.where(Company.id in idList).select()
-        print(companies)
         rsp = company_pb2.CompanyListResponse()
         rsp.total = companies.count()
         for company in companies:
             rsp.data.append(company_convert_response(company))
         return rsp
 
-    def GetCompanyUserIdList(self, request, context):
-        """公司下所有用户,分页
+    def GetCompanyUserIdList(self, req, context):
+        """公司下所有用户ID,分页
         """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        page = 1
+        limit = 15
+        if req.page:
+            page = req.page
+        if req.limit:
+            limit = req.limit
+        stat = limit * (page - 1)
+        userIds = UserCompany.select(UserCompany.user_id) \
+            .where(UserCompany.company_id == req.company_id) \
+            .limit(limit).offset(stat).get()
+        rsp = common_pb2.UserIdList()
+        for uid in userIds:
+            rsp.append(uid)
+        return rsp
 
-    def CreateUserCompany(self, request, context):
+    def CreateUserCompany(self, req: company_pb2.SaveUserCompanyRequest, context):
         """加入公司
         """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        userCompany = UserCompany()
+        userCompany.user_id = req.user_id
+        userCompany.company_id = req.company_id
+        if req.info:
+            userCompany.info = req.info
+        userCompany.status = 1
+        UserCompany.create()
+        return google.protobuf.empty_pb2.Empty()
 
-    def UpdateUserCompany(self, request, context):
+    def UpdateUserCompany(self, req: company_pb2.SaveUserCompanyRequest, context):
         """关系更新
         """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        userCompany = UserCompany().select(UserCompany.company_id == req.company_id) \
+            .where(UserCompany.user_id == req.user_id).get()
+        if req.info:
+            userCompany.info = req.info
+        if req.status != -1:
+            userCompany.status = req.status
+        userCompany.save()
+        return google.protobuf.empty_pb2.Empty()
 
-    def DeleteUserCompany(self, request, context):
+    def DeleteUserCompany(self, req: company_pb2.DeleteUserCompanyRequest, context):
         """删除用户公司
         """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        try:
+            item = UserCompany.where(UserCompany.user_id == req.user_id) \
+                .where(UserCompany.company_id == req.company_id).get()
+            item.delete()
+        except DoesNotExist as e:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details("找不到数据")
+        except Exception as e:
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details("内部错误")
+        finally:
+            return google.protobuf.empty_pb2.Empty()

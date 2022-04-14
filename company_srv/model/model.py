@@ -13,6 +13,7 @@ class Company(BaseModel, DeletedModel):
     desc = TextField(verbose_name='简介')
     website = CharField(verbose_name='官网', null=True)
     config = TextField(verbose_name='配置信息', null=True)
+    size = EnumField(verbose_name='企业规模等级', default=1)
     tags = JSONField(verbose_name='标签', null=True)
 
     address = CharField(verbose_name='地址')
@@ -30,6 +31,7 @@ class Department(BaseModel, DeletedModel):
     name = CharField(verbose_name='名称')
     remark = CharField(verbose_name='备注', null=True)
     desc = TextField(verbose_name='简介', null=True)
+    size = EnumField(verbose_name='部门规模等级', default=1)
 
     info = JSONField(verbose_name='其他信息', null=True)
     creator_id = IntegerField(verbose_name='负责人')

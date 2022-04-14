@@ -7,12 +7,14 @@ from concurrent import futures
 from functools import partial
 import grpc
 
-# 配置引入路径
-from company_srv.handler.department import DepartmentService
-from company_srv.model.model import Company, Department, UserCompany
+
 
 BASEDIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 sys.path.insert(0, BASEDIR)
+
+# 配置引入路径
+from company_srv.handler.department import DepartmentService
+from company_srv.model.model import Company, Department, UserCompany
 
 from company_srv.proto import company_pb2, company_pb2_grpc, department_pb2_grpc
 from common.health_check.proto import health_pb2_grpc
@@ -56,7 +58,7 @@ if __name__ == '__main__':
 
     argument = argparse.ArgumentParser()
     argument.add_argument('--port', nargs='?', type=int, default=0, help='listen port')
-    argument.add_argument('--host', nargs='?', type=str, default='172.29.224.1', help='listen host')
+    argument.add_argument('--host', nargs='?', type=str, default=0, help='listen host')
     args = argument.parse_args()
 
     if args.port:
@@ -78,14 +80,14 @@ if __name__ == '__main__':
 
     # 健康
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)
-    server.add_insecure_port(f"{args.host}:{port}")
+    server.add_insecure_port(f"{host}:{port}")
     c = ConsulRegister(config.SERVICE_REGISTER_HOST, config.SERVICE_REGISTER_PORT)
 
     import uuid
 
     server_id = str(uuid.uuid1())
     logger.info(f"开始注册服务")
-    register_res = c.register(config.SERVICE_NAME, server_id, args.host, port, config.SERVICE_TAGS)
+    register_res = c.register(config.SERVICE_NAME, server_id, host, port, config.SERVICE_TAGS)
     if register_res:
         logger.info("服务注册成功")
     else:
@@ -95,7 +97,7 @@ if __name__ == '__main__':
     signal.signal(signal.SIGINT, partial(on_exit, service_id=server_id))
     signal.signal(signal.SIGTERM, partial(on_exit, service_id=server_id))
 
-    logger.info(f"服务已经启动 {args.host}:{port}")
+    logger.info(f"服务已经启动 {host}:{port}")
 
     config.client.add_config_watcher(config.NACOS_CONFIG["dataId"], config.NACOS_CONFIG["group"], config.update_info)
 

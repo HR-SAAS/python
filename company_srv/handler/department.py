@@ -38,7 +38,7 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
         stat = limit * (page - 1)
 
         departments = Department.select()
-        rsp = department_pb2.DepartmentListResponse()
+        rsp = department_pb2.GetDepartmentListResponse()
         rsp.total = departments.count()
         departments = departments.limit(limit).offset(stat)
         print(departments)
