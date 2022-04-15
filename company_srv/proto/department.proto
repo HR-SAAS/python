@@ -33,7 +33,7 @@ message SaveUserDepartmentRequest{
   int64 department_id = 2;
   int32 nick_name = 3;
   string remark = 4;
-  string status = 5;
+  int32 status = 5;
 }
 
 message DeleteUserDepartmentRequest{
@@ -74,6 +74,7 @@ message DepartmentResponse{
   string info = 8;
   int64 creator_id = 9;
   int32 status = 10;
+  int32 size = 11;
 }
 
 message GetDepartmentDetailRequest{
@@ -90,6 +91,7 @@ message CreateDepartmentRequest{
   string info = 7;
   int64 creator_id = 8;
   int32 status = 9;
+  int32 size = 11;
 }
 
 message UpdateDepartmentRequest{
@@ -103,6 +105,7 @@ message UpdateDepartmentRequest{
   string info = 8;
   int64 creator_id = 9;
   int32 status = 10;
+  int32 size = 11;
 }
 
 message DeleteDepartmentRequest{

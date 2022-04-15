@@ -89,6 +89,7 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
                     )
                 return company_convert_response(company)
             except Exception as e:
+                transaction.rollback()
                 context.set_code(grpc.StatusCode.INTERNAL)
                 context.set_details("内部错误")
                 return company_pb2.CompanyResponse()
