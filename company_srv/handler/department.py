@@ -11,6 +11,8 @@ from peewee import DoesNotExist
 def department_convert_response(department):
     item = department_pb2.DepartmentResponse()
     item.id = department.id
+    item.created_at.FromDatetime(department.created_at)
+    item.created_at.FromDatetime(department.updated_at)
     return convert_department(department, item)
 
 
@@ -20,8 +22,21 @@ def response_convert_department(request):
 
 
 def convert_department(source, to):
-    if source.name:
-        to.name = source.name
+    for i in [
+        "company_id",
+        "parent_id",
+        "icon",
+        "name",
+        "remark",
+        "desc",
+        "size",
+        "info",
+        "creator_id",
+        "status",
+    ]:
+        temp = getattr(source, i)
+        if temp is not None and temp != -1 and temp != "":
+            setattr(to, i, temp)
     return to
 
 

@@ -1,5 +1,7 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
 option go_package = '../proto';
 // 部门
 service Department {
@@ -31,6 +33,9 @@ message UserDepartmentResponse{
   string nick_name = 3;
   string remark = 4;
   int32 status = 5;
+
+  google.protobuf.Timestamp created_at=6;
+  google.protobuf.Timestamp updated_at=7;
 }
 
 message GetDepartmentUserIdListResponse{
@@ -57,7 +62,7 @@ message GetDepartmentUserListRequest{
   int64 department_id = 1;
   int32 page = 2;
   int32 limit = 3;
-  string order = 4;
+  map<string,string> sort = 4;
 }
 
 message GetMyDepartmentListRequest{
@@ -66,6 +71,7 @@ message GetMyDepartmentListRequest{
   string search = 3;
   int32 page = 4;
   int32 limit = 5 ;
+  map<string,string> sort = 6;
 }
 
 message GetDepartmentListByUserRequest{
@@ -86,6 +92,9 @@ message DepartmentResponse{
   int64 creator_id = 9;
   int32 status = 10;
   int32 size = 11;
+
+  google.protobuf.Timestamp created_at=12;
+  google.protobuf.Timestamp updated_at=13;
 }
 
 message GetDepartmentDetailRequest{
@@ -129,7 +138,7 @@ message GetDepartmentListRequest{
   int32 limit = 2;
   int64 company_id = 3;
   string search = 4;
-  string order = 5;
+  map<string,string> sort = 5;
 }
 
 message GetDepartmentListResponse{

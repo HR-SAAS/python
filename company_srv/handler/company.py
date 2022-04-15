@@ -1,4 +1,8 @@
+import time
+
 import google.protobuf.empty_pb2
+import google.protobuf.timestamp_pb2
+
 import grpc
 
 from company_srv.proto import company_pb2, company_pb2_grpc
@@ -10,7 +14,10 @@ from peewee import DoesNotExist
 
 def company_convert_response(company):
     item = company_pb2.CompanyResponse()
+    google.protobuf.timestamp_pb2.Timestamp()
     item.id = company.id
+    item.created_at.FromDatetime(company.created_at)
+    item.created_at.FromDatetime(company.updated_at)
     return convert_company(company, item)
 
 
@@ -70,7 +77,7 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
             return company_pb2.CompanyResponse()
         except Exception as e:
             context.set_code(grpc.StatusCode.INTERNAL)
-            context.set_details("内部错误")
+            context.set_details(f"内部错误")
             return company_pb2.CompanyResponse()
 
     @logger.catch
@@ -91,7 +98,7 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
             except Exception as e:
                 transaction.rollback()
                 context.set_code(grpc.StatusCode.INTERNAL)
-                context.set_details("内部错误")
+                context.set_details(f"内部错误  {e}")
                 return company_pb2.CompanyResponse()
 
     @logger.catch
@@ -168,9 +175,9 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         rsp.total = total
         for item in data:
             rsp.data.append(company_pb2.UserCompanyResponse(
-                user_id=item.user_id,company_id=item.company_id,
-                status=item.status,info=item.info,
-                nick_name=item.nick_name,remark=item.remark,
+                user_id=item.user_id, company_id=item.company_id,
+                status=item.status, info=item.info,
+                nick_name=item.nick_name, remark=item.remark,
             ))
         return rsp
 
@@ -178,12 +185,12 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
     def CreateUserCompany(self, req: company_pb2.SaveUserCompanyRequest, context):
         """加入公司
         """
-        if UserCompany.select().where(UserCompany.company_id==req.company_id)\
-                .where(UserCompany.user_id==req.user_id).count() >0:
+        if UserCompany.select().where(UserCompany.company_id == req.company_id) \
+                .where(UserCompany.user_id == req.user_id).count() > 0:
             return google.protobuf.empty_pb2.Empty()
         if req.status == -1:
             req.status = 1
-        UserCompany.create(user_id=req.user_id, company_id=req.company_id, status=req.status,info=req.info)
+        UserCompany.create(user_id=req.user_id, company_id=req.company_id, status=req.status, info=req.info)
         return google.protobuf.empty_pb2.Empty()
 
     @logger.catch

@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-option go_package = '../proto';
-
-message UserIdList{
-  repeated int64 user_id = 1;
-  int64 total = 2;
-}
