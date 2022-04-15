@@ -2,9 +2,10 @@ syntax = "proto3";
 
 option go_package = '../proto';
 
+import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
-service ResumeService{
+service Resume{
   // 获取简历列表
   rpc GetResumeList(GetResumeListRequest) returns (GetResumeListResponse);
 
@@ -20,26 +21,52 @@ service ResumeService{
 
 
 message ResumeResponse{
+  int32 id = 1;
+  int64 user_id = 2;
+  string name = 3;
+  int32 type = 4;
+  repeated string tag = 5;
+  string content = 6;
+  int32 status = 7;
+  int32 post_count = 8;
 
+  google.protobuf.Timestamp created_at = 9;
+  google.protobuf.Timestamp updateed_at = 10;
 }
 
 
 message GetResumeListRequest{
-
+  int64 user_id = 1;
+  int32 page = 2;
+  int32 limit = 3;
+  // 排序
+  map<string,string> sort = 4;
 }
 
 message GetResumeListResponse{
-
+  repeated ResumeResponse data = 1;
+  int32 total = 2;
 }
 
 message CreateResumeRequest{
-
+  int64 user_id = 1;
+  string name = 2;
+  int32 type = 3;
+  repeated string tag = 4;
+  string content = 5;
+  int32 status = 6;
 }
 
 message UpdateResumeRequest{
-
+  int32 id = 1;
+  int64 user_id = 2;
+  string name = 3;
+  int32 type = 4;
+  repeated string tag = 5;
+  string content = 6;
+  int32 status = 7;
 }
 
 message DeleteResumeRequest{
-
+  int32 id = 1;
 }
