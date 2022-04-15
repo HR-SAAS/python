@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0c\x63ommon.proto\",\n\nUserIdList\x12\x0f\n\x07user_id\x18\x01 \x03(\x03\x12\r\n\x05total\x18\x02 \x01(\x03\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0c\x63ommon.proto\",\n\nUserIdList\x12\x0f\n\x07user_id\x18\x01 \x03(\x03\x12\r\n\x05total\x18\x02 \x01(\x03\x42\nZ\x08../protob\x06proto3')
 
 
 
@@ -29,6 +29,7 @@ _sym_db.RegisterMessage(UserIdList)
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
+  DESCRIPTOR._serialized_options = b'Z\010../proto'
   _USERIDLIST._serialized_start=16
   _USERIDLIST._serialized_end=60
 # @@protoc_insertion_point(module_scope)

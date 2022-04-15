@@ -14,7 +14,6 @@ sys.path.insert(0, BASEDIR)
 
 # 配置引入路径
 from company_srv.handler.department import DepartmentService
-from company_srv.model.model import Company, Department, UserCompany
 
 from company_srv.proto import company_pb2, company_pb2_grpc, department_pb2_grpc
 from common.health_check.proto import health_pb2_grpc

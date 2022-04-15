@@ -1,12 +1,23 @@
 import json
+import re
 from datetime import datetime
 
 from peewee import *
 
 
+def make_table_name(model_class):
+    model_name = model_class.__name__
+    p = re.compile(r'([a-z]|\d)([A-Z])')
+    sub = re.sub(p, r'\1_\2', model_name).lower()
+    return sub
+
+
 class BaseModel(Model):
     created_at = DateTimeField(default=datetime.now, verbose_name="创建时间")
     updated_at = DateTimeField(default=datetime.now, verbose_name="更新时间")
+
+    class Meta:
+        table_function = make_table_name
 
 
 class DeletedModel(Model):

@@ -15,10 +15,10 @@ class ReconnectMysqlDatabase(ReconnectMixin, PooledMySQLDatabase):
 NACOS_CONFIG = {
     "host": os.getenv('NACOS_HOST', 'localhost'),
     "port": int(os.getenv('NACOS_PORT', '8848')),
-    "namespace": os.getenv('NACOS_NAMESPACE', '92eb12b0-1a27-41ec-a6f8-4a8bb1611e56'),
+    "namespace": os.getenv('NACOS_NAMESPACE', '21b75e1f-3692-4268-82aa-42fbe83d0e7c'),
     "username": os.getenv('NACOS_USERNAME', 'nacos'),
     "password": os.getenv('NACOS_PASSWORD', 'nacos'),
-    "dataId": os.getenv('NACOS_DATA_ID', 'user-srv.json'),
+    "dataId": os.getenv('NACOS_DATA_ID', 'company-srv.json'),
     "group": os.getenv('NACOS_GROUP', 'dev')
 }
 

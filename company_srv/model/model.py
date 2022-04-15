@@ -61,8 +61,8 @@ class UserDepartment(BaseModel, DeletedModel):
 if __name__ == '__main__':
     #  打印
     config.DB.create_tables([Company, Department, UserCompany])
-    # c1=Company(name="test",desc="test",creator_id=1)
-    # c1.save()
+    c1=Company(name="test",desc="test",creator_id=1)
+    c1.save()
     # print()
     # c1 = Company().get(Company.id == 2)
     # c1.delete_instance()

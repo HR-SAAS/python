@@ -59,6 +59,7 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
             rsp.data.append(company_convert_response(company))
         return rsp
 
+    @logger.catch
     def GetCompanyDetail(self, req: company_pb2.GetCompanyDetailRequest, context):
         try:
             company = Company.get(Company.id == Company.id)
@@ -83,9 +84,10 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
             context.set_details("内部错误")
             return company_pb2.CompanyResponse()
 
+    @logger.catch
     def UpdateCompany(self, req: company_pb2.UpdateCompanyRequest, context):
         try:
-            company = Company.get(Company.id == Company.id)
+            company = Company.get_by_id(req.id)
             company = convert_company(req, company)
             company.save()
             return google.protobuf.empty_pb2.Empty()
@@ -98,10 +100,10 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         finally:
             return google.protobuf.empty_pb2.Empty()
 
-    def DeleteCompany(self, request: company_pb2.DeleteCompanyRequest, context):
+    @logger.catch
+    def DeleteCompany(self, req: company_pb2.DeleteCompanyRequest, context):
         try:
-            company = Company.get(Company.id == Company.id)
-            company.delete()
+            Company.select().where(Company.id == req.id).get().delete_instance()
         except DoesNotExist as e:
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("找不到数据")
@@ -111,6 +113,7 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         finally:
             return google.protobuf.empty_pb2.Empty()
 
+    @logger.catch
     def GetMyCompanyList(self, req: company_pb2.GetMyCompanyListRequest, context):
         page = 1
         limit = 15
@@ -133,6 +136,7 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
             rsp.data.append(company_convert_response(company))
         return rsp
 
+    @logger.catch
     def GetCompanyUserIdList(self, req, context):
         """公司下所有用户ID,分页
         """
@@ -151,6 +155,7 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
             rsp.append(uid)
         return rsp
 
+    @logger.catch
     def CreateUserCompany(self, req: company_pb2.SaveUserCompanyRequest, context):
         """加入公司
         """
@@ -163,6 +168,7 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         UserCompany.create()
         return google.protobuf.empty_pb2.Empty()
 
+    @logger.catch
     def UpdateUserCompany(self, req: company_pb2.SaveUserCompanyRequest, context):
         """关系更新
         """
@@ -175,6 +181,7 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         userCompany.save()
         return google.protobuf.empty_pb2.Empty()
 
+    @logger.catch
     def DeleteUserCompany(self, req: company_pb2.DeleteUserCompanyRequest, context):
         """删除用户公司
         """
