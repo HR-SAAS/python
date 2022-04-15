@@ -75,14 +75,23 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
 
     @logger.catch
     def CreateCompany(self, req: company_pb2.CreateCompanyRequest, context):
-        try:
-            company = response_convert_company(req)
-            company.save()
-            return company_convert_response(company)
-        except Exception as e:
-            context.set_code(grpc.StatusCode.INTERNAL)
-            context.set_details("内部错误")
-            return company_pb2.CompanyResponse()
+        from company_srv.config.config import DB
+        with DB.atomic() as transaction:
+            try:
+                company = response_convert_company(req)
+                company.save()
+                # 同时创建关联
+                if company.creator_id:
+                    UserCompany.create(
+                        user_id=company.creator_id,
+                        company_id=company.id,
+                        status=1
+                    )
+                return company_convert_response(company)
+            except Exception as e:
+                context.set_code(grpc.StatusCode.INTERNAL)
+                context.set_details("内部错误")
+                return company_pb2.CompanyResponse()
 
     @logger.catch
     def UpdateCompany(self, req: company_pb2.UpdateCompanyRequest, context):
@@ -124,14 +133,16 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         stat = limit * (page - 1)
         companyIds = UserCompany.select(UserCompany.company_id) \
             .where(UserCompany.user_id == req.user_id) \
-            .limit(limit).offset(stat).get()
+            .limit(limit).offset(stat)
         # 获取全部id
         idList = []
         for i in companyIds:
             idList.append(i.company_id)
-        companies = Company.where(Company.id in idList).select()
+        companies = Company.select().where(Company.id in idList)
         rsp = company_pb2.CompanyListResponse()
-        rsp.total = companies.count()
+        rsp.total = UserCompany.select(UserCompany.company_id) \
+            .where(UserCompany.user_id == req.user_id) \
+            .count()
         for company in companies:
             rsp.data.append(company_convert_response(company))
         return rsp
@@ -149,30 +160,33 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         stat = limit * (page - 1)
         userIds = UserCompany.select(UserCompany.user_id) \
             .where(UserCompany.company_id == req.company_id) \
-            .limit(limit).offset(stat).get()
+            .limit(limit).offset(stat)
+        total = UserCompany.select(UserCompany.user_id) \
+            .where(UserCompany.company_id == req.company_id) \
+            .count()
         rsp = common_pb2.UserIdList()
+        rsp.total = total
         for uid in userIds:
-            rsp.append(uid)
+            rsp.user_id.append(uid.user_id)
         return rsp
 
     @logger.catch
     def CreateUserCompany(self, req: company_pb2.SaveUserCompanyRequest, context):
         """加入公司
         """
-        userCompany = UserCompany()
-        userCompany.user_id = req.user_id
-        userCompany.company_id = req.company_id
-        if req.info:
-            userCompany.info = req.info
-        userCompany.status = 1
-        UserCompany.create()
+        if UserCompany.select().where(UserCompany.company_id==req.company_id)\
+                .where(UserCompany.user_id==req.user_id).count() >0:
+            return google.protobuf.empty_pb2.Empty()
+        if req.status == -1:
+            req.status = 1
+        UserCompany.create(user_id=req.user_id, company_id=req.company_id, status=req.status,info=req.info)
         return google.protobuf.empty_pb2.Empty()
 
     @logger.catch
     def UpdateUserCompany(self, req: company_pb2.SaveUserCompanyRequest, context):
         """关系更新
         """
-        userCompany = UserCompany().select(UserCompany.company_id == req.company_id) \
+        userCompany = UserCompany.select().where(UserCompany.company_id == req.company_id) \
             .where(UserCompany.user_id == req.user_id).get()
         if req.info:
             userCompany.info = req.info
@@ -186,9 +200,9 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         """删除用户公司
         """
         try:
-            item = UserCompany.where(UserCompany.user_id == req.user_id) \
+            item = UserCompany.select().where(UserCompany.user_id == req.user_id) \
                 .where(UserCompany.company_id == req.company_id).get()
-            item.delete()
+            item.delete_instance()
         except DoesNotExist as e:
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("找不到数据")

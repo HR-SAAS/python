@@ -62,6 +62,7 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
     @logger.catch
     def CreateDepartment(self, req: department_pb2.CreateDepartmentRequest, context):
         try:
+            # 开启事务
             item = response_convert_department(req)
             item.save()
             return department_convert_response(item)
@@ -89,7 +90,7 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
     def DeleteDepartment(self, req: department_pb2.DeleteDepartmentRequest, context):
         try:
             item = Department.get(Department.id == req.id)
-            item.delete()
+            item.delete_instance()
         except DoesNotExist as e:
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("找不到数据")

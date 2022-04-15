@@ -11,7 +11,7 @@ class CompanyTest:
         self.stub = company_pb2_grpc.CompanyStub(channel)
 
     def GetCompanyList(self):
-        res = self.stub.GetCompanyList(company_pb2.GetCompanyListRequest(limit=5))
+        res = self.stub.GetCompanyList(company_pb2.GetCompanyListRequest(limit=1))
         print(res)
 
     def GetCompanyDetail(self):
@@ -52,29 +52,39 @@ class CompanyTest:
         print(res)
 
     def GetCompanyUserIdList(self):
-        pass
+        res = self.stub.GetCompanyUserIdList(company_pb2.GetCompanyUserListRequest(company_id=3))
+        print(res)
 
     def CreateUserCompany(self):
-        pass
+        res = self.stub.CreateUserCompany(company_pb2.SaveUserCompanyRequest(company_id=3,user_id=2))
+        print(res)
 
     def UpdateUserCompany(self):
-        pass
+        res = self.stub.UpdateUserCompany(company_pb2.SaveUserCompanyRequest(company_id=3, user_id=2,status=3))
+        print(res)
 
     def DeleteUserCompany(self):
-        pass
+        res = self.stub.DeleteUserCompany(company_pb2.DeleteUserCompanyRequest(company_id=3, user_id=2))
+        print(res)
 
 
 if __name__ == '__main__':
     test = CompanyTest(7702)
-
-    test.GetCompanyList()
-
-    test.GetCompanyDetail()
     print("--------------create")
     test.CreateCompany()
+
+    test.GetCompanyList()
+    test.GetCompanyDetail()
+
     print("--------------update")
     test.UpdateCompany()
     print("--------------delete")
     # test.DeleteCompany()
     test.GetCompanyList()
     test.GetMyCompanyList()
+
+    test.GetCompanyUserIdList()
+    test.CreateUserCompany()
+
+    test.UpdateUserCompany()
+    test.DeleteUserCompany()
