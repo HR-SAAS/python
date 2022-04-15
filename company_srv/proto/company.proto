@@ -101,7 +101,7 @@ message UpdateCompanyRequest{
   string desc = 3;
   string website = 4;
   string config = 5;
-  string tags = 6;
+  repeated string tags = 6;
 
   string address = 7;
   string info = 8;
@@ -121,7 +121,7 @@ message CompanyResponse{
   string desc = 3;
   string website = 4;
   string config = 5;
-  string tags = 6;
+  repeated string tags = 6;
 
   string address = 7;
   string info = 8;
@@ -140,7 +140,7 @@ message CreateCompanyRequest{
   string desc = 2;
   string website = 3;
   string config = 4;
-  string tags = 5;
+  repeated string tags = 5;
 
   string address = 6;
   string info = 7;
