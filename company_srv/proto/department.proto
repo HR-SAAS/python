@@ -1,6 +1,5 @@
 syntax = "proto3";
 import "google/protobuf/empty.proto";
-import "common.proto";
 option go_package = '../proto';
 // 部门
 service Department {
@@ -17,7 +16,7 @@ service Department {
   // 只需要判断creator_id是否相同,即可确定主要角色
   rpc GetMyDepartmentList(GetMyDepartmentListRequest) returns(GetDepartmentListResponse);
   // 全部人员分页
-  rpc GetDepartmentUserIdList(GetDepartmentUserListRequest) returns(UserIdList);
+  rpc GetDepartmentUserIdList(GetDepartmentUserListRequest) returns(GetDepartmentUserIdListResponse);
   // 加入部门
   rpc CreateUserDepartment(SaveUserDepartmentRequest) returns(google.protobuf.Empty);
   // 人员部门表更新
@@ -26,12 +25,24 @@ service Department {
   rpc DeleteUserDepartment(DeleteUserDepartmentRequest) returns (google.protobuf.Empty);
 }
 
+message UserDepartmentResponse{
+  int64 user_id = 1;
+  int64 department_id = 2;
+  string nick_name = 3;
+  string remark = 4;
+  int32 status = 5;
+}
+
+message GetDepartmentUserIdListResponse{
+  repeated UserDepartmentResponse data = 1;
+  int32 total = 2;
+}
 
 // ---------------------------------用户部门相关
 message SaveUserDepartmentRequest{
   int64 user_id = 1;
   int64 department_id = 2;
-  int32 nick_name = 3;
+  string nick_name = 3;
   string remark = 4;
   int32 status = 5;
 }

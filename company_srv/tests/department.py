@@ -62,13 +62,13 @@ class DepartmentTest:
 
     def UpdateUserDepartment(self):
         res = self.stub.UpdateUserDepartment(
-            department_pb2.SaveUserDepartmentRequest(department_id=3, user_id=4, status=3))
+            department_pb2.SaveUserDepartmentRequest(department_id=3, user_id=3, status=3))
         print(res)
 
     def DeleteUserDepartment(self):
-        res = self.stub.DeleteUserDepartment(department_pb2.DeleteUserDepartmentRequest(department_id=3, user_id=2))
-        print(res)
-
+        # res = self.stub.DeleteUserDepartment(department_pb2.DeleteUserDepartmentRequest(department_id=3, user_id=2))
+        # print(res)
+        pass
 
 if __name__ == '__main__':
     test = DepartmentTest(7702)

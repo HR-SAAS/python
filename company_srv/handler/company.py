@@ -1,7 +1,7 @@
 import google.protobuf.empty_pb2
 import grpc
 
-from company_srv.proto import company_pb2, company_pb2_grpc, common_pb2
+from company_srv.proto import company_pb2, company_pb2_grpc
 from company_srv.model.model import Company, UserCompany
 
 from loguru import logger
@@ -159,16 +159,19 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         if req.limit:
             limit = req.limit
         stat = limit * (page - 1)
-        userIds = UserCompany.select(UserCompany.user_id) \
-            .where(UserCompany.company_id == req.company_id) \
-            .limit(limit).offset(stat)
-        total = UserCompany.select(UserCompany.user_id) \
-            .where(UserCompany.company_id == req.company_id) \
-            .count()
-        rsp = common_pb2.UserIdList()
+        model = UserCompany.select() \
+            .where(UserCompany.company_id == req.company_id)
+
+        data = model.limit(limit).offset(stat)
+        total = model.count()
+        rsp = company_pb2.GetCompanyUserIdListResponse()
         rsp.total = total
-        for uid in userIds:
-            rsp.user_id.append(uid.user_id)
+        for item in data:
+            rsp.data.append(company_pb2.UserCompanyResponse(
+                user_id=item.user_id,company_id=item.company_id,
+                status=item.status,info=item.info,
+                nick_name=item.nick_name,remark=item.remark,
+            ))
         return rsp
 
     @logger.catch

@@ -1,7 +1,7 @@
 import google.protobuf.empty_pb2
 import grpc
 
-from company_srv.proto import department_pb2, department_pb2_grpc, common_pb2
+from company_srv.proto import department_pb2, department_pb2_grpc
 from company_srv.model.model import Department, UserDepartment
 
 from loguru import logger
@@ -74,6 +74,7 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
                 context.set_details("内部错误")
                 return department_pb2.DepartmentResponse()
 
+    @logger.catch
     def UpdateDepartment(self, req: department_pb2.UpdateDepartmentRequest, context):
         try:
             item = Department.get(Department.id == req.id)
@@ -90,6 +91,7 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
         finally:
             return google.protobuf.empty_pb2.Empty()
 
+    @logger.catch
     def DeleteDepartment(self, req: department_pb2.DeleteDepartmentRequest, context):
         try:
             item = Department.get(Department.id == req.id)
@@ -103,6 +105,7 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
         finally:
             return google.protobuf.empty_pb2.Empty()
 
+    @logger.catch
     def GetMyDepartmentList(self, req: department_pb2.GetMyDepartmentListRequest, context):
         """只需要判断creator_id是否相同,即可确定主要角色
         """
@@ -127,6 +130,7 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
             rsp.data.append(department_convert_response(departments))
         return rsp
 
+    @logger.catch
     def GetDepartmentUserIdList(self, req: department_pb2.GetDepartmentUserListRequest, context):
         """全部人员分页
         """
@@ -137,16 +141,25 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
         if req.limit:
             limit = req.limit
         stat = limit * (page - 1)
-        model = UserDepartment.select(UserDepartment.user_id) \
+        model = UserDepartment.select() \
             .where(UserDepartment.department_id == req.department_id)
-        userIds = model.limit(limit).offset(stat)
+
+        data = model.limit(limit).offset(stat)
         total = model.count()
-        rsp = common_pb2.UserIdList()
+
+        rsp = department_pb2.GetDepartmentUserIdListResponse()
         rsp.total = total
-        for uid in userIds:
-            rsp.user_id.append(uid.user_id)
+        for item in data:
+            rsp.data.append(
+                department_pb2.UserDepartmentResponse(
+                    user_id=item.user_id,department_id=item.department_id,
+                    status=item.status,nick_name=item.nick_name,
+                    remark=item.remark
+                )
+            )
         return rsp
 
+    @logger.catch
     def CreateUserDepartment(self, req: department_pb2.SaveUserDepartmentRequest, context):
         """加入部门
         """
@@ -159,16 +172,26 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
         UserDepartment.create(user_id=req.user_id, department_id=req.department_id, status=req.status)
         return google.protobuf.empty_pb2.Empty()
 
+    @logger.catch
     def UpdateUserDepartment(self, req: department_pb2.SaveUserDepartmentRequest, context):
         """人员部门表更新
         """
-        item = UserDepartment.select().where(UserDepartment.department_id == req.department_id) \
-            .where(UserDepartment.user_id == req.user_id).get()
-        if req.status != -1:
-            item.status = req.status
-        item.save()
-        return google.protobuf.empty_pb2.Empty()
+        try:
+            item = UserDepartment.select().where(UserDepartment.department_id == req.department_id) \
+                .where(UserDepartment.user_id == req.user_id).get()
+            if req.status != -1:
+                item.status = req.status
+            item.save()
+        except DoesNotExist as e:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details("找不到数据")
+        except Exception as e:
+            context.set_code(grpc.StatusCode.INTERNAL)
+            context.set_details("内部错误")
+        finally:
+            return google.protobuf.empty_pb2.Empty()
 
+    @logger.catch
     def DeleteUserDepartment(self, req: department_pb2.DeleteUserDepartmentRequest, context):
         """人员部门删除(软删除)
         """

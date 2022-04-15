@@ -13,13 +13,14 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-from . import common_pb2 as common__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10\x64\x65partment.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x0c\x63ommon.proto\"v\n\x19SaveUserDepartmentRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x15\n\rdepartment_id\x18\x02 \x01(\x03\x12\x11\n\tnick_name\x18\x03 \x01(\x05\x12\x0e\n\x06remark\x18\x04 \x01(\t\x12\x0e\n\x06status\x18\x05 \x01(\x05\"E\n\x1b\x44\x65leteUserDepartmentRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x15\n\rdepartment_id\x18\x02 \x01(\x03\"a\n\x1cGetDepartmentUserListRequest\x12\x15\n\rdepartment_id\x18\x01 \x01(\x03\x12\x0c\n\x04page\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\r\n\x05order\x18\x04 \x01(\t\"n\n\x1aGetMyDepartmentListRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x12\n\ncompany_id\x18\x02 \x01(\x03\x12\x0e\n\x06search\x18\x03 \x01(\t\x12\x0c\n\x04page\x18\x04 \x01(\x05\x12\r\n\x05limit\x18\x05 \x01(\x05\"N\n\x1eGetDepartmentListByUserRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x0c\n\x04page\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\"\xc1\x01\n\x12\x44\x65partmentResponse\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x12\n\ncompany_id\x18\x02 \x01(\x03\x12\x11\n\tparent_id\x18\x03 \x01(\x03\x12\x0c\n\x04icon\x18\x04 \x01(\x03\x12\x0c\n\x04name\x18\x05 \x01(\t\x12\x0e\n\x06remark\x18\x06 \x01(\t\x12\x0c\n\x04\x64\x65sc\x18\x07 \x01(\t\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ncreator_id\x18\t \x01(\x03\x12\x0e\n\x06status\x18\n \x01(\x05\x12\x0c\n\x04size\x18\x0b \x01(\x05\"(\n\x1aGetDepartmentDetailRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"\xba\x01\n\x17\x43reateDepartmentRequest\x12\x12\n\ncompany_id\x18\x01 \x01(\x03\x12\x11\n\tparent_id\x18\x02 \x01(\x03\x12\x0c\n\x04icon\x18\x03 \x01(\x03\x12\x0c\n\x04name\x18\x04 \x01(\t\x12\x0e\n\x06remark\x18\x05 \x01(\t\x12\x0c\n\x04\x64\x65sc\x18\x06 \x01(\t\x12\x0c\n\x04info\x18\x07 \x01(\t\x12\x12\n\ncreator_id\x18\x08 \x01(\x03\x12\x0e\n\x06status\x18\t \x01(\x05\x12\x0c\n\x04size\x18\x0b \x01(\x05\"\xc6\x01\n\x17UpdateDepartmentRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x12\n\ncompany_id\x18\x02 \x01(\x03\x12\x11\n\tparent_id\x18\x03 \x01(\x03\x12\x0c\n\x04icon\x18\x04 \x01(\x03\x12\x0c\n\x04name\x18\x05 \x01(\t\x12\x0e\n\x06remark\x18\x06 \x01(\t\x12\x0c\n\x04\x64\x65sc\x18\x07 \x01(\t\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ncreator_id\x18\t \x01(\x03\x12\x0e\n\x06status\x18\n \x01(\x05\x12\x0c\n\x04size\x18\x0b \x01(\x05\"%\n\x17\x44\x65leteDepartmentRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"j\n\x18GetDepartmentListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x12\n\ncompany_id\x18\x03 \x01(\x03\x12\x0e\n\x06search\x18\x04 \x01(\t\x12\r\n\x05order\x18\x05 \x01(\t\"M\n\x19GetDepartmentListResponse\x12!\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x13.DepartmentResponse\x12\r\n\x05total\x18\x02 \x01(\x05\x32\xed\x05\n\nDepartment\x12J\n\x11GetDepartmentList\x12\x19.GetDepartmentListRequest\x1a\x1a.GetDepartmentListResponse\x12G\n\x13GetDepartmentDetail\x12\x1b.GetDepartmentDetailRequest\x1a\x13.DepartmentResponse\x12\x41\n\x10\x43reateDepartment\x12\x18.CreateDepartmentRequest\x1a\x13.DepartmentResponse\x12\x44\n\x10UpdateDepartment\x12\x18.UpdateDepartmentRequest\x1a\x16.google.protobuf.Empty\x12\x44\n\x10\x44\x65leteDepartment\x12\x18.DeleteDepartmentRequest\x1a\x16.google.protobuf.Empty\x12N\n\x13GetMyDepartmentList\x12\x1b.GetMyDepartmentListRequest\x1a\x1a.GetDepartmentListResponse\x12\x45\n\x17GetDepartmentUserIdList\x12\x1d.GetDepartmentUserListRequest\x1a\x0b.UserIdList\x12J\n\x14\x43reateUserDepartment\x12\x1a.SaveUserDepartmentRequest\x1a\x16.google.protobuf.Empty\x12J\n\x14UpdateUserDepartment\x12\x1a.SaveUserDepartmentRequest\x1a\x16.google.protobuf.Empty\x12L\n\x14\x44\x65leteUserDepartment\x12\x1c.DeleteUserDepartmentRequest\x1a\x16.google.protobuf.EmptyB\nZ\x08../protob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10\x64\x65partment.proto\x1a\x1bgoogle/protobuf/empty.proto\"s\n\x16UserDepartmentResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x15\n\rdepartment_id\x18\x02 \x01(\x03\x12\x11\n\tnick_name\x18\x03 \x01(\t\x12\x0e\n\x06remark\x18\x04 \x01(\t\x12\x0e\n\x06status\x18\x05 \x01(\x05\"W\n\x1fGetDepartmentUserIdListResponse\x12%\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x17.UserDepartmentResponse\x12\r\n\x05total\x18\x02 \x01(\x05\"v\n\x19SaveUserDepartmentRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x15\n\rdepartment_id\x18\x02 \x01(\x03\x12\x11\n\tnick_name\x18\x03 \x01(\t\x12\x0e\n\x06remark\x18\x04 \x01(\t\x12\x0e\n\x06status\x18\x05 \x01(\x05\"E\n\x1b\x44\x65leteUserDepartmentRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x15\n\rdepartment_id\x18\x02 \x01(\x03\"a\n\x1cGetDepartmentUserListRequest\x12\x15\n\rdepartment_id\x18\x01 \x01(\x03\x12\x0c\n\x04page\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12\r\n\x05order\x18\x04 \x01(\t\"n\n\x1aGetMyDepartmentListRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x12\n\ncompany_id\x18\x02 \x01(\x03\x12\x0e\n\x06search\x18\x03 \x01(\t\x12\x0c\n\x04page\x18\x04 \x01(\x05\x12\r\n\x05limit\x18\x05 \x01(\x05\"N\n\x1eGetDepartmentListByUserRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x0c\n\x04page\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\"\xc1\x01\n\x12\x44\x65partmentResponse\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x12\n\ncompany_id\x18\x02 \x01(\x03\x12\x11\n\tparent_id\x18\x03 \x01(\x03\x12\x0c\n\x04icon\x18\x04 \x01(\x03\x12\x0c\n\x04name\x18\x05 \x01(\t\x12\x0e\n\x06remark\x18\x06 \x01(\t\x12\x0c\n\x04\x64\x65sc\x18\x07 \x01(\t\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ncreator_id\x18\t \x01(\x03\x12\x0e\n\x06status\x18\n \x01(\x05\x12\x0c\n\x04size\x18\x0b \x01(\x05\"(\n\x1aGetDepartmentDetailRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"\xba\x01\n\x17\x43reateDepartmentRequest\x12\x12\n\ncompany_id\x18\x01 \x01(\x03\x12\x11\n\tparent_id\x18\x02 \x01(\x03\x12\x0c\n\x04icon\x18\x03 \x01(\x03\x12\x0c\n\x04name\x18\x04 \x01(\t\x12\x0e\n\x06remark\x18\x05 \x01(\t\x12\x0c\n\x04\x64\x65sc\x18\x06 \x01(\t\x12\x0c\n\x04info\x18\x07 \x01(\t\x12\x12\n\ncreator_id\x18\x08 \x01(\x03\x12\x0e\n\x06status\x18\t \x01(\x05\x12\x0c\n\x04size\x18\x0b \x01(\x05\"\xc6\x01\n\x17UpdateDepartmentRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x12\n\ncompany_id\x18\x02 \x01(\x03\x12\x11\n\tparent_id\x18\x03 \x01(\x03\x12\x0c\n\x04icon\x18\x04 \x01(\x03\x12\x0c\n\x04name\x18\x05 \x01(\t\x12\x0e\n\x06remark\x18\x06 \x01(\t\x12\x0c\n\x04\x64\x65sc\x18\x07 \x01(\t\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ncreator_id\x18\t \x01(\x03\x12\x0e\n\x06status\x18\n \x01(\x05\x12\x0c\n\x04size\x18\x0b \x01(\x05\"%\n\x17\x44\x65leteDepartmentRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"j\n\x18GetDepartmentListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x12\n\ncompany_id\x18\x03 \x01(\x03\x12\x0e\n\x06search\x18\x04 \x01(\t\x12\r\n\x05order\x18\x05 \x01(\t\"M\n\x19GetDepartmentListResponse\x12!\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x13.DepartmentResponse\x12\r\n\x05total\x18\x02 \x01(\x05\x32\x82\x06\n\nDepartment\x12J\n\x11GetDepartmentList\x12\x19.GetDepartmentListRequest\x1a\x1a.GetDepartmentListResponse\x12G\n\x13GetDepartmentDetail\x12\x1b.GetDepartmentDetailRequest\x1a\x13.DepartmentResponse\x12\x41\n\x10\x43reateDepartment\x12\x18.CreateDepartmentRequest\x1a\x13.DepartmentResponse\x12\x44\n\x10UpdateDepartment\x12\x18.UpdateDepartmentRequest\x1a\x16.google.protobuf.Empty\x12\x44\n\x10\x44\x65leteDepartment\x12\x18.DeleteDepartmentRequest\x1a\x16.google.protobuf.Empty\x12N\n\x13GetMyDepartmentList\x12\x1b.GetMyDepartmentListRequest\x1a\x1a.GetDepartmentListResponse\x12Z\n\x17GetDepartmentUserIdList\x12\x1d.GetDepartmentUserListRequest\x1a .GetDepartmentUserIdListResponse\x12J\n\x14\x43reateUserDepartment\x12\x1a.SaveUserDepartmentRequest\x1a\x16.google.protobuf.Empty\x12J\n\x14UpdateUserDepartment\x12\x1a.SaveUserDepartmentRequest\x1a\x16.google.protobuf.Empty\x12L\n\x14\x44\x65leteUserDepartment\x12\x1c.DeleteUserDepartmentRequest\x1a\x16.google.protobuf.EmptyB\nZ\x08../protob\x06proto3')
 
 
 
+_USERDEPARTMENTRESPONSE = DESCRIPTOR.message_types_by_name['UserDepartmentResponse']
+_GETDEPARTMENTUSERIDLISTRESPONSE = DESCRIPTOR.message_types_by_name['GetDepartmentUserIdListResponse']
 _SAVEUSERDEPARTMENTREQUEST = DESCRIPTOR.message_types_by_name['SaveUserDepartmentRequest']
 _DELETEUSERDEPARTMENTREQUEST = DESCRIPTOR.message_types_by_name['DeleteUserDepartmentRequest']
 _GETDEPARTMENTUSERLISTREQUEST = DESCRIPTOR.message_types_by_name['GetDepartmentUserListRequest']
@@ -32,6 +33,20 @@ _UPDATEDEPARTMENTREQUEST = DESCRIPTOR.message_types_by_name['UpdateDepartmentReq
 _DELETEDEPARTMENTREQUEST = DESCRIPTOR.message_types_by_name['DeleteDepartmentRequest']
 _GETDEPARTMENTLISTREQUEST = DESCRIPTOR.message_types_by_name['GetDepartmentListRequest']
 _GETDEPARTMENTLISTRESPONSE = DESCRIPTOR.message_types_by_name['GetDepartmentListResponse']
+UserDepartmentResponse = _reflection.GeneratedProtocolMessageType('UserDepartmentResponse', (_message.Message,), {
+  'DESCRIPTOR' : _USERDEPARTMENTRESPONSE,
+  '__module__' : 'department_pb2'
+  # @@protoc_insertion_point(class_scope:UserDepartmentResponse)
+  })
+_sym_db.RegisterMessage(UserDepartmentResponse)
+
+GetDepartmentUserIdListResponse = _reflection.GeneratedProtocolMessageType('GetDepartmentUserIdListResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETDEPARTMENTUSERIDLISTRESPONSE,
+  '__module__' : 'department_pb2'
+  # @@protoc_insertion_point(class_scope:GetDepartmentUserIdListResponse)
+  })
+_sym_db.RegisterMessage(GetDepartmentUserIdListResponse)
+
 SaveUserDepartmentRequest = _reflection.GeneratedProtocolMessageType('SaveUserDepartmentRequest', (_message.Message,), {
   'DESCRIPTOR' : _SAVEUSERDEPARTMENTREQUEST,
   '__module__' : 'department_pb2'
@@ -121,30 +136,34 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'Z\010../proto'
-  _SAVEUSERDEPARTMENTREQUEST._serialized_start=63
-  _SAVEUSERDEPARTMENTREQUEST._serialized_end=181
-  _DELETEUSERDEPARTMENTREQUEST._serialized_start=183
-  _DELETEUSERDEPARTMENTREQUEST._serialized_end=252
-  _GETDEPARTMENTUSERLISTREQUEST._serialized_start=254
-  _GETDEPARTMENTUSERLISTREQUEST._serialized_end=351
-  _GETMYDEPARTMENTLISTREQUEST._serialized_start=353
-  _GETMYDEPARTMENTLISTREQUEST._serialized_end=463
-  _GETDEPARTMENTLISTBYUSERREQUEST._serialized_start=465
-  _GETDEPARTMENTLISTBYUSERREQUEST._serialized_end=543
-  _DEPARTMENTRESPONSE._serialized_start=546
-  _DEPARTMENTRESPONSE._serialized_end=739
-  _GETDEPARTMENTDETAILREQUEST._serialized_start=741
-  _GETDEPARTMENTDETAILREQUEST._serialized_end=781
-  _CREATEDEPARTMENTREQUEST._serialized_start=784
-  _CREATEDEPARTMENTREQUEST._serialized_end=970
-  _UPDATEDEPARTMENTREQUEST._serialized_start=973
-  _UPDATEDEPARTMENTREQUEST._serialized_end=1171
-  _DELETEDEPARTMENTREQUEST._serialized_start=1173
-  _DELETEDEPARTMENTREQUEST._serialized_end=1210
-  _GETDEPARTMENTLISTREQUEST._serialized_start=1212
-  _GETDEPARTMENTLISTREQUEST._serialized_end=1318
-  _GETDEPARTMENTLISTRESPONSE._serialized_start=1320
-  _GETDEPARTMENTLISTRESPONSE._serialized_end=1397
-  _DEPARTMENT._serialized_start=1400
-  _DEPARTMENT._serialized_end=2149
+  _USERDEPARTMENTRESPONSE._serialized_start=49
+  _USERDEPARTMENTRESPONSE._serialized_end=164
+  _GETDEPARTMENTUSERIDLISTRESPONSE._serialized_start=166
+  _GETDEPARTMENTUSERIDLISTRESPONSE._serialized_end=253
+  _SAVEUSERDEPARTMENTREQUEST._serialized_start=255
+  _SAVEUSERDEPARTMENTREQUEST._serialized_end=373
+  _DELETEUSERDEPARTMENTREQUEST._serialized_start=375
+  _DELETEUSERDEPARTMENTREQUEST._serialized_end=444
+  _GETDEPARTMENTUSERLISTREQUEST._serialized_start=446
+  _GETDEPARTMENTUSERLISTREQUEST._serialized_end=543
+  _GETMYDEPARTMENTLISTREQUEST._serialized_start=545
+  _GETMYDEPARTMENTLISTREQUEST._serialized_end=655
+  _GETDEPARTMENTLISTBYUSERREQUEST._serialized_start=657
+  _GETDEPARTMENTLISTBYUSERREQUEST._serialized_end=735
+  _DEPARTMENTRESPONSE._serialized_start=738
+  _DEPARTMENTRESPONSE._serialized_end=931
+  _GETDEPARTMENTDETAILREQUEST._serialized_start=933
+  _GETDEPARTMENTDETAILREQUEST._serialized_end=973
+  _CREATEDEPARTMENTREQUEST._serialized_start=976
+  _CREATEDEPARTMENTREQUEST._serialized_end=1162
+  _UPDATEDEPARTMENTREQUEST._serialized_start=1165
+  _UPDATEDEPARTMENTREQUEST._serialized_end=1363
+  _DELETEDEPARTMENTREQUEST._serialized_start=1365
+  _DELETEDEPARTMENTREQUEST._serialized_end=1402
+  _GETDEPARTMENTLISTREQUEST._serialized_start=1404
+  _GETDEPARTMENTLISTREQUEST._serialized_end=1510
+  _GETDEPARTMENTLISTRESPONSE._serialized_start=1512
+  _GETDEPARTMENTLISTRESPONSE._serialized_end=1589
+  _DEPARTMENT._serialized_start=1592
+  _DEPARTMENT._serialized_end=2362
 # @@protoc_insertion_point(module_scope)

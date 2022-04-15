@@ -2,7 +2,6 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from . import common_pb2 as common__pb2
 from . import company_pb2 as company__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
@@ -49,7 +48,7 @@ class CompanyStub(object):
         self.GetCompanyUserIdList = channel.unary_unary(
                 '/Company/GetCompanyUserIdList',
                 request_serializer=company__pb2.GetCompanyUserListRequest.SerializeToString,
-                response_deserializer=common__pb2.UserIdList.FromString,
+                response_deserializer=company__pb2.GetCompanyUserIdListResponse.FromString,
                 )
         self.CreateUserCompany = channel.unary_unary(
                 '/Company/CreateUserCompany',
@@ -177,7 +176,7 @@ def add_CompanyServicer_to_server(servicer, server):
             'GetCompanyUserIdList': grpc.unary_unary_rpc_method_handler(
                     servicer.GetCompanyUserIdList,
                     request_deserializer=company__pb2.GetCompanyUserListRequest.FromString,
-                    response_serializer=common__pb2.UserIdList.SerializeToString,
+                    response_serializer=company__pb2.GetCompanyUserIdListResponse.SerializeToString,
             ),
             'CreateUserCompany': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateUserCompany,
@@ -319,7 +318,7 @@ class Company(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/Company/GetCompanyUserIdList',
             company__pb2.GetCompanyUserListRequest.SerializeToString,
-            common__pb2.UserIdList.FromString,
+            company__pb2.GetCompanyUserIdListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
