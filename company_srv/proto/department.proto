@@ -84,7 +84,7 @@ message DepartmentResponse{
   int64 id = 1;
   int64 company_id = 2;
   int64 parent_id = 3;
-  int64 icon = 4;
+  string icon = 4;
   string name = 5;
   string remark = 6;
   string desc = 7;
@@ -104,7 +104,7 @@ message GetDepartmentDetailRequest{
 message CreateDepartmentRequest{
   int64 company_id = 1;
   int64 parent_id = 2;
-  int64 icon = 3;
+  string icon = 3;
   string name = 4;
   string remark = 5;
   string desc = 6;
@@ -118,7 +118,7 @@ message UpdateDepartmentRequest{
   int64 id = 1;
   int64 company_id = 2;
   int64 parent_id = 3;
-  int64 icon = 4;
+  string icon = 4;
   string name = 5;
   string remark = 6;
   string desc = 7;

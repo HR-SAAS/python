@@ -110,6 +110,7 @@ message UpdateCompanyRequest{
   int64 parent_id = 10;
   int32 status = 11;
   int32 size = 12;
+  string logo = 13;
 }
 
 
@@ -130,9 +131,10 @@ message CompanyResponse{
   int64 parent_id = 10;
   int32 status = 11;
   int32 size = 12;
+  string logo = 13;
 
-  google.protobuf.Timestamp created_at = 13;
-  google.protobuf.Timestamp updated_at = 14;
+  google.protobuf.Timestamp created_at = 14;
+  google.protobuf.Timestamp updated_at = 15;
 }
 
 message CreateCompanyRequest{
@@ -149,6 +151,7 @@ message CreateCompanyRequest{
   int64 parent_id = 9;
   int32 status = 10;
   int32 size = 12;
+  string logo = 13;
 }
 
 

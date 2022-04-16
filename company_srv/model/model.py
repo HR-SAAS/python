@@ -11,6 +11,7 @@ class BaseModel(BaseModel):
 class Company(BaseModel, DeletedModel):
     name = CharField(verbose_name='名称')
     desc = TextField(verbose_name='简介')
+    logo = CharField(verbose_name='logo')
     website = CharField(verbose_name='官网', null=True)
     config = TextField(verbose_name='配置信息', null=True)
     size = EnumField(verbose_name='企业规模等级', default=1)
@@ -27,7 +28,7 @@ class Company(BaseModel, DeletedModel):
 class Department(BaseModel, DeletedModel):
     company_id = IntegerField(verbose_name='公司id')
     parent_id = IntegerField(verbose_name='父级id')
-    icon = IntegerField(verbose_name='图标', default=0)
+    icon = CharField(verbose_name='图标', default='')
     name = CharField(verbose_name='名称')
     remark = CharField(verbose_name='备注', null=True)
     desc = TextField(verbose_name='简介', null=True)
