@@ -27,12 +27,14 @@ def response_convert_company(request):
 
 
 def convert_company(source, to):
+    if source.tags:
+        to.tags = source.tags
+
     for i in [
         "name",
         "desc",
         "website",
         "config",
-        "tags",
         "address",
         "info",
         "creator_id",
