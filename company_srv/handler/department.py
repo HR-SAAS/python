@@ -138,7 +138,7 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
         idList = []
         for i in companyIds:
             idList.append(i.department_id)
-        departments = Department.select().where(Department.id in idList)
+        departments = Department.select().where(Department.id << idList)
         rsp = department_pb2.GetDepartmentListResponse()
         rsp.total = model.count()
         for departments in departments:

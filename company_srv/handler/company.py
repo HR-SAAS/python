@@ -57,12 +57,12 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
             page = req.page
         if req.limit:
             limit = req.limit
-        stat = limit * (page - 1)
+        start = limit * (page - 1)
 
         companies = Company.select()
         rsp = company_pb2.CompanyListResponse()
         rsp.total = companies.count()
-        companies = companies.limit(limit).offset(stat)
+        companies = companies.limit(limit).offset(start)
         print(companies)
         for company in companies:
             rsp.data.append(company_convert_response(company))
@@ -140,19 +140,17 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
             page = req.page
         if req.limit:
             limit = req.limit
-        stat = limit * (page - 1)
-        companyIds = UserCompany.select(UserCompany.company_id) \
-            .where(UserCompany.user_id == req.user_id) \
-            .limit(limit).offset(stat)
+        start = limit * (page - 1)
+        model = UserCompany.select(UserCompany.company_id) \
+            .where(UserCompany.user_id == req.user_id)
+        companyIds = model.limit(limit).offset(start)
         # 获取全部id
         idList = []
         for i in companyIds:
             idList.append(i.company_id)
-        companies = Company.select().where(Company.id in idList)
+        companies = Company.select().where(Company.id << idList)
         rsp = company_pb2.CompanyListResponse()
-        rsp.total = UserCompany.select(UserCompany.company_id) \
-            .where(UserCompany.user_id == req.user_id) \
-            .count()
+        rsp.total = model.count()
         for company in companies:
             rsp.data.append(company_convert_response(company))
         return rsp
@@ -167,11 +165,11 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
             page = req.page
         if req.limit:
             limit = req.limit
-        stat = limit * (page - 1)
+        start = limit * (page - 1)
         model = UserCompany.select() \
             .where(UserCompany.company_id == req.company_id)
 
-        data = model.limit(limit).offset(stat)
+        data = model.limit(limit).offset(start)
         total = model.count()
         rsp = company_pb2.GetCompanyUserIdListResponse()
         rsp.total = total
