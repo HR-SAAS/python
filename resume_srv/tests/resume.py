@@ -1,90 +1,65 @@
 import grpc
 
-from resume_srv.model.model import Company
-from resume_srv.proto import company_pb2, company_pb2_grpc
+from resume_srv.model.model import Resume
+from resume_srv.proto import resume_pb2, resume_pb2_grpc
 
 
-class CompanyTest:
-    def __init__(self,port=3300):
+class ResumeTest:
+    def __init__(self, port=3300):
         # 得用filter/dns发现了
         channel = grpc.insecure_channel(f"192.168.50.1:{port}")
-        self.stub = company_pb2_grpc.CompanyStub(channel)
+        self.stub = resume_pb2_grpc.ResumeStub(channel)
 
-    def GetCompanyList(self):
-        res = self.stub.GetCompanyList(company_pb2.GetCompanyListRequest(limit=1))
+    def GetResumeList(self):
+        res = self.stub.GetResumeList(resume_pb2.GetResumeListRequest(limit=1))
         print(res)
 
-    def GetCompanyDetail(self):
-        res = self.stub.GetCompanyDetail(company_pb2.GetCompanyDetailRequest(id=1))
-        print(res)
+    # def GetResumeDetail(self):
+    #     res = self.stub.Resu(resume_pb2.GetResumeDetailRequest(id=1))
+    #     print(res)
 
-    def CreateCompany(self):
-        Company()
+    def CreateResume(self):
+        Resume()
         '''
-         name = CharField(verbose_name='名称')
-        desc = TextField(verbose_name='简介')
-        website = CharField(verbose_name='官网', null=True)
-        config = TextField(verbose_name='配置信息', null=True)
-        size = EnumField(verbose_name='企业规模等级', default=1)
-        tags = JSONField(verbose_name='标签', null=True)
-    
-        address = CharField(verbose_name='地址')
-        info = JSONField(verbose_name='其他信息', null=True)
-    
-        creator_id = IntegerField(verbose_name='创建者,群主')
-        parent_id = IntegerField(verbose_name='父id,子公司', default=0)
+        user_id = IntegerField(verbose_name="关联的用户id")
+        name = CharField(verbose_name='简历名称')
+        type = EnumField(verbose_name='类型: file,json,other')
+        tag = JSONField(verbose_name='标签')
+        content = TextField(verbose_name='内容|文件地址|等,其他')
+        post_count = IntegerField(verbose_name='投递次数', default=0)
         status = EnumField(verbose_name='状态', default=1)
         '''
-        res = self.stub.CreateCompany(company_pb2.CreateCompanyRequest(name="测试公司",desc="测试公司简介",website="http://www.baidu.com",config="",size=2,
-                                                                        address="www.www",creator_id=3))
+        res = self.stub.CreateResume(
+            resume_pb2.CreateResumeRequest(user_id=1, name="测试简历", type=1, content="www.baidu.com", status=1))
         print(res)
 
-    def UpdateCompany(self):
-        res=self.stub.UpdateCompany(company_pb2.UpdateCompanyRequest(id=5,name="test3",desc="testt2",website="www.github.com",size=1,address="sad"))
+    def UpdateResume(self):
+        res = self.stub.UpdateResume(
+            resume_pb2.UpdateResumeRequest(user_id=2, name="测试简历", type=1, content="www.baidu.com", status=1))
         print(res)
 
-    def DeleteCompany(self):
-        res = self.stub.DeleteCompany(company_pb2.DeleteCompanyRequest(id=6))
+    def DeleteResume(self):
+        res = self.stub.DeleteResume(resume_pb2.DeleteResumeRequest(id=6))
         print(res)
 
-    def GetMyCompanyList(self):
-        res = self.stub.GetMyCompanyList(company_pb2.GetMyCompanyListRequest(user_id=3))
+    def GetMyResumeList(self):
+        res = self.stub.GetResumeList(resume_pb2.GetResumeListRequest())
         print(res)
 
-    def GetCompanyUserIdList(self):
-        res = self.stub.GetCompanyUserIdList(company_pb2.GetCompanyUserListRequest(company_id=3))
+    def GetResume(self):
+        res = self.stub.GetResumeDetail(resume_pb2.GetResumeDetailRequest(id=1))
         print(res)
-
-    def CreateUserCompany(self):
-        res = self.stub.CreateUserCompany(company_pb2.SaveUserCompanyRequest(company_id=3,user_id=2))
-        print(res)
-
-    def UpdateUserCompany(self):
-        res = self.stub.UpdateUserCompany(company_pb2.SaveUserCompanyRequest(company_id=3, user_id=2,status=3))
-        print(res)
-
-    def DeleteUserCompany(self):
-        res = self.stub.DeleteUserCompany(company_pb2.DeleteUserCompanyRequest(company_id=3, user_id=2))
-        print(res)
-
 
 if __name__ == '__main__':
-    test = CompanyTest(7702)
+    test = ResumeTest(6801)
     print("--------------create")
-    test.CreateCompany()
+    test.CreateResume()
 
-    test.GetCompanyList()
-    test.GetCompanyDetail()
+    test.GetResumeList()
 
     print("--------------update")
-    test.UpdateCompany()
+    test.UpdateResume()
     print("--------------delete")
-    # test.DeleteCompany()
-    test.GetCompanyList()
-    test.GetMyCompanyList()
-
-    test.GetCompanyUserIdList()
-    test.CreateUserCompany()
-
-    test.UpdateUserCompany()
-    test.DeleteUserCompany()
+    test.DeleteResume()
+    test.GetResumeList()
+    test.GetResume()

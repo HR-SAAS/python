@@ -1,11 +1,11 @@
 from common.model.ext import *
 
-
+# 岗位
 class Post(BaseModel, DeletedModel):
     company_id = IntegerField(verbose_name='公司id')
     department_id = IntegerField(verbose_name='部门id', default=0)
     creator_id = IntegerField(verbose_name='发布人')
-    type_id = IntegerField(verbose_name='类型id: 校招,直招,内推等', default=0)
+    type_id = EnumField(verbose_name='类型id: 校招,直招,内推等', default=0)
 
     name = CharField(verbose_name='名称')
     desc = TextField(verbose_name='简介', null=True)
@@ -21,7 +21,7 @@ class Post(BaseModel, DeletedModel):
 
     start_at = TimestampField(verbose_name='开始时间')
     end_at = TimestampField(verbose_name='结束时间')
-    status = EnumField(verbose_name='状态,招满,正常,')
+    status = EnumField(verbose_name='状态,招满,正常,关闭')
 
 
 #  模板
@@ -44,3 +44,6 @@ class PostProcessLog(Model):
     pass
 
 
+# 招聘简历任务子项目
+class PostProcessLogItem(Model):
+    pass

@@ -7,7 +7,7 @@ import "google/protobuf/empty.proto";
 
 service Resume{
   // 获取简历列表
-  rpc GetResumeList(GetResumeListRequest) returns (ResumeListResponse);
+  rpc GetResumeList(GetResumeListRequest) returns (GetResumeListResponse);
 
   // 创建简历
   rpc CreateResume(CreateResumeRequest) returns (ResumeResponse);
@@ -17,18 +17,11 @@ service Resume{
 
   // 删除简历
   rpc DeleteResume(DeleteResumeRequest) returns(google.protobuf.Empty);
-
-  //详情
-  rpc GetResumeDetail(GetResumeDetailRequest) returns (ResumeResponse);
 }
 
-
-message GetResumeDetailRequest{
-  int64 id=1;
-}
 
 message ResumeResponse{
-  int64 id = 1;
+  int32 id = 1;
   int64 user_id = 2;
   string name = 3;
   int32 type = 4;
@@ -50,7 +43,7 @@ message GetResumeListRequest{
   map<string,string> sort = 4;
 }
 
-message ResumeListResponse{
+message GetResumeListResponse{
   repeated ResumeResponse data = 1;
   int32 total = 2;
 }
@@ -65,7 +58,7 @@ message CreateResumeRequest{
 }
 
 message UpdateResumeRequest{
-  int64 id = 1;
+  int32 id = 1;
   int64 user_id = 2;
   string name = 3;
   int32 type = 4;
@@ -75,5 +68,5 @@ message UpdateResumeRequest{
 }
 
 message DeleteResumeRequest{
-  int64 id = 1;
+  int32 id = 1;
 }

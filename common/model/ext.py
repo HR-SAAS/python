@@ -2,6 +2,7 @@ import json
 import re
 from datetime import datetime
 
+from google.protobuf.pyext._message import RepeatedScalarContainer
 from peewee import *
 
 
@@ -49,10 +50,18 @@ class DeletedModel(Model):
 
 class JSONField(TextField):
     def db_value(self, value):
+        if isinstance(value,RepeatedScalarContainer):
+            value,temp=[],value
+            for i in temp:
+                value.append(i)
+        if value is None:
+            return ''
+        if isinstance(value, str):
+            return value
         return json.dumps(value)
 
     def python_value(self, value):
-        if value is not None:
+        if value is not None and isinstance(value, str):
             return json.loads(value)
 
 

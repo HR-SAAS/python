@@ -1,6 +1,6 @@
 from common.model.ext import *
 
-from resume_srv.config import config
+from tag_srv.config import config
 
 
 class BaseModel(BaseModel):
