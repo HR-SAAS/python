@@ -68,7 +68,7 @@ message GetDepartmentUserListRequest{
 message GetMyDepartmentListRequest{
   int64 user_id = 1;
   int64 company_id = 2;
-  string search = 3;
+  map<string,string> search = 3;
   int32 page = 4;
   int32 limit = 5 ;
   map<string,string> sort = 6;
@@ -137,7 +137,7 @@ message GetDepartmentListRequest{
   int32 page = 1;
   int32 limit = 2;
   int64 company_id = 3;
-  string search = 4;
+  map<string,string> search = 4;
   map<string,string> sort = 5;
 }
 

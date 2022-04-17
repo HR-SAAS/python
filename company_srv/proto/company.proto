@@ -82,7 +82,7 @@ message GetCompanyDetailRequest{
 message GetCompanyListRequest{
   int32 page = 1;
   int32 limit = 2;
-  string search = 3;
+  map<string,string> search = 3;
   map<string,string> sort = 4;
 }
 
