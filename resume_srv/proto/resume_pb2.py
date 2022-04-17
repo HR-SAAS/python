@@ -16,7 +16,7 @@ from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0cresume.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"$\n\x16GetResumeDetailRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"\xec\x01\n\x0eResumeResponse\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07user_id\x18\x02 \x01(\x03\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x0b\n\x03tag\x18\x05 \x03(\t\x12\x0f\n\x07\x63ontent\x18\x06 \x01(\t\x12\x0e\n\x06status\x18\x07 \x01(\x05\x12\x12\n\npost_count\x18\x08 \x01(\x05\x12.\n\ncreated_at\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12/\n\x0bupdateed_at\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xa0\x01\n\x14GetResumeListRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x0c\n\x04page\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12-\n\x04sort\x18\x04 \x03(\x0b\x32\x1f.GetResumeListRequest.SortEntry\x1a+\n\tSortEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"B\n\x12ResumeListResponse\x12\x1d\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x0f.ResumeResponse\x12\r\n\x05total\x18\x02 \x01(\x05\"p\n\x13\x43reateResumeRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\x05\x12\x0b\n\x03tag\x18\x04 \x03(\t\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\t\x12\x0e\n\x06status\x18\x06 \x01(\x05\"|\n\x13UpdateResumeRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07user_id\x18\x02 \x01(\x03\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x0b\n\x03tag\x18\x05 \x03(\t\x12\x0f\n\x07\x63ontent\x18\x06 \x01(\t\x12\x0e\n\x06status\x18\x07 \x01(\x05\"!\n\x13\x44\x65leteResumeRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xb5\x02\n\x06Resume\x12;\n\rGetResumeList\x12\x15.GetResumeListRequest\x1a\x13.ResumeListResponse\x12\x35\n\x0c\x43reateResume\x12\x14.CreateResumeRequest\x1a\x0f.ResumeResponse\x12<\n\x0cUpdateResume\x12\x14.UpdateResumeRequest\x1a\x16.google.protobuf.Empty\x12<\n\x0c\x44\x65leteResume\x12\x14.DeleteResumeRequest\x1a\x16.google.protobuf.Empty\x12;\n\x0fGetResumeDetail\x12\x17.GetResumeDetailRequest\x1a\x0f.ResumeResponseB\nZ\x08../protob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0cresume.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"$\n\x16GetResumeDetailRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"\xec\x01\n\x0eResumeResponse\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07user_id\x18\x02 \x01(\x03\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x0b\n\x03tag\x18\x05 \x03(\t\x12\x0f\n\x07\x63ontent\x18\x06 \x01(\t\x12\x0e\n\x06status\x18\x07 \x01(\x05\x12\x12\n\npost_count\x18\x08 \x01(\x05\x12.\n\ncreated_at\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12/\n\x0bupdateed_at\x18\n \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xf1\x01\n\x14GetResumeListRequest\x12\x0c\n\x04page\x18\x02 \x01(\x05\x12\r\n\x05limit\x18\x03 \x01(\x05\x12-\n\x04sort\x18\x04 \x03(\x0b\x32\x1f.GetResumeListRequest.SortEntry\x12\x31\n\x06search\x18\x05 \x03(\x0b\x32!.GetResumeListRequest.SearchEntry\x1a+\n\tSortEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"B\n\x12ResumeListResponse\x12\x1d\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x0f.ResumeResponse\x12\r\n\x05total\x18\x02 \x01(\x05\"p\n\x13\x43reateResumeRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04type\x18\x03 \x01(\x05\x12\x0b\n\x03tag\x18\x04 \x03(\t\x12\x0f\n\x07\x63ontent\x18\x05 \x01(\t\x12\x0e\n\x06status\x18\x06 \x01(\x05\"|\n\x13UpdateResumeRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0f\n\x07user_id\x18\x02 \x01(\x03\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\x0c\n\x04type\x18\x04 \x01(\x05\x12\x0b\n\x03tag\x18\x05 \x03(\t\x12\x0f\n\x07\x63ontent\x18\x06 \x01(\t\x12\x0e\n\x06status\x18\x07 \x01(\x05\"!\n\x13\x44\x65leteResumeRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xb5\x02\n\x06Resume\x12;\n\rGetResumeList\x12\x15.GetResumeListRequest\x1a\x13.ResumeListResponse\x12\x35\n\x0c\x43reateResume\x12\x14.CreateResumeRequest\x1a\x0f.ResumeResponse\x12<\n\x0cUpdateResume\x12\x14.UpdateResumeRequest\x1a\x16.google.protobuf.Empty\x12<\n\x0c\x44\x65leteResume\x12\x14.DeleteResumeRequest\x1a\x16.google.protobuf.Empty\x12;\n\x0fGetResumeDetail\x12\x17.GetResumeDetailRequest\x1a\x0f.ResumeResponseB\nZ\x08../protob\x06proto3')
 
 
 
@@ -24,6 +24,7 @@ _GETRESUMEDETAILREQUEST = DESCRIPTOR.message_types_by_name['GetResumeDetailReque
 _RESUMERESPONSE = DESCRIPTOR.message_types_by_name['ResumeResponse']
 _GETRESUMELISTREQUEST = DESCRIPTOR.message_types_by_name['GetResumeListRequest']
 _GETRESUMELISTREQUEST_SORTENTRY = _GETRESUMELISTREQUEST.nested_types_by_name['SortEntry']
+_GETRESUMELISTREQUEST_SEARCHENTRY = _GETRESUMELISTREQUEST.nested_types_by_name['SearchEntry']
 _RESUMELISTRESPONSE = DESCRIPTOR.message_types_by_name['ResumeListResponse']
 _CREATERESUMEREQUEST = DESCRIPTOR.message_types_by_name['CreateResumeRequest']
 _UPDATERESUMEREQUEST = DESCRIPTOR.message_types_by_name['UpdateResumeRequest']
@@ -50,12 +51,20 @@ GetResumeListRequest = _reflection.GeneratedProtocolMessageType('GetResumeListRe
     # @@protoc_insertion_point(class_scope:GetResumeListRequest.SortEntry)
     })
   ,
+
+  'SearchEntry' : _reflection.GeneratedProtocolMessageType('SearchEntry', (_message.Message,), {
+    'DESCRIPTOR' : _GETRESUMELISTREQUEST_SEARCHENTRY,
+    '__module__' : 'resume_pb2'
+    # @@protoc_insertion_point(class_scope:GetResumeListRequest.SearchEntry)
+    })
+  ,
   'DESCRIPTOR' : _GETRESUMELISTREQUEST,
   '__module__' : 'resume_pb2'
   # @@protoc_insertion_point(class_scope:GetResumeListRequest)
   })
 _sym_db.RegisterMessage(GetResumeListRequest)
 _sym_db.RegisterMessage(GetResumeListRequest.SortEntry)
+_sym_db.RegisterMessage(GetResumeListRequest.SearchEntry)
 
 ResumeListResponse = _reflection.GeneratedProtocolMessageType('ResumeListResponse', (_message.Message,), {
   'DESCRIPTOR' : _RESUMELISTRESPONSE,
@@ -92,22 +101,26 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._serialized_options = b'Z\010../proto'
   _GETRESUMELISTREQUEST_SORTENTRY._options = None
   _GETRESUMELISTREQUEST_SORTENTRY._serialized_options = b'8\001'
+  _GETRESUMELISTREQUEST_SEARCHENTRY._options = None
+  _GETRESUMELISTREQUEST_SEARCHENTRY._serialized_options = b'8\001'
   _GETRESUMEDETAILREQUEST._serialized_start=78
   _GETRESUMEDETAILREQUEST._serialized_end=114
   _RESUMERESPONSE._serialized_start=117
   _RESUMERESPONSE._serialized_end=353
   _GETRESUMELISTREQUEST._serialized_start=356
-  _GETRESUMELISTREQUEST._serialized_end=516
-  _GETRESUMELISTREQUEST_SORTENTRY._serialized_start=473
-  _GETRESUMELISTREQUEST_SORTENTRY._serialized_end=516
-  _RESUMELISTRESPONSE._serialized_start=518
-  _RESUMELISTRESPONSE._serialized_end=584
-  _CREATERESUMEREQUEST._serialized_start=586
-  _CREATERESUMEREQUEST._serialized_end=698
-  _UPDATERESUMEREQUEST._serialized_start=700
-  _UPDATERESUMEREQUEST._serialized_end=824
-  _DELETERESUMEREQUEST._serialized_start=826
-  _DELETERESUMEREQUEST._serialized_end=859
-  _RESUME._serialized_start=862
-  _RESUME._serialized_end=1171
+  _GETRESUMELISTREQUEST._serialized_end=597
+  _GETRESUMELISTREQUEST_SORTENTRY._serialized_start=507
+  _GETRESUMELISTREQUEST_SORTENTRY._serialized_end=550
+  _GETRESUMELISTREQUEST_SEARCHENTRY._serialized_start=552
+  _GETRESUMELISTREQUEST_SEARCHENTRY._serialized_end=597
+  _RESUMELISTRESPONSE._serialized_start=599
+  _RESUMELISTRESPONSE._serialized_end=665
+  _CREATERESUMEREQUEST._serialized_start=667
+  _CREATERESUMEREQUEST._serialized_end=779
+  _UPDATERESUMEREQUEST._serialized_start=781
+  _UPDATERESUMEREQUEST._serialized_end=905
+  _DELETERESUMEREQUEST._serialized_start=907
+  _DELETERESUMEREQUEST._serialized_end=940
+  _RESUME._serialized_start=943
+  _RESUME._serialized_end=1252
 # @@protoc_insertion_point(module_scope)

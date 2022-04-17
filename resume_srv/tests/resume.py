@@ -1,3 +1,5 @@
+import json
+
 import grpc
 
 from resume_srv.model.model import Resume
@@ -11,7 +13,7 @@ class ResumeTest:
         self.stub = resume_pb2_grpc.ResumeStub(channel)
 
     def GetResumeList(self):
-        res = self.stub.GetResumeList(resume_pb2.GetResumeListRequest(limit=1))
+        res = self.stub.GetResumeList(resume_pb2.GetResumeListRequest(limit=1,search={"user_id":'1'},sort={"created_at":"desc"}))
         print(res)
 
     # def GetResumeDetail(self):
@@ -60,6 +62,6 @@ if __name__ == '__main__':
     print("--------------update")
     test.UpdateResume()
     print("--------------delete")
-    test.DeleteResume()
+    # test.DeleteResume()
     test.GetResumeList()
     test.GetResume()

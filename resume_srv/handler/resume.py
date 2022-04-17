@@ -1,17 +1,22 @@
+import json
+
 import google.protobuf.empty_pb2
 import grpc
 
+from common.utils import build_model_filters
 from resume_srv.proto import resume_pb2, resume_pb2_grpc
 from resume_srv.model.model import Resume
 
 from loguru import logger
-from peewee import DoesNotExist
+from peewee import DoesNotExist, Value, SQL
 
 
 def resume_convert_response(resume):
     item = resume_pb2.ResumeResponse()
     item.id = resume.id
     item.post_count = resume.post_count
+    item.created_at.FromDatetime(resume.created_at)
+    item.created_at.FromDatetime(resume.updated_at)
     return convert_resume(resume, item)
 
 
@@ -31,7 +36,7 @@ def convert_resume(source, to):
         temp = getattr(source, i)
         if temp is not None and temp != -1 and temp != "":
             setattr(to, i, temp)
-    if isinstance(source,Resume):
+    if isinstance(source, Resume):
         for i in source.tag:
             to.tag.append(i)
     else:
@@ -54,9 +59,21 @@ class ResumeService(resume_pb2_grpc.ResumeServicer):
         stat = limit * (page - 1)
 
         model = Resume.select()
+
+        if req.search is not None:
+            search = req.search
+            if search['user_id']:
+                model = model.where(Resume.user_id == search['user_id'])
+
+        if req.sort is not None:
+            for i,v in dict(req.sort).items():
+                model = model.order_by(i,v)
+        # 动态search
         rsp = resume_pb2.ResumeListResponse()
+
         rsp.total = model.count()
         data = model.limit(limit).offset(stat)
+        print(data)
         for item in data:
             rsp.data.append(resume_convert_response(item))
         return rsp

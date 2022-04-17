@@ -24,7 +24,7 @@ service Resume{
 
 
 message GetResumeDetailRequest{
-  int64 id=1;
+  int64 id = 1;
 }
 
 message ResumeResponse{
@@ -43,11 +43,10 @@ message ResumeResponse{
 
 
 message GetResumeListRequest{
-  int64 user_id = 1;
   int32 page = 2;
   int32 limit = 3;
-  // 排序
-  map<string,string> sort = 4;
+  map<string, string> sort = 4;
+  map<string, string> search = 5;
 }
 
 message ResumeListResponse{
