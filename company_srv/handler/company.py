@@ -174,11 +174,14 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         rsp = company_pb2.GetCompanyUserIdListResponse()
         rsp.total = total
         for item in data:
-            rsp.data.append(company_pb2.UserCompanyResponse(
+            temp = company_pb2.UserCompanyResponse(
                 user_id=item.user_id, company_id=item.company_id,
                 status=item.status, info=item.info,
                 nick_name=item.nick_name, remark=item.remark,
-            ))
+            )
+            temp.updated_at.FromDatetime(item.updated_at)
+            temp.created_at.FromDatetime(item.created_at)
+            rsp.data.append(temp)
         return rsp
 
     @logger.catch
