@@ -1,7 +1,7 @@
 import grpc
 
-from resume_srv.model.model import Company
-from resume_srv.proto import company_pb2, company_pb2_grpc
+from page_srv.model.model import Company
+from page_srv.proto import company_pb2, company_pb2_grpc
 
 
 class CompanyTest:

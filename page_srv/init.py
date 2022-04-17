@@ -4,8 +4,8 @@ import sys
 BASEDIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 sys.path.insert(0, BASEDIR)
 
-from resume_srv.config import config
-from resume_srv.model.model import Resume
+from page_srv.config import config
+from page_srv.model.model import Resume
 
 
 def init():

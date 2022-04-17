@@ -7,20 +7,20 @@ from concurrent import futures
 from functools import partial
 import grpc
 
-
+from common.utils import get_free_tcp_port, get_ip_addr
 
 BASEDIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 sys.path.insert(0, BASEDIR)
 
 # 配置引入路径
 
-from resume_srv.proto import company_pb2, company_pb2_grpc, department_pb2_grpc
+from page_srv.proto import resume_pb2_grpc
 from common.health_check.proto import health_pb2_grpc
 from common.register.consul import ConsulRegister
-from resume_srv.handler.resume import ResumeService
+from page_srv.handler.resume import ResumeService
 from common.health_check.handler.health import HealthService
 from loguru import logger
-from resume_srv.config import config
+from page_srv.config import config
 
 
 def on_exit(signum, frame, service_id):
@@ -35,24 +35,9 @@ def on_exit(signum, frame, service_id):
     sys.exit(0)
 
 
-def get_free_tcp_port():
-    # 获取
-    tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    tcp.bind(("", 0))
-    _, port = tcp.getsockname()
-    tcp.close()
-    return port
-
-
-def get_ip_addr():
-    host_name = socket.gethostname()
-    host = socket.gethostbyname(host_name)
-    return host
-
-
 if __name__ == '__main__':
 
-    logger.add("logs/resume_srv_{time}.log", rotation='1day')
+    logger.add("logs/page_srv_{time}.log", rotation='1day')
 
     argument = argparse.ArgumentParser()
     argument.add_argument('--port', nargs='?', type=int, default=0, help='listen port')
@@ -71,7 +56,7 @@ if __name__ == '__main__':
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     # 简历服务
-    # company_pb2_grpc.add_CompanyServicer_to_server(ResumeService(), server)
+    resume_pb2_grpc.add_ResumeServicer_to_server(ResumeService(), server)
 
     # 健康
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)

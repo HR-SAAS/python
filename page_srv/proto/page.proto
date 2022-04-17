@@ -1,0 +1,78 @@
+syntax = "proto3";
+
+option go_package = '../proto';
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service Resume{
+  // 获取简历列表
+  rpc GetResumeList(GetResumeListRequest) returns (ResumeListResponse);
+
+  // 创建简历
+  rpc CreateResume(CreateResumeRequest) returns (ResumeResponse);
+
+  // 更新简历
+  rpc UpdateResume(UpdateResumeRequest) returns (google.protobuf.Empty);
+
+  // 删除简历
+  rpc DeleteResume(DeleteResumeRequest) returns(google.protobuf.Empty);
+
+  //详情
+  rpc GetResumeDetail(GetResumeDetailRequest) returns (ResumeResponse);
+}
+
+
+message GetResumeDetailRequest{
+  int64 id = 1;
+}
+
+message ResumeResponse{
+  int64 id = 1;
+  int64 user_id = 2;
+  string name = 3;
+  int32 type = 4;
+  repeated string tag = 5;
+  string content = 6;
+  int32 status = 7;
+  int32 post_count = 8;
+
+  google.protobuf.Timestamp created_at = 9;
+  google.protobuf.Timestamp updateed_at = 10;
+}
+
+
+message GetResumeListRequest{
+  int32 page = 2;
+  int32 limit = 3;
+  map<string, string> sort = 4;
+  map<string, string> search = 5;
+}
+
+message ResumeListResponse{
+  repeated ResumeResponse data = 1;
+  int32 total = 2;
+}
+
+message CreateResumeRequest{
+  int64 user_id = 1;
+  string name = 2;
+  int32 type = 3;
+  repeated string tag = 4;
+  string content = 5;
+  int32 status = 6;
+}
+
+message UpdateResumeRequest{
+  int64 id = 1;
+  int64 user_id = 2;
+  string name = 3;
+  int32 type = 4;
+  repeated string tag = 5;
+  string content = 6;
+  int32 status = 7;
+}
+
+message DeleteResumeRequest{
+  int64 id = 1;
+}
