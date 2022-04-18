@@ -2,15 +2,33 @@ syntax = 'proto3';
 
 service Counter{
   // -----------------------统计服务---
-
   // 统计一共多少个公司
-
+  rpc CountCompany(CountCompanyRequest) returns (CountResponse);
   // 统计某公司多少人
-
+  rpc CountCompanyUser(CountCompanyUserRequest) returns (CountResponse);
   // 统计公司有多少个部门
-
+  rpc CountCompanyDepartment(CountCompanyDepartmentRequest) returns (CountResponse);
   // 统计部门人数
-
+  rpc CountDepartmentUser(CountDepartmentUserRequest) returns (CountResponse);
   // 统计其他
+}
 
+message CountResponse{
+  int64 count = 1;
+}
+
+message CountCompanyRequest{
+  map<string,string> search = 1;
+}
+
+message CountCompanyUserRequest{
+  map<string,string> search = 1;
+}
+
+message CountCompanyDepartmentRequest{
+  map<string,string> search = 1;
+}
+
+message CountDepartmentUserRequest{
+  map<string,string> search = 1;
 }

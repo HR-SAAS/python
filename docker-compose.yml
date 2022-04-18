@@ -35,3 +35,20 @@ services:
       NACOS_GROUP: "${COMPANY_NACOS_GROUP}"
     volumes:
       - ./common:/code/common
+
+  # 简历服务
+  resume-srv:
+    build:
+      context: ./resume_srv
+    environment:
+      GRPC_POLL_STRATEGY: poll
+      NACOS_HOST: "${NACOS_HOST}"
+      NACOS_PORT: "${NACOS_PORT}"
+      NACOS_USERNAME: "${NACOS_USERNAME}"
+      NACOS_PASSWORD: "${NACOS_PASSWORD}"
+
+      NACOS_NAMESPACE: "${RESUME_NACOS_NAMESPACE}"
+      NACOS_DATA_ID: "${RESUME_NACOS_DATA_ID}"
+      NACOS_GROUP: "${RESUME_NACOS_GROUP}"
+    volumes:
+      - ./common:/code/common

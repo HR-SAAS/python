@@ -1,5 +1,6 @@
 from common.model.ext import *
 
+
 # 岗位
 class Post(BaseModel, DeletedModel):
     company_id = IntegerField(verbose_name='公司id')
@@ -13,7 +14,7 @@ class Post(BaseModel, DeletedModel):
     tags = JSONField(verbose_name='标签', null=True)
 
     experience = EnumField(verbose_name='经验,不限', default=0)
-    education = EnumField(verbose_name='学历:二进制 0不限', default=0)
+    education = EnumField(verbose_name='学历:0不限 1: 高中 2: ', default=0)
     address = CharField(verbose_name='地址')
 
     view_count = IntegerField(verbose_name='浏览记录', default=0)
@@ -34,6 +35,10 @@ class PostData(BaseModel):
     pass
 
 
+class PostDataItem(Model):
+    pass
+
+
 # 招聘流程
 class PostProcess(Model):
     pass
@@ -43,7 +48,4 @@ class PostProcess(Model):
 class PostProcessLog(Model):
     pass
 
-
 # 招聘简历任务子项目
-class PostProcessLogItem(Model):
-    pass
