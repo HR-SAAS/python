@@ -52,3 +52,19 @@ services:
       NACOS_GROUP: "${RESUME_NACOS_GROUP}"
     volumes:
       - ./common:/code/common
+
+  message-srv:
+    build:
+      context: ./message_srv
+    environment:
+      GRPC_POLL_STRATEGY: poll
+      NACOS_HOST: "${NACOS_HOST}"
+      NACOS_PORT: "${NACOS_PORT}"
+      NACOS_USERNAME: "${NACOS_USERNAME}"
+      NACOS_PASSWORD: "${NACOS_PASSWORD}"
+
+      NACOS_NAMESPACE: "${MESSAGE_NACOS_NAMESPACE}"
+      NACOS_DATA_ID: "${MESSAGE_NACOS_DATA_ID}"
+      NACOS_GROUP: "${MESSAGE_NACOS_GROUP}"
+    volumes:
+      - ./common:/code/common

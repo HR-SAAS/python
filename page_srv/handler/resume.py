@@ -16,7 +16,7 @@ def resume_convert_response(resume):
     item.id = resume.id
     item.post_count = resume.post_count
     item.created_at.FromDatetime(resume.created_at)
-    item.created_at.FromDatetime(resume.updated_at)
+    item.updated_at.FromDatetime(resume.updated_at)
     return convert_resume(resume, item)
 
 

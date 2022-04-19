@@ -7,14 +7,13 @@ from concurrent import futures
 from functools import partial
 import grpc
 
-from company_srv.handler.counter import CounterService
 
 BASEDIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 sys.path.insert(0, BASEDIR)
 
 # 配置引入路径
 from company_srv.handler.department import DepartmentService
-
+from company_srv.handler.counter import CounterService
 from company_srv.proto import company_pb2, company_pb2_grpc, department_pb2_grpc, counter_pb2_grpc
 from common.health_check.proto import health_pb2_grpc
 from common.register.consul import ConsulRegister

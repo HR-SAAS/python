@@ -1,20 +1,18 @@
 import argparse
 import os.path
 import signal
-import socket
 import sys
 from concurrent import futures
 from functools import partial
 import grpc
 
-from common.utils import get_free_tcp_port, get_ip_addr
-from message_srv.handler.counter import CounterService
 
 BASEDIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 sys.path.insert(0, BASEDIR)
 
 # 配置引入路径
-
+from common.utils import get_free_tcp_port, get_ip_addr
+from message_srv.handler.counter import CounterService
 from message_srv.proto import user_message_pb2_grpc, counter_pb2_grpc
 from common.health_check.proto import health_pb2_grpc
 from common.register.consul import ConsulRegister
