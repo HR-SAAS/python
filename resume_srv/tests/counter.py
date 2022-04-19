@@ -5,9 +5,9 @@ from resume_srv.proto import counter_pb2_grpc, counter_pb2
 
 
 class CountTest:
-    def __init__(self, port=3300):
+    def __init__(self,host, port=3300):
         # 得用filter/dns发现了
-        channel = grpc.insecure_channel(f"192.168.50.1:{port}")
+        channel = grpc.insecure_channel(f"{host}:{port}")
         self.stub = counter_pb2_grpc.ResumeCounterServiceStub(channel)
 
     def CountUserMessage(self, uid):
@@ -18,5 +18,5 @@ class CountTest:
 
 
 if __name__ == '__main__':
-    c = CountTest(8008)
+    c = CountTest('192.168.50.1',8008)
     c.CountUserMessage(1)
