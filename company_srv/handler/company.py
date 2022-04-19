@@ -14,10 +14,9 @@ from peewee import DoesNotExist
 
 def company_convert_response(company):
     item = company_pb2.CompanyResponse()
-    google.protobuf.timestamp_pb2.Timestamp()
     item.id = company.id
     item.created_at.FromDatetime(company.created_at)
-    item.created_at.FromDatetime(company.updated_at)
+    item.updated_at.FromDatetime(company.updated_at)
     return convert_company(company, item)
 
 
@@ -200,6 +199,7 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
     def UpdateUserCompany(self, req: company_pb2.SaveUserCompanyRequest, context):
         """关系更新
         """
+        logger.info(req)
         userCompany = UserCompany.select().where(UserCompany.company_id == req.company_id) \
             .where(UserCompany.user_id == req.user_id).get()
         if req.info:

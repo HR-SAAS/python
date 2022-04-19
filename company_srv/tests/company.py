@@ -10,15 +10,15 @@ class CompanyTest:
         channel = grpc.insecure_channel(f"192.168.50.1:{port}")
         self.stub = company_pb2_grpc.CompanyStub(channel)
 
-    def GetCompanyList(self):
+    def GetList(self):
         res = self.stub.GetCompanyList(company_pb2.GetCompanyListRequest(limit=1))
         print(res)
 
-    def GetCompanyDetail(self):
-        res = self.stub.GetCompanyDetail(company_pb2.GetCompanyDetailRequest(id=1))
+    def Get(self,id):
+        res = self.stub.GetCompanyDetail(company_pb2.GetCompanyDetailRequest(id=id))
         print(res)
 
-    def CreateCompany(self):
+    def Create(self):
         Company()
         '''
          name = CharField(verbose_name='名称')
@@ -38,13 +38,14 @@ class CompanyTest:
         res = self.stub.CreateCompany(company_pb2.CreateCompanyRequest(name="测试公司",desc="测试公司简介",website="http://www.baidu.com",config="",size=2,
                                                                         address="www.www",creator_id=3))
         print(res)
+        return res.id
 
-    def UpdateCompany(self):
-        res=self.stub.UpdateCompany(company_pb2.UpdateCompanyRequest(id=5,name="test3",desc="testt2",website="www.github.com",size=1,address="sad"))
+    def Update(self,id):
+        res=self.stub.UpdateCompany(company_pb2.UpdateCompanyRequest(id=id,name="test3",desc="testt2",website="www.github.com",size=1,address="sad"))
         print(res)
 
-    def DeleteCompany(self):
-        res = self.stub.DeleteCompany(company_pb2.DeleteCompanyRequest(id=6))
+    def Delete(self,id):
+        res = self.stub.DeleteCompany(company_pb2.DeleteCompanyRequest(id=id))
         print(res)
 
     def GetMyCompanyList(self):
@@ -69,19 +70,19 @@ class CompanyTest:
 
 
 if __name__ == '__main__':
-    test = CompanyTest(7702)
+    test = CompanyTest(8003)
     print("--------------create")
-    test.CreateCompany()
+    id = test.Create()
 
-    test.GetCompanyList()
-    test.GetCompanyDetail()
+    test.GetList()
+    test.Get(id)
 
     print("--------------update")
-    test.UpdateCompany()
+    test.Update(id)
     print("--------------delete")
     # test.DeleteCompany()
-    test.GetCompanyList()
-    test.GetMyCompanyList()
+    test.GetList()
+    test.Get(id)
 
     test.GetCompanyUserIdList()
     test.CreateUserCompany()

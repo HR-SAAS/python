@@ -55,14 +55,15 @@ class JSONField(TextField):
             for i in temp:
                 value.append(i)
         if value is None:
-            return ''
+            return ""
         if isinstance(value, str):
             return value
         return json.dumps(value)
 
     def python_value(self, value):
-        if value is not None and isinstance(value, str):
+        if value is not None and isinstance(value, str) and len(value)>0:
             return json.loads(value)
+        return value
 
 
 class EnumField(Field):

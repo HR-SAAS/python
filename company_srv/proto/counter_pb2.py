@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rcounter.proto\"\x1e\n\rCountResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\"v\n\x13\x43ountCompanyRequest\x12\x30\n\x06search\x18\x01 \x03(\x0b\x32 .CountCompanyRequest.SearchEntry\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"~\n\x17\x43ountCompanyUserRequest\x12\x34\n\x06search\x18\x01 \x03(\x0b\x32$.CountCompanyUserRequest.SearchEntry\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x8a\x01\n\x1d\x43ountCompanyDepartmentRequest\x12:\n\x06search\x18\x01 \x03(\x0b\x32*.CountCompanyDepartmentRequest.SearchEntry\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x84\x01\n\x1a\x43ountDepartmentUserRequest\x12\x37\n\x06search\x18\x01 \x03(\x0b\x32\'.CountDepartmentUserRequest.SearchEntry\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x32\x8b\x02\n\x07\x43ounter\x12\x34\n\x0c\x43ountCompany\x12\x14.CountCompanyRequest\x1a\x0e.CountResponse\x12<\n\x10\x43ountCompanyUser\x12\x18.CountCompanyUserRequest\x1a\x0e.CountResponse\x12H\n\x16\x43ountCompanyDepartment\x12\x1e.CountCompanyDepartmentRequest\x1a\x0e.CountResponse\x12\x42\n\x13\x43ountDepartmentUser\x12\x1b.CountDepartmentUserRequest\x1a\x0e.CountResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rcounter.proto\"\x1e\n\rCountResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\"v\n\x13\x43ountCompanyRequest\x12\x30\n\x06search\x18\x01 \x03(\x0b\x32 .CountCompanyRequest.SearchEntry\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"~\n\x17\x43ountCompanyUserRequest\x12\x34\n\x06search\x18\x01 \x03(\x0b\x32$.CountCompanyUserRequest.SearchEntry\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"|\n\x16\x43ountDepartmentRequest\x12\x33\n\x06search\x18\x01 \x03(\x0b\x32#.CountDepartmentRequest.SearchEntry\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\x84\x01\n\x1a\x43ountDepartmentUserRequest\x12\x37\n\x06search\x18\x01 \x03(\x0b\x32\'.CountDepartmentUserRequest.SearchEntry\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x32\xfd\x01\n\x07\x43ounter\x12\x34\n\x0c\x43ountCompany\x12\x14.CountCompanyRequest\x1a\x0e.CountResponse\x12<\n\x10\x43ountCompanyUser\x12\x18.CountCompanyUserRequest\x1a\x0e.CountResponse\x12:\n\x0f\x43ountDepartment\x12\x17.CountDepartmentRequest\x1a\x0e.CountResponse\x12\x42\n\x13\x43ountDepartmentUser\x12\x1b.CountDepartmentUserRequest\x1a\x0e.CountResponseb\x06proto3')
 
 
 
@@ -23,8 +23,8 @@ _COUNTCOMPANYREQUEST = DESCRIPTOR.message_types_by_name['CountCompanyRequest']
 _COUNTCOMPANYREQUEST_SEARCHENTRY = _COUNTCOMPANYREQUEST.nested_types_by_name['SearchEntry']
 _COUNTCOMPANYUSERREQUEST = DESCRIPTOR.message_types_by_name['CountCompanyUserRequest']
 _COUNTCOMPANYUSERREQUEST_SEARCHENTRY = _COUNTCOMPANYUSERREQUEST.nested_types_by_name['SearchEntry']
-_COUNTCOMPANYDEPARTMENTREQUEST = DESCRIPTOR.message_types_by_name['CountCompanyDepartmentRequest']
-_COUNTCOMPANYDEPARTMENTREQUEST_SEARCHENTRY = _COUNTCOMPANYDEPARTMENTREQUEST.nested_types_by_name['SearchEntry']
+_COUNTDEPARTMENTREQUEST = DESCRIPTOR.message_types_by_name['CountDepartmentRequest']
+_COUNTDEPARTMENTREQUEST_SEARCHENTRY = _COUNTDEPARTMENTREQUEST.nested_types_by_name['SearchEntry']
 _COUNTDEPARTMENTUSERREQUEST = DESCRIPTOR.message_types_by_name['CountDepartmentUserRequest']
 _COUNTDEPARTMENTUSERREQUEST_SEARCHENTRY = _COUNTDEPARTMENTUSERREQUEST.nested_types_by_name['SearchEntry']
 CountResponse = _reflection.GeneratedProtocolMessageType('CountResponse', (_message.Message,), {
@@ -64,20 +64,20 @@ CountCompanyUserRequest = _reflection.GeneratedProtocolMessageType('CountCompany
 _sym_db.RegisterMessage(CountCompanyUserRequest)
 _sym_db.RegisterMessage(CountCompanyUserRequest.SearchEntry)
 
-CountCompanyDepartmentRequest = _reflection.GeneratedProtocolMessageType('CountCompanyDepartmentRequest', (_message.Message,), {
+CountDepartmentRequest = _reflection.GeneratedProtocolMessageType('CountDepartmentRequest', (_message.Message,), {
 
   'SearchEntry' : _reflection.GeneratedProtocolMessageType('SearchEntry', (_message.Message,), {
-    'DESCRIPTOR' : _COUNTCOMPANYDEPARTMENTREQUEST_SEARCHENTRY,
+    'DESCRIPTOR' : _COUNTDEPARTMENTREQUEST_SEARCHENTRY,
     '__module__' : 'counter_pb2'
-    # @@protoc_insertion_point(class_scope:CountCompanyDepartmentRequest.SearchEntry)
+    # @@protoc_insertion_point(class_scope:CountDepartmentRequest.SearchEntry)
     })
   ,
-  'DESCRIPTOR' : _COUNTCOMPANYDEPARTMENTREQUEST,
+  'DESCRIPTOR' : _COUNTDEPARTMENTREQUEST,
   '__module__' : 'counter_pb2'
-  # @@protoc_insertion_point(class_scope:CountCompanyDepartmentRequest)
+  # @@protoc_insertion_point(class_scope:CountDepartmentRequest)
   })
-_sym_db.RegisterMessage(CountCompanyDepartmentRequest)
-_sym_db.RegisterMessage(CountCompanyDepartmentRequest.SearchEntry)
+_sym_db.RegisterMessage(CountDepartmentRequest)
+_sym_db.RegisterMessage(CountDepartmentRequest.SearchEntry)
 
 CountDepartmentUserRequest = _reflection.GeneratedProtocolMessageType('CountDepartmentUserRequest', (_message.Message,), {
 
@@ -102,8 +102,8 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _COUNTCOMPANYREQUEST_SEARCHENTRY._serialized_options = b'8\001'
   _COUNTCOMPANYUSERREQUEST_SEARCHENTRY._options = None
   _COUNTCOMPANYUSERREQUEST_SEARCHENTRY._serialized_options = b'8\001'
-  _COUNTCOMPANYDEPARTMENTREQUEST_SEARCHENTRY._options = None
-  _COUNTCOMPANYDEPARTMENTREQUEST_SEARCHENTRY._serialized_options = b'8\001'
+  _COUNTDEPARTMENTREQUEST_SEARCHENTRY._options = None
+  _COUNTDEPARTMENTREQUEST_SEARCHENTRY._serialized_options = b'8\001'
   _COUNTDEPARTMENTUSERREQUEST_SEARCHENTRY._options = None
   _COUNTDEPARTMENTUSERREQUEST_SEARCHENTRY._serialized_options = b'8\001'
   _COUNTRESPONSE._serialized_start=17
@@ -116,14 +116,14 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _COUNTCOMPANYUSERREQUEST._serialized_end=295
   _COUNTCOMPANYUSERREQUEST_SEARCHENTRY._serialized_start=122
   _COUNTCOMPANYUSERREQUEST_SEARCHENTRY._serialized_end=167
-  _COUNTCOMPANYDEPARTMENTREQUEST._serialized_start=298
-  _COUNTCOMPANYDEPARTMENTREQUEST._serialized_end=436
-  _COUNTCOMPANYDEPARTMENTREQUEST_SEARCHENTRY._serialized_start=122
-  _COUNTCOMPANYDEPARTMENTREQUEST_SEARCHENTRY._serialized_end=167
-  _COUNTDEPARTMENTUSERREQUEST._serialized_start=439
-  _COUNTDEPARTMENTUSERREQUEST._serialized_end=571
+  _COUNTDEPARTMENTREQUEST._serialized_start=297
+  _COUNTDEPARTMENTREQUEST._serialized_end=421
+  _COUNTDEPARTMENTREQUEST_SEARCHENTRY._serialized_start=122
+  _COUNTDEPARTMENTREQUEST_SEARCHENTRY._serialized_end=167
+  _COUNTDEPARTMENTUSERREQUEST._serialized_start=424
+  _COUNTDEPARTMENTUSERREQUEST._serialized_end=556
   _COUNTDEPARTMENTUSERREQUEST_SEARCHENTRY._serialized_start=122
   _COUNTDEPARTMENTUSERREQUEST_SEARCHENTRY._serialized_end=167
-  _COUNTER._serialized_start=574
-  _COUNTER._serialized_end=841
+  _COUNTER._serialized_start=559
+  _COUNTER._serialized_end=812
 # @@protoc_insertion_point(module_scope)

@@ -7,7 +7,7 @@ from concurrent import futures
 from functools import partial
 import grpc
 
-
+from company_srv.handler.counter import CounterService
 
 BASEDIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 sys.path.insert(0, BASEDIR)
@@ -15,11 +15,12 @@ sys.path.insert(0, BASEDIR)
 # 配置引入路径
 from company_srv.handler.department import DepartmentService
 
-from company_srv.proto import company_pb2, company_pb2_grpc, department_pb2_grpc
+from company_srv.proto import company_pb2, company_pb2_grpc, department_pb2_grpc, counter_pb2_grpc
 from common.health_check.proto import health_pb2_grpc
 from common.register.consul import ConsulRegister
 from company_srv.handler.company import CompanyService
 from common.health_check.handler.health import HealthService
+from common import utils
 from loguru import logger
 from company_srv.config import config
 
@@ -36,21 +37,6 @@ def on_exit(signum, frame, service_id):
     sys.exit(0)
 
 
-def get_free_tcp_port():
-    # 获取
-    tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    tcp.bind(("", 0))
-    _, port = tcp.getsockname()
-    tcp.close()
-    return port
-
-
-def get_ip_addr():
-    host_name = socket.gethostname()
-    host = socket.gethostbyname(host_name)
-    return host
-
-
 if __name__ == '__main__':
 
     logger.add("logs/company_srv_{time}.log", rotation='1day')
@@ -63,20 +49,20 @@ if __name__ == '__main__':
     if args.port:
         port = args.port
     else:
-        port = get_free_tcp_port()
+        port = utils.get_free_tcp_port()
 
     if args.host:
         host = args.host
     else:
-        host = get_ip_addr()
+        host = utils.get_ip_addr()
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     # 公司
     company_pb2_grpc.add_CompanyServicer_to_server(CompanyService(), server)
     # 部门
     department_pb2_grpc.add_DepartmentServicer_to_server(DepartmentService(), server)
-    # 公司人员关系
-
+    # 统计服务
+    counter_pb2_grpc.add_CounterServicer_to_server(CounterService(), server)
     # 健康
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)
     server.add_insecure_port(f"{host}:{port}")

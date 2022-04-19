@@ -12,7 +12,7 @@ def department_convert_response(department):
     item = department_pb2.DepartmentResponse()
     item.id = department.id
     item.created_at.FromDatetime(department.created_at)
-    item.created_at.FromDatetime(department.updated_at)
+    item.updated_at.FromDatetime(department.updated_at)
     return convert_department(department, item)
 
 

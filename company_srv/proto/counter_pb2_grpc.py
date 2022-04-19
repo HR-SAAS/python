@@ -24,9 +24,9 @@ class CounterStub(object):
                 request_serializer=counter__pb2.CountCompanyUserRequest.SerializeToString,
                 response_deserializer=counter__pb2.CountResponse.FromString,
                 )
-        self.CountCompanyDepartment = channel.unary_unary(
-                '/Counter/CountCompanyDepartment',
-                request_serializer=counter__pb2.CountCompanyDepartmentRequest.SerializeToString,
+        self.CountDepartment = channel.unary_unary(
+                '/Counter/CountDepartment',
+                request_serializer=counter__pb2.CountDepartmentRequest.SerializeToString,
                 response_deserializer=counter__pb2.CountResponse.FromString,
                 )
         self.CountDepartmentUser = channel.unary_unary(
@@ -54,7 +54,7 @@ class CounterServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def CountCompanyDepartment(self, request, context):
+    def CountDepartment(self, request, context):
         """统计公司有多少个部门
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -82,9 +82,9 @@ def add_CounterServicer_to_server(servicer, server):
                     request_deserializer=counter__pb2.CountCompanyUserRequest.FromString,
                     response_serializer=counter__pb2.CountResponse.SerializeToString,
             ),
-            'CountCompanyDepartment': grpc.unary_unary_rpc_method_handler(
-                    servicer.CountCompanyDepartment,
-                    request_deserializer=counter__pb2.CountCompanyDepartmentRequest.FromString,
+            'CountDepartment': grpc.unary_unary_rpc_method_handler(
+                    servicer.CountDepartment,
+                    request_deserializer=counter__pb2.CountDepartmentRequest.FromString,
                     response_serializer=counter__pb2.CountResponse.SerializeToString,
             ),
             'CountDepartmentUser': grpc.unary_unary_rpc_method_handler(
@@ -137,7 +137,7 @@ class Counter(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def CountCompanyDepartment(request,
+    def CountDepartment(request,
             target,
             options=(),
             channel_credentials=None,
@@ -147,8 +147,8 @@ class Counter(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Counter/CountCompanyDepartment',
-            counter__pb2.CountCompanyDepartmentRequest.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/Counter/CountDepartment',
+            counter__pb2.CountDepartmentRequest.SerializeToString,
             counter__pb2.CountResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

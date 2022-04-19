@@ -7,7 +7,7 @@ service Counter{
   // 统计某公司多少人
   rpc CountCompanyUser(CountCompanyUserRequest) returns (CountResponse);
   // 统计公司有多少个部门
-  rpc CountCompanyDepartment(CountCompanyDepartmentRequest) returns (CountResponse);
+  rpc CountDepartment(CountDepartmentRequest) returns (CountResponse);
   // 统计部门人数
   rpc CountDepartmentUser(CountDepartmentUserRequest) returns (CountResponse);
   // 统计其他
@@ -25,7 +25,7 @@ message CountCompanyUserRequest{
   map<string,string> search = 1;
 }
 
-message CountCompanyDepartmentRequest{
+message CountDepartmentRequest{
   map<string,string> search = 1;
 }
 
