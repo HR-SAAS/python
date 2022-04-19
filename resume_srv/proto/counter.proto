@@ -2,8 +2,6 @@ syntax = "proto3";
 
 option go_package = '../proto';
 
-import "google/protobuf/empty.proto";
-
 service ResumeCounterService{
   // 统计简历
   rpc CountResume(CountResumeRequest) returns(CountResumeResponse);
