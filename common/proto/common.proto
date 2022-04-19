@@ -1,0 +1,7 @@
+syntax = "proto3";
+
+package common.proto;
+
+message CountResponse{
+  int64 count = 1;
+}
