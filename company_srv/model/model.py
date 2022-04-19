@@ -51,6 +51,7 @@ class UserCompany(BaseModel, DeletedModel):
     status = EnumField(verbose_name='状态,入职,离职,其他')
 
 
+
 class UserDepartment(BaseModel, DeletedModel):
     user_id = IntegerField(verbose_name='用户id')
     department_id = IntegerField(verbose_name='部门id', default=0)
