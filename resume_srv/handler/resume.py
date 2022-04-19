@@ -13,6 +13,8 @@ from peewee import DoesNotExist, Value, SQL
 
 def resume_convert_response(resume):
     item = resume_pb2.ResumeResponse()
+    if resume is None:
+        return item
     item.id = resume.id
     item.post_count = resume.post_count
     item.created_at.FromDatetime(resume.created_at)
@@ -126,5 +128,11 @@ class ResumeService(resume_pb2_grpc.ResumeServicer):
     def GetResumeDetail(self, req: resume_pb2.GetResumeDetailRequest, context):
         """详情
         """
-        item = Resume.get_by_id(req.id)
-        return resume_convert_response(item)
+        try:
+            item = Resume.get_by_id(req.id)
+            return resume_convert_response(item)
+        except DoesNotExist as e:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details("找不到数据")
+            return resume_convert_response(None)
+
