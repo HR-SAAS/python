@@ -5,7 +5,7 @@ option go_package = '../proto';
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 
-service Message{
+service UserMessage{
   // 获取消息列表
   rpc GetMessageList(GetMessageListRequest) returns (MessageListResponse);
 
@@ -30,15 +30,18 @@ message GetMessageDetailRequest{
 message MessageResponse{
   int64 id = 1;
   int64 user_id = 2;
-  string name = 3;
-  int32 type = 4;
-  repeated string tag = 5;
+  string source_type = 3;
+  int64 source_id = 4;
+  string type = 5;
   string content = 6;
-  int32 status = 7;
-  int32 post_count = 8;
+  bool is_read = 7;
+  int32 status = 8;
 
-  google.protobuf.Timestamp created_at = 9;
-  google.protobuf.Timestamp updated_at = 10;
+  int64 relation_id = 9;
+  string relation_type=10;
+
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp updated_at = 12;
 }
 
 
@@ -55,22 +58,31 @@ message MessageListResponse{
 }
 
 message CreateMessageRequest{
-  int64 user_id = 1;
-  string name = 2;
-  int32 type = 3;
-  repeated string tag = 4;
-  string content = 5;
-  int32 status = 6;
+  int64 id = 1;
+  int64 user_id = 2;
+  string source_type = 3;
+  int64 source_id = 4;
+  string type = 5;
+  string content = 6;
+  bool is_read = 7;
+  int32 status = 8;
+
+  int64 relation_id = 9;
+  string relation_type=10;
 }
 
 message UpdateMessageRequest{
   int64 id = 1;
   int64 user_id = 2;
-  string name = 3;
-  int32 type = 4;
-  repeated string tag = 5;
+  string source_type = 3;
+  int64 source_id = 4;
+  string type = 5;
   string content = 6;
-  int32 status = 7;
+  bool is_read = 7;
+  int32 status = 8;
+
+  int64 relation_id = 9;
+  string relation_type=10;
 }
 
 message DeleteMessageRequest{

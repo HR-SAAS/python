@@ -5,5 +5,14 @@ option go_package = '../proto';
 import "google/protobuf/empty.proto";
 
 service ResumeCounterService{
+  rpc CountUserMessage(CountUserMessageRequest) returns(CountResponse);
+}
 
+message CountUserMessageRequest{
+  int64 user_id = 1;
+  map<string, string> where = 2;
+}
+
+message CountResponse{
+  int64 count = 1;
 }

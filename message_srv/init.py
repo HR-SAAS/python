@@ -5,11 +5,11 @@ BASEDIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 sys.path.insert(0, BASEDIR)
 
 from message_srv.config import config
-from message_srv.model.model import Resume
+from message_srv.model.model import UserMessage
 
 
 def init():
-    config.DB.create_tables([Resume])
+    config.DB.create_tables([UserMessage])
 
 
 if __name__ == '__main__':

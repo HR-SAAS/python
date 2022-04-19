@@ -14,10 +14,10 @@ sys.path.insert(0, BASEDIR)
 
 # 配置引入路径
 
-from message_srv.proto import resume_pb2_grpc
+from message_srv.proto import user_message_pb2_grpc
 from common.health_check.proto import health_pb2_grpc
 from common.register.consul import ConsulRegister
-from message_srv.handler.resume import ResumeService
+from message_srv.handler.user_message import UserMessageService
 from common.health_check.handler.health import HealthService
 from loguru import logger
 from message_srv.config import config
@@ -56,7 +56,7 @@ if __name__ == '__main__':
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     # 简历服务
-    resume_pb2_grpc.add_ResumeServicer_to_server(ResumeService(), server)
+    user_message_pb2_grpc.add_UserMessageServicer_to_server(UserMessageService(), server)
 
     # 健康
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)
