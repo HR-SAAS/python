@@ -39,7 +39,7 @@ class UserMessageTest:
         status = EnumField(verbose_name='状态: 正常|删除|其他', default=1)
         '''
         res = self.stub.CreateMessage(
-            user_message_pb2.CreateMessageRequest(user_id=1, content="测试消息", type="test", source_type="system",
+            user_message_pb2.CreateMessageRequest(user_id=2, content="测试消息", type="test", source_type="system",
                                                   source_id=1))
         print(res)
         return res.id
@@ -60,7 +60,7 @@ class UserMessageTest:
 
 
 if __name__ == '__main__':
-    test = UserMessageTest(8006)
+    test = UserMessageTest(8007)
     print("--------------create")
     id=test.Create()
 
@@ -69,6 +69,6 @@ if __name__ == '__main__':
     print("--------------update")
     test.Update(id)
     print("--------------delete")
-    # test.DeleteResume()
+    test.Delete(id)
     test.GetList()
     test.Get(id)

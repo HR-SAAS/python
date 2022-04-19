@@ -11,8 +11,10 @@ from loguru import logger
 from peewee import DoesNotExist, Value, SQL
 
 
-def resume_convert_response(user_message):
+def resume_convert_response(user_message=None):
     item = user_message_pb2.MessageResponse()
+    if user_message is None:
+        return item
     item.id = user_message.id
     item.created_at.FromDatetime(user_message.created_at)
     item.updated_at.FromDatetime(user_message.updated_at)
@@ -123,5 +125,11 @@ class UserMessageService(user_message_pb2_grpc.UserMessageServicer):
     def GetMessageDetail(self, req: user_message_pb2.GetMessageDetailRequest, context):
         """详情
         """
-        item = UserMessage.get_by_id(req.id)
-        return resume_convert_response(item)
+        try:
+            item = UserMessage.get_by_id(req.id)
+            return resume_convert_response(item)
+        except DoesNotExist as e:
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details("找不到数据")
+            return resume_convert_response()
+
