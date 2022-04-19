@@ -36,6 +36,7 @@ def convert_company(source, to):
         "config",
         "address",
         "info",
+        "logo",
         "creator_id",
         "parent_id",
         "status",
