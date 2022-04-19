@@ -4,7 +4,7 @@ from company_srv.model.model import Company, UserCompany, UserDepartment, Depart
 from company_srv.proto import counter_pb2, counter_pb2_grpc
 
 
-class CounterService(counter_pb2_grpc.CounterServicer):
+class CounterService(counter_pb2_grpc.CompanyCounterServicer):
 
     def CountCompany(self, req: counter_pb2.CountCompanyRequest, context):
         """-----------------------统计服务---
@@ -17,7 +17,7 @@ class CounterService(counter_pb2_grpc.CounterServicer):
             model = model.where(Company.creator_id ** f"%{req.search['name']}%")
         if req.search["status"]:
             model = model.where(Company.status == req.status)
-        rsp: counter_pb2.CountResponse = counter_pb2.CountResponse()
+        rsp: counter_pb2.CompanyCountResponse = counter_pb2.CompanyCountResponse()
         rsp.count = model.count()
         return rsp
 
@@ -31,7 +31,7 @@ class CounterService(counter_pb2_grpc.CounterServicer):
             model = model.where(UserCompany.user_id == req.search["user_id"])
         if req.search["status"]:
             model = model.where(UserCompany.status == req.status)
-        rsp: counter_pb2.CountResponse = counter_pb2.CountResponse()
+        rsp: counter_pb2.CompanyCountResponse = counter_pb2.CompanyCountResponse()
         rsp.count = model.count()
         return rsp
 
@@ -47,7 +47,7 @@ class CounterService(counter_pb2_grpc.CounterServicer):
             model = model.where(Department.creator_id ** f"%{req.search['name']}%")
         if req.search["status"]:
             model = model.where(Department.status == req.status)
-        rsp: counter_pb2.CountResponse = counter_pb2.CountResponse()
+        rsp: counter_pb2.CompanyCountResponse = counter_pb2.CompanyCountResponse()
         rsp.count = model.count()
         return rsp
 
@@ -61,6 +61,6 @@ class CounterService(counter_pb2_grpc.CounterServicer):
             model = model.where(UserDepartment.user_id == req.search["user_id"])
         if req.search["status"]:
             model = model.where(UserDepartment.status == req.status)
-        rsp: counter_pb2.CountResponse = counter_pb2.CountResponse()
+        rsp: counter_pb2.CompanyCountResponse = counter_pb2.CompanyCountResponse()
         rsp.count = model.count()
         return rsp

@@ -1,19 +1,19 @@
 syntax = 'proto3';
 
-service Counter{
+service CompanyCounter{
   // -----------------------统计服务---
   // 统计一共多少个公司
-  rpc CountCompany(CountCompanyRequest) returns (CountResponse);
+  rpc CountCompany(CountCompanyRequest) returns (CompanyCountResponse);
   // 统计某公司多少人
-  rpc CountCompanyUser(CountCompanyUserRequest) returns (CountResponse);
+  rpc CountCompanyUser(CountCompanyUserRequest) returns (CompanyCountResponse);
   // 统计公司有多少个部门
-  rpc CountDepartment(CountDepartmentRequest) returns (CountResponse);
+  rpc CountDepartment(CountDepartmentRequest) returns (CompanyCountResponse);
   // 统计部门人数
-  rpc CountDepartmentUser(CountDepartmentUserRequest) returns (CountResponse);
+  rpc CountDepartmentUser(CountDepartmentUserRequest) returns (CompanyCountResponse);
   // 统计其他
 }
 
-message CountResponse{
+message CompanyCountResponse{
   int64 count = 1;
 }
 

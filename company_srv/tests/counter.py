@@ -8,7 +8,7 @@ class CountTest:
     def __init__(self, port=3300):
         # 得用filter/dns发现了
         channel = grpc.insecure_channel(f"192.168.50.1:{port}")
-        self.stub = counter_pb2_grpc.CounterStub(channel)
+        self.stub = counter_pb2_grpc.CompanyCounterStub(channel)
 
     def CountCompany(self, search):
         """-----------------------统计服务---

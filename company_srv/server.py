@@ -62,7 +62,7 @@ if __name__ == '__main__':
     # 部门
     department_pb2_grpc.add_DepartmentServicer_to_server(DepartmentService(), server)
     # 统计服务
-    counter_pb2_grpc.add_CounterServicer_to_server(CounterService(), server)
+    counter_pb2_grpc.add_CompanyCounterServicer_to_server(CounterService(), server)
     # 健康
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)
     server.add_insecure_port(f"{host}:{port}")

@@ -5,7 +5,7 @@ import grpc
 from . import counter_pb2 as counter__pb2
 
 
-class CounterStub(object):
+class CompanyCounterStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -15,28 +15,28 @@ class CounterStub(object):
             channel: A grpc.Channel.
         """
         self.CountCompany = channel.unary_unary(
-                '/Counter/CountCompany',
+                '/CompanyCounter/CountCompany',
                 request_serializer=counter__pb2.CountCompanyRequest.SerializeToString,
-                response_deserializer=counter__pb2.CountResponse.FromString,
+                response_deserializer=counter__pb2.CompanyCountResponse.FromString,
                 )
         self.CountCompanyUser = channel.unary_unary(
-                '/Counter/CountCompanyUser',
+                '/CompanyCounter/CountCompanyUser',
                 request_serializer=counter__pb2.CountCompanyUserRequest.SerializeToString,
-                response_deserializer=counter__pb2.CountResponse.FromString,
+                response_deserializer=counter__pb2.CompanyCountResponse.FromString,
                 )
         self.CountDepartment = channel.unary_unary(
-                '/Counter/CountDepartment',
+                '/CompanyCounter/CountDepartment',
                 request_serializer=counter__pb2.CountDepartmentRequest.SerializeToString,
-                response_deserializer=counter__pb2.CountResponse.FromString,
+                response_deserializer=counter__pb2.CompanyCountResponse.FromString,
                 )
         self.CountDepartmentUser = channel.unary_unary(
-                '/Counter/CountDepartmentUser',
+                '/CompanyCounter/CountDepartmentUser',
                 request_serializer=counter__pb2.CountDepartmentUserRequest.SerializeToString,
-                response_deserializer=counter__pb2.CountResponse.FromString,
+                response_deserializer=counter__pb2.CompanyCountResponse.FromString,
                 )
 
 
-class CounterServicer(object):
+class CompanyCounterServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def CountCompany(self, request, context):
@@ -70,36 +70,36 @@ class CounterServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_CounterServicer_to_server(servicer, server):
+def add_CompanyCounterServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CountCompany': grpc.unary_unary_rpc_method_handler(
                     servicer.CountCompany,
                     request_deserializer=counter__pb2.CountCompanyRequest.FromString,
-                    response_serializer=counter__pb2.CountResponse.SerializeToString,
+                    response_serializer=counter__pb2.CompanyCountResponse.SerializeToString,
             ),
             'CountCompanyUser': grpc.unary_unary_rpc_method_handler(
                     servicer.CountCompanyUser,
                     request_deserializer=counter__pb2.CountCompanyUserRequest.FromString,
-                    response_serializer=counter__pb2.CountResponse.SerializeToString,
+                    response_serializer=counter__pb2.CompanyCountResponse.SerializeToString,
             ),
             'CountDepartment': grpc.unary_unary_rpc_method_handler(
                     servicer.CountDepartment,
                     request_deserializer=counter__pb2.CountDepartmentRequest.FromString,
-                    response_serializer=counter__pb2.CountResponse.SerializeToString,
+                    response_serializer=counter__pb2.CompanyCountResponse.SerializeToString,
             ),
             'CountDepartmentUser': grpc.unary_unary_rpc_method_handler(
                     servicer.CountDepartmentUser,
                     request_deserializer=counter__pb2.CountDepartmentUserRequest.FromString,
-                    response_serializer=counter__pb2.CountResponse.SerializeToString,
+                    response_serializer=counter__pb2.CompanyCountResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'Counter', rpc_method_handlers)
+            'CompanyCounter', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class Counter(object):
+class CompanyCounter(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -113,9 +113,9 @@ class Counter(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Counter/CountCompany',
+        return grpc.experimental.unary_unary(request, target, '/CompanyCounter/CountCompany',
             counter__pb2.CountCompanyRequest.SerializeToString,
-            counter__pb2.CountResponse.FromString,
+            counter__pb2.CompanyCountResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -130,9 +130,9 @@ class Counter(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Counter/CountCompanyUser',
+        return grpc.experimental.unary_unary(request, target, '/CompanyCounter/CountCompanyUser',
             counter__pb2.CountCompanyUserRequest.SerializeToString,
-            counter__pb2.CountResponse.FromString,
+            counter__pb2.CompanyCountResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -147,9 +147,9 @@ class Counter(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Counter/CountDepartment',
+        return grpc.experimental.unary_unary(request, target, '/CompanyCounter/CountDepartment',
             counter__pb2.CountDepartmentRequest.SerializeToString,
-            counter__pb2.CountResponse.FromString,
+            counter__pb2.CompanyCountResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -164,8 +164,8 @@ class Counter(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Counter/CountDepartmentUser',
+        return grpc.experimental.unary_unary(request, target, '/CompanyCounter/CountDepartmentUser',
             counter__pb2.CountDepartmentUserRequest.SerializeToString,
-            counter__pb2.CountResponse.FromString,
+            counter__pb2.CompanyCountResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
