@@ -2,17 +2,16 @@ syntax = "proto3";
 
 option go_package = '../proto';
 
-import "google/protobuf/empty.proto";
-
 service ResumeCounterService{
-  rpc CountUserMessage(CountUserMessageRequest) returns(CountResponse);
+  rpc CountUserMessage(CountUserMessageRequest) returns(CountUserMessageResponse);
 }
 
 message CountUserMessageRequest{
   int64 user_id = 1;
   map<string, string> where = 2;
+  int32 status = 3;
 }
 
-message CountResponse{
+message CountUserMessageResponse{
   int64 count = 1;
 }

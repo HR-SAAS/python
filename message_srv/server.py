@@ -8,13 +8,14 @@ from functools import partial
 import grpc
 
 from common.utils import get_free_tcp_port, get_ip_addr
+from message_srv.handler.counter import CounterService
 
 BASEDIR = os.path.dirname(os.path.abspath(os.path.dirname(__file__)))
 sys.path.insert(0, BASEDIR)
 
 # 配置引入路径
 
-from message_srv.proto import user_message_pb2_grpc
+from message_srv.proto import user_message_pb2_grpc, counter_pb2_grpc
 from common.health_check.proto import health_pb2_grpc
 from common.register.consul import ConsulRegister
 from message_srv.handler.user_message import UserMessageService
@@ -57,7 +58,7 @@ if __name__ == '__main__':
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     # 简历服务
     user_message_pb2_grpc.add_UserMessageServicer_to_server(UserMessageService(), server)
-
+    counter_pb2_grpc.add_ResumeCounterServiceServicer_to_server(CounterService(), server)
     # 健康
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)
     server.add_insecure_port(f"{host}:{port}")
