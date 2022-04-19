@@ -10,7 +10,7 @@ class CounterService(counter_pb2_grpc.CompanyCounterServicer):
         """-----------------------统计服务---
         统计一共多少个公司
         """
-        model = Company().select()
+        model = Company.select()
         if req.search["creator_id"]:
             model = model.where(Company.creator_id == req.search["creator_id"])
         if req.search["name"]:
@@ -24,7 +24,7 @@ class CounterService(counter_pb2_grpc.CompanyCounterServicer):
     def CountCompanyUser(self, req: counter_pb2.CountCompanyUserRequest, context):
         """统计某公司多少人
         """
-        model = UserCompany().select()
+        model = UserCompany.select()
         if req.search["company_id"]:
             model = model.where(UserCompany.company_id == req.search["company_id"])
         if req.search["user_id"]:
@@ -38,7 +38,7 @@ class CounterService(counter_pb2_grpc.CompanyCounterServicer):
     def CountDepartment(self, req: counter_pb2.CountDepartmentRequest, context):
         """统计公司有多少个部门
         """
-        model = Department().select()
+        model = Department.select()
         if req.search["creator_id"]:
             model = model.where(Department.creator_id == req.search["creator_id"])
         if req.search["company_id"]:
@@ -54,7 +54,7 @@ class CounterService(counter_pb2_grpc.CompanyCounterServicer):
     def CountDepartmentUser(self, req: counter_pb2.CountDepartmentUserRequest, context):
         """统计部门人数
         """
-        model = UserDepartment().select()
+        model = UserDepartment.select()
         if req.search["department_id"]:
             model = model.where(UserDepartment.department_id == req.search["department_id"])
         if req.search["user_id"]:

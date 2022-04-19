@@ -10,7 +10,7 @@ class CounterService(counter_pb2_grpc.ResumeCounterServiceServicer):
         """-----------------------统计服务---
         统计一共多少个公司
         """
-        model = UserMessage().select()
+        model = UserMessage.select()
         if req.user_id:
             model = model.where(UserMessage.user_id == req.user_id)
         if req.search["content"]:
