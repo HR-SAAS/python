@@ -4,7 +4,7 @@ from message_srv.model.model import UserMessage
 from message_srv.proto import counter_pb2, counter_pb2_grpc
 
 
-class CounterService(counter_pb2_grpc.ResumeCounterServiceServicer):
+class CounterService(counter_pb2_grpc.MessageCounterServicer):
 
     def CountUserMessage(self, req: counter_pb2.CountUserMessageRequest, context):
         """-----------------------统计服务---

@@ -5,7 +5,7 @@ import grpc
 from . import counter_pb2 as counter__pb2
 
 
-class ResumeCounterServiceStub(object):
+class MessageCounterStub(object):
     """Missing associated documentation comment in .proto file."""
 
     def __init__(self, channel):
@@ -15,13 +15,13 @@ class ResumeCounterServiceStub(object):
             channel: A grpc.Channel.
         """
         self.CountUserMessage = channel.unary_unary(
-                '/ResumeCounterService/CountUserMessage',
+                '/MessageCounter/CountUserMessage',
                 request_serializer=counter__pb2.CountUserMessageRequest.SerializeToString,
                 response_deserializer=counter__pb2.CountUserMessageResponse.FromString,
                 )
 
 
-class ResumeCounterServiceServicer(object):
+class MessageCounterServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def CountUserMessage(self, request, context):
@@ -31,7 +31,7 @@ class ResumeCounterServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
 
-def add_ResumeCounterServiceServicer_to_server(servicer, server):
+def add_MessageCounterServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'CountUserMessage': grpc.unary_unary_rpc_method_handler(
                     servicer.CountUserMessage,
@@ -40,12 +40,12 @@ def add_ResumeCounterServiceServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'ResumeCounterService', rpc_method_handlers)
+            'MessageCounter', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
  # This class is part of an EXPERIMENTAL API.
-class ResumeCounterService(object):
+class MessageCounter(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
@@ -59,7 +59,7 @@ class ResumeCounterService(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/ResumeCounterService/CountUserMessage',
+        return grpc.experimental.unary_unary(request, target, '/MessageCounter/CountUserMessage',
             counter__pb2.CountUserMessageRequest.SerializeToString,
             counter__pb2.CountUserMessageResponse.FromString,
             options, channel_credentials,

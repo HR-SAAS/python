@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rcounter.proto\"\x9f\x01\n\x17\x43ountUserMessageRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x34\n\x06search\x18\x02 \x03(\x0b\x32$.CountUserMessageRequest.SearchEntry\x12\x0e\n\x06status\x18\x03 \x01(\x05\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\")\n\x18\x43ountUserMessageResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x32_\n\x14ResumeCounterService\x12G\n\x10\x43ountUserMessage\x12\x18.CountUserMessageRequest\x1a\x19.CountUserMessageResponseB\nZ\x08../protob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rcounter.proto\"\x9f\x01\n\x17\x43ountUserMessageRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x34\n\x06search\x18\x02 \x03(\x0b\x32$.CountUserMessageRequest.SearchEntry\x12\x0e\n\x06status\x18\x03 \x01(\x05\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\")\n\x18\x43ountUserMessageResponse\x12\r\n\x05\x63ount\x18\x01 \x01(\x03\x32Y\n\x0eMessageCounter\x12G\n\x10\x43ountUserMessage\x12\x18.CountUserMessageRequest\x1a\x19.CountUserMessageResponseB\nZ\x08../protob\x06proto3')
 
 
 
@@ -43,7 +43,7 @@ CountUserMessageResponse = _reflection.GeneratedProtocolMessageType('CountUserMe
   })
 _sym_db.RegisterMessage(CountUserMessageResponse)
 
-_RESUMECOUNTERSERVICE = DESCRIPTOR.services_by_name['ResumeCounterService']
+_MESSAGECOUNTER = DESCRIPTOR.services_by_name['MessageCounter']
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
@@ -56,6 +56,6 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _COUNTUSERMESSAGEREQUEST_SEARCHENTRY._serialized_end=177
   _COUNTUSERMESSAGERESPONSE._serialized_start=179
   _COUNTUSERMESSAGERESPONSE._serialized_end=220
-  _RESUMECOUNTERSERVICE._serialized_start=222
-  _RESUMECOUNTERSERVICE._serialized_end=317
+  _MESSAGECOUNTER._serialized_start=222
+  _MESSAGECOUNTER._serialized_end=311
 # @@protoc_insertion_point(module_scope)

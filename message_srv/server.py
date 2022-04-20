@@ -56,7 +56,7 @@ if __name__ == '__main__':
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     # 简历服务
     user_message_pb2_grpc.add_UserMessageServicer_to_server(UserMessageService(), server)
-    counter_pb2_grpc.add_ResumeCounterServiceServicer_to_server(CounterService(), server)
+    counter_pb2_grpc.add_MessageCounterServicer_to_server(CounterService(), server)
     # 健康
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)
     server.add_insecure_port(f"{host}:{port}")
