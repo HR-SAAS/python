@@ -83,7 +83,6 @@ class ResumeService(resume_pb2_grpc.ResumeServicer):
     def CreateResume(self, req: resume_pb2.CreateResumeRequest, context):
         """创建简历
         """
-        logger.info(req.tag)
         resume = response_convert_resume(req)
         resume.save()
         return resume_convert_response(resume)
@@ -96,8 +95,8 @@ class ResumeService(resume_pb2_grpc.ResumeServicer):
         with DB.atomic() as transaction:
             try:
                 item = Resume.get_by_id(req.id)
-                logger.info(item)
                 item = convert_resume(req, item)
+                logger.info(item.content)
                 item.save()
                 return resume_convert_response(item)
             except Exception as e:
