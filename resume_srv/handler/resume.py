@@ -58,8 +58,7 @@ class ResumeService(resume_pb2_grpc.ResumeServicer):
             page = req.page
         if req.limit:
             limit = req.limit
-        stat = limit * (page - 1)
-
+        start = limit * (page - 1)
         model = Resume.select()
 
         if req.search is not None:
@@ -68,13 +67,13 @@ class ResumeService(resume_pb2_grpc.ResumeServicer):
                 model = model.where(Resume.user_id == search['user_id'])
 
         if req.sort is not None:
-            for i,v in dict(req.sort).items():
-                model = model.order_by(i,v)
+            for i, v in dict(req.sort).items():
+                model = model.order_by(i, v)
         # 动态search
         rsp = resume_pb2.ResumeListResponse()
 
         rsp.total = model.count()
-        data = model.limit(limit).offset(stat)
+        data = model.limit(limit).offset(start)
         print(data)
         for item in data:
             rsp.data.append(resume_convert_response(item))
@@ -96,10 +95,10 @@ class ResumeService(resume_pb2_grpc.ResumeServicer):
         from resume_srv.config.config import DB
         with DB.atomic() as transaction:
             try:
-
-                item = response_convert_resume(req)
+                item = Resume.get_by_id(req.id)
+                logger.info(item)
+                item = convert_resume(req, item)
                 item.save()
-                # 同时创建关联
                 return resume_convert_response(item)
             except Exception as e:
                 transaction.rollback()
@@ -135,4 +134,3 @@ class ResumeService(resume_pb2_grpc.ResumeServicer):
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("找不到数据")
             return resume_convert_response(None)
-
