@@ -2,7 +2,7 @@ syntax = "proto3";
 
 option go_package = '../proto';
 
-service ResumeCounterService{
+service MessageCounter{
   rpc CountUserMessage(CountUserMessageRequest) returns(CountUserMessageResponse);
 }
 
