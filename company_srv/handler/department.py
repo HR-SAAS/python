@@ -53,6 +53,10 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
         stat = limit * (page - 1)
 
         departments = Department.select()
+        logger.info(req.company_id)
+        if req.company_id:
+            departments = departments.where(Department.company_id == req.company_id)
+
         rsp = department_pb2.GetDepartmentListResponse()
         rsp.total = departments.count()
         departments = departments.limit(limit).offset(stat)
@@ -167,8 +171,8 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
         for item in data:
             rsp.data.append(
                 department_pb2.UserDepartmentResponse(
-                    user_id=item.user_id,department_id=item.department_id,
-                    status=item.status,nick_name=item.nick_name,
+                    user_id=item.user_id, department_id=item.department_id,
+                    status=item.status, nick_name=item.nick_name,
                     remark=item.remark
                 )
             )

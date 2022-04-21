@@ -71,7 +71,7 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
     @logger.catch
     def GetCompanyDetail(self, req: company_pb2.GetCompanyDetailRequest, context):
         try:
-            company = Company.get(Company.id == Company.id)
+            company = Company.get(Company.id == req.id)
             return company_convert_response(company)
         except DoesNotExist as e:
             context.set_code(grpc.StatusCode.NOT_FOUND)
