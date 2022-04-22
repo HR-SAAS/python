@@ -53,7 +53,6 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
         stat = limit * (page - 1)
 
         departments = Department.select()
-        logger.info(req.company_id)
         if req.company_id:
             departments = departments.where(Department.company_id == req.company_id)
 

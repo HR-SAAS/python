@@ -37,6 +37,7 @@ def convert_user_post(source, to):
         "remark",
         "review_id",
         "status",
+        "resume_name"
     ]:
         temp = getattr(source, i)
         if temp is not None and temp != -1 and temp != "":

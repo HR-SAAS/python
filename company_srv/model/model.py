@@ -36,7 +36,7 @@ class Department(BaseModel, DeletedModel):
 
     info = JSONField(verbose_name='其他信息', null=True)
     creator_id = IntegerField(verbose_name='负责人')
-    status = EnumField(verbose_name='状态', default=0)
+    status = EnumField(verbose_name='状态', default=1)
 
 
 # 用户企业表
@@ -48,8 +48,7 @@ class UserCompany(BaseModel, DeletedModel):
     nick_name = CharField(verbose_name='昵称/花名文化')
     remark = CharField(verbose_name='备注', null=True)
     info = JSONField(verbose_name='其他信息', null=True)
-    status = EnumField(verbose_name='状态,入职,离职,其他')
-
+    status = EnumField(verbose_name='状态,入职,离职,其他',default=1)
 
 
 class UserDepartment(BaseModel, DeletedModel):
@@ -57,13 +56,13 @@ class UserDepartment(BaseModel, DeletedModel):
     department_id = IntegerField(verbose_name='部门id', default=0)
     nick_name = CharField(verbose_name='昵称/花名文化')
     remark = CharField(verbose_name='备注', null=True)
-    status = EnumField(verbose_name='状态')
+    status = EnumField(verbose_name='状态',default=1)
 
 
 if __name__ == '__main__':
     #  打印
     config.DB.create_tables([Company, Department, UserCompany])
-    c1=Company(name="test",desc="test",creator_id=1)
+    c1 = Company(name="test", desc="test", creator_id=1)
     c1.save()
     # print()
     # c1 = Company().get(Company.id == 2)

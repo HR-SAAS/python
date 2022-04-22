@@ -44,11 +44,12 @@ message UserPostResponse{
   int64 user_id = 3;
   int64 resume_id = 4;
   string resume_type = 5;
-  string resume = 6;
-  string remark = 7;
+  string resume_name = 6;
+  string resume = 7;
   int64 review_id = 8;
   int32 status = 9;
   int64 company_id = 10;
+  string remark= 11;
 
   google.protobuf.Timestamp created_at = 16;
   google.protobuf.Timestamp updated_at = 17;
@@ -72,12 +73,12 @@ message CreateUserPostRequest{
   int64 user_id = 3;
   int64 resume_id = 4;
   string resume_type = 5;
-  string resume = 6;
-  string remark = 7;
+  string resume_name = 6;
+  string resume = 7;
   int64 review_id = 8;
   int32 status = 9;
-
   int64 company_id = 10;
+  string remark= 11;
 }
 
 message UpdateUserPostRequest{
@@ -86,12 +87,13 @@ message UpdateUserPostRequest{
   int64 user_id = 3;
   int64 resume_id = 4;
   string resume_type = 5;
-  string resume = 6;
-  string remark = 7;
+  string resume_name = 6;
+  string resume = 7;
   int64 review_id = 8;
   int32 status = 9;
 
   int64 company_id = 10;
+  string remark= 11;
 }
 
 message DeleteUserPostRequest{
