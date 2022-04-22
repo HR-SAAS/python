@@ -33,7 +33,7 @@ message PostResponse{
   int64 company_id = 2;
   int64 department_id = 3;
   int64 creator_id = 4;
-  int32 type_id = 5;
+  int32 type = 5;
 
   string name = 6;
   string desc = 7;
@@ -70,7 +70,7 @@ message CreatePostRequest{
   int64 company_id = 2;
   int64 department_id = 3;
   int64 creator_id = 4;
-  int32 type_id = 5;
+  int32 type = 5;
 
   string name = 6;
   string desc = 7;
@@ -79,9 +79,6 @@ message CreatePostRequest{
   int32 experience = 9;
   int32 education = 10;
   string address = 11;
-
-  int32 view_count = 12;
-  int32 like_count = 13;
 
   google.protobuf.Timestamp start_at = 14;
   google.protobuf.Timestamp end_at = 15;
@@ -91,7 +88,7 @@ message UpdatePostRequest{
   int64 company_id = 2;
   int64 department_id = 3;
   int64 creator_id = 4;
-  int32 type_id = 5;
+  int32 type = 5;
 
   string name = 6;
   string desc = 7;
@@ -100,9 +97,6 @@ message UpdatePostRequest{
   int32 experience = 9;
   int32 education = 10;
   string address = 11;
-
-  int32 view_count = 12;
-  int32 like_count = 13;
 
   google.protobuf.Timestamp start_at = 14;
   google.protobuf.Timestamp end_at = 15;

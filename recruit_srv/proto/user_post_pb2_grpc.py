@@ -3,7 +3,7 @@
 import grpc
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-import user_post_pb2 as user__post__pb2
+from . import user_post_pb2 as user__post__pb2
 
 
 class UserPostStub(object):

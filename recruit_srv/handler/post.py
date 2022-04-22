@@ -15,8 +15,6 @@ def post_convert_response(post):
     if post is None:
         return item
     item.id = post.id
-    item.post_count = post.post_count
-
     # 简历信息设置
     item.start_at.FromDatetime(post.start_at)
     item.end_at.FromDatetime(post.end_at)
@@ -29,8 +27,10 @@ def post_convert_response(post):
 def response_convert_post(request):
     item = Post()
     #  写入时间
-    item.start_at = request.start_at.ToDatetime()
-    item.end_at = request.end_at.ToDatetime()
+    if request.start_at.seconds:
+        item.start_at = request.start_at.ToDatetime()
+    if request.end_at.seconds:
+        item.end_at = request.end_at.ToDatetime()
     return convert_post(request, item)
 
 
@@ -39,7 +39,7 @@ def convert_post(source, to):
         "company_id",
         "department_id",
         "creator_id",
-        "type_id",
+        "type",
         "name",
         "desc",
         "content",

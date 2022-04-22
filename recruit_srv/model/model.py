@@ -13,7 +13,7 @@ class Post(BaseModel, DeletedModel):
     company_id = IntegerField(verbose_name='公司id')
     department_id = IntegerField(verbose_name='部门id,是否关联部门', default=0)
     creator_id = IntegerField(verbose_name='发布人')
-    type_id = EnumField(verbose_name='类型id: 1普通招聘,2校招,3内推等', default=1)
+    type = EnumField(verbose_name='类型id: 1普通招聘,2校招,3内推等', default=1)
 
     name = CharField(verbose_name='名称')
     desc = TextField(verbose_name='简介', null=True)
