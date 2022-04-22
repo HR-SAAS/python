@@ -111,8 +111,10 @@ class PostService(post_pb2_grpc.PostServicer):
             try:
                 item = Post.get_by_id(req.id)
                 item = convert_post(req, item)
-                item.start_at = req.start_at.ToDatetime()
-                item.end_at = req.end_at.ToDatetime()
+                if req.start_at.seconds:
+                    item.start_at = req.start_at.ToDatetime()
+                if req.end_at.seconds:
+                    item.end_at = req.end_at.ToDatetime()
                 item.save()
                 return post_convert_response(item)
             except Exception as e:

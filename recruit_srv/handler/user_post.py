@@ -15,11 +15,6 @@ def user_post_convert_response(user_post):
     if user_post is None:
         return item
     item.id = user_post.id
-    item.post_count = user_post.post_count
-
-    # 简历信息设置
-    item.start_at.FromDatetime(user_post.start_at)
-    item.end_at.FromDatetime(user_post.end_at)
 
     item.created_at.FromDatetime(user_post.created_at)
     item.updated_at.FromDatetime(user_post.updated_at)
@@ -29,8 +24,6 @@ def user_post_convert_response(user_post):
 def response_convert_user_post(request):
     item = UserPost()
     #  写入时间
-    item.start_at = request.start_at.ToDatetime()
-    item.end_at = request.end_at.ToDatetime()
     return convert_user_post(request, item)
 
 
@@ -107,8 +100,6 @@ class UserPostService(user_post_pb2_grpc.UserPostServicer):
             try:
                 item = UserPost.get_by_id(req.id)
                 item = convert_user_post(req, item)
-                item.start_at = req.start_at.ToDatetime()
-                item.end_at = req.end_at.ToDatetime()
                 item.save()
                 return user_post_convert_response(item)
             except Exception as e:

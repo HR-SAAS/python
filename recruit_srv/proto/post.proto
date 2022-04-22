@@ -85,6 +85,7 @@ message CreatePostRequest{
 }
 
 message UpdatePostRequest{
+  int64 id = 1;
   int64 company_id = 2;
   int64 department_id = 3;
   int64 creator_id = 4;
