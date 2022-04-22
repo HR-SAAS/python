@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+option go_package = '../proto';
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+service UserPost{
+  // 获取岗位 投递列表
+  rpc GetUserPostList(GetUserPostListRequest) returns (UserPostListResponse);
+
+  // 投递简历
+  rpc CreateUserPost(CreateUserPostRequest) returns (UserPostResponse);
+
+  // 修改投递
+  rpc UpdateUserPost(UpdateUserPostRequest) returns (google.protobuf.Empty);
+
+  // 取消投递
+  rpc DeleteUserPost(DeleteUserPostRequest) returns(google.protobuf.Empty);
+
+  // 获取投递详情
+  rpc GetUserPostDetail(GetUserPostDetailRequest) returns (UserPostResponse);
+
+  // 批量修改状态
+  rpc BatchUpdateUserPost(BatchUpdateUserPostRequest) returns (google.protobuf.Empty);
+}
+
+
+message GetUserPostDetailRequest{
+  int64 id = 1;
+}
+
+message BatchUpdateUserPostRequest{
+  repeated int64 id = 1;
+  string remark = 2;
+  int64 review_id = 3;
+  int32 status = 4;
+}
+
+
+message UserPostResponse{
+  int64 id = 1;
+  int64 post_id = 2;
+  int64 user_id = 3;
+  int64 resume_id = 4;
+  string resume = 5;
+  string remark = 6;
+  int64 review_id = 7;
+  int32 status = 8;
+
+
+  google.protobuf.Timestamp created_at = 16;
+  google.protobuf.Timestamp updated_at = 17;
+}
+
+
+message GetUserPostListRequest{
+  int32 page = 2;
+  int32 limit = 3;
+  map<string, string> sort = 4;
+  map<string, string> search = 5;
+}
+
+message UserPostListResponse{
+  repeated UserPostResponse data = 1;
+  int32 total = 2;
+}
+
+message CreateUserPostRequest{
+  int64 post_id = 2;
+  int64 user_id = 3;
+  int64 resume_id = 4;
+  string resume = 5;
+  string remark = 6;
+  int64 review_id = 7;
+  int32 status = 8;
+}
+
+message UpdateUserPostRequest{
+  int64 id = 1;
+  int64 post_id = 2;
+  int64 user_id = 3;
+  int64 resume_id = 4;
+  string resume = 5;
+  string remark = 6;
+  int64 review_id = 7;
+  int32 status = 8;
+}
+
+message DeleteUserPostRequest{
+  int64 id = 1;
+}

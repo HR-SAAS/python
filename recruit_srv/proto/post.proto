@@ -1,19 +1,113 @@
 syntax = "proto3";
 
+option go_package = '../proto';
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
 service Post{
-  // 岗位
-  rpc GetDepartmentList(GetDepartmentListRequest) returns (DepartmentListResponse);
-  rpc CreateDepartment(DepartmentRequest) returns (DepartmentResponse);
-  rpc UpdateDepartment(DepartmentRequest) returns (google.protobuf.Empty);
-  rpc DeleteDepartment(DepartmentRequest) returns (google.protobuf.Empty);
+  // 获取岗位列表
+  rpc GetPostList(GetPostListRequest) returns (PostListResponse);
+
+  // 创建岗位
+  rpc CreatePost(CreatePostRequest) returns (PostResponse);
+
+  // 修改岗位
+  rpc UpdatePost(UpdatePostRequest) returns (google.protobuf.Empty);
+
+  // 删除岗位
+  rpc DeletePost(DeletePostRequest) returns(google.protobuf.Empty);
+
+  // 获取岗位详情
+  rpc GetPostDetail(GetPostDetailRequest) returns (PostResponse);
 }
 
+
+message GetPostDetailRequest{
+  int64 id = 1;
+}
+
+
+message PostResponse{
+  int64 id = 1;
+  int64 company_id = 2;
+  int64 department_id = 3;
+  int64 creator_id = 4;
+  int32 type_id = 5;
+
+  string name = 6;
+  string desc = 7;
+  string content = 8;
+
+  int32 experience = 9;
+  int32 education = 10;
+  string address = 11;
+
+  int32 view_count = 12;
+  int32 like_count = 13;
+
+  google.protobuf.Timestamp start_at = 14;
+  google.protobuf.Timestamp end_at = 15;
+
+  google.protobuf.Timestamp created_at = 16;
+  google.protobuf.Timestamp updated_at = 17;
+}
 
 
 message GetPostListRequest{
-
+  int32 page = 2;
+  int32 limit = 3;
+  map<string, string> sort = 4;
+  map<string, string> search = 5;
 }
 
 message PostListResponse{
+  repeated PostResponse data = 1;
+  int32 total = 2;
+}
 
+message CreatePostRequest{
+  int64 company_id = 2;
+  int64 department_id = 3;
+  int64 creator_id = 4;
+  int32 type_id = 5;
+
+  string name = 6;
+  string desc = 7;
+  string content = 8;
+
+  int32 experience = 9;
+  int32 education = 10;
+  string address = 11;
+
+  int32 view_count = 12;
+  int32 like_count = 13;
+
+  google.protobuf.Timestamp start_at = 14;
+  google.protobuf.Timestamp end_at = 15;
+}
+
+message UpdatePostRequest{
+  int64 company_id = 2;
+  int64 department_id = 3;
+  int64 creator_id = 4;
+  int32 type_id = 5;
+
+  string name = 6;
+  string desc = 7;
+  string content = 8;
+
+  int32 experience = 9;
+  int32 education = 10;
+  string address = 11;
+
+  int32 view_count = 12;
+  int32 like_count = 13;
+
+  google.protobuf.Timestamp start_at = 14;
+  google.protobuf.Timestamp end_at = 15;
+}
+
+message DeletePostRequest{
+  int64 id = 1;
 }
