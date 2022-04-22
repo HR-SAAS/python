@@ -73,7 +73,7 @@ class PostService(post_pb2_grpc.PostServicer):
             if search['company_id']:
                 model = model.where(Post.company_id == search['company_id'])
             if search['name']:
-                model = model.where(Post.name << f"%{search['name']}%")
+                model = model.where(Post.name ** f"%{search['name']}%")
             if search['creator_id']:
                 model = model.where(Post.creator_id == search['creator_id'])
             if search['start_at']:

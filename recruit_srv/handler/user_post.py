@@ -137,9 +137,18 @@ class UserPostService(user_post_pb2_grpc.UserPostServicer):
             context.set_details("找不到数据")
             return user_post_convert_response(None)
 
-    def BatchUpdateUserPost(self, request, context):
+    def BatchUpdateUserPost(self, req:user_post_pb2.BatchUpdateUserPostRequest, context):
         """批量修改状态
         """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        from recruit_srv.config.config import DB
+        with DB.atomic() as transaction:
+            try:
+                model = UserPost.update(status=req.status,remark=req.remark,review_id=req.review_id)\
+                    .where(UserPost.id << list(req.ids))
+                model.execute()
+            except Exception as e:
+                transaction.rollback()
+                context.set_code(grpc.StatusCode.INTERNAL)
+                context.set_details(f"内部错误  {e}")
+            finally:
+                return google.protobuf.empty_pb2.Empty()
