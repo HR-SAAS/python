@@ -1,7 +1,28 @@
 syntax = "proto3";
 option go_package = '../proto';
 
-service RecruitCounter{
-  rpc CountPost() returns();
-  rpc CountUserPost() returns();
+service RecruitCounterService{
+  // 统计简历
+  rpc CountPost(CountPostRequest) returns(CountPostResponse);
+  rpc CountUserPost(CountUserPostRequest) returns(CountUserPostResponse);
+}
+
+// 岗位统计
+message CountPostRequest{
+  int64 company_id = 1;
+  map<string,string> search = 2;
+}
+
+message CountUserPostRequest{
+  int64 company_id = 1;
+  int64 post_id = 2;
+  map<string,string> search = 3;
+}
+
+message CountUserPostResponse{
+  int64 count = 1;
+}
+
+message CountPostResponse{
+  int64 count = 1;
 }

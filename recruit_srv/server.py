@@ -14,10 +14,11 @@ sys.path.insert(0, BASEDIR)
 # 配置引入路径
 from common.utils import get_free_tcp_port, get_ip_addr
 from recruit_srv.handler.counter import CounterService
-from recruit_srv.proto import resume_pb2_grpc,counter_pb2_grpc
+from recruit_srv.proto import post_pb2_grpc,user_post_pb2_grpc
 from common.health_check.proto import health_pb2_grpc
 from common.register.consul import ConsulRegister
-from recruit_srv.handler.resume import ResumeService
+from recruit_srv.handler.post import PostService
+from recruit_srv.handler.user_post import UserPostService
 from common.health_check.handler.health import HealthService
 from loguru import logger
 from recruit_srv.config import config
@@ -55,10 +56,12 @@ if __name__ == '__main__':
         host = get_ip_addr()
 
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    # 简历服务
-    resume_pb2_grpc.add_ResumeServicer_to_server(ResumeService(), server)
+    # 招聘服务
+    post_pb2_grpc.add_PostServicer_to_server(PostService(), server)
+    user_post_pb2_grpc.add_UserPostServicer_to_server(UserPostService(),server)
     # 统计服务
-    counter_pb2_grpc.add_ResumeCounterServiceServicer_to_server(CounterService(),server)
+
+
     # 健康
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)
     server.add_insecure_port(f"{host}:{port}")

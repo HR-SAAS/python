@@ -37,15 +37,13 @@ def response_convert_user_post(request):
 def convert_user_post(source, to):
     for i in [
         "company_id",
-        "department_id",
-        "creator_id",
-        "type_id",
-        "name",
-        "desc",
-        "content",
-        "experience",
-        "education",
-        "address"
+        "post_id",
+        "user_id",
+        "resume_id",
+        "resume",
+        "remark",
+        "review_id",
+        "status",
     ]:
         temp = getattr(source, i)
         if temp is not None and temp != -1 and temp != "":
@@ -141,3 +139,10 @@ class UserPostService(user_post_pb2_grpc.UserPostServicer):
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("找不到数据")
             return user_post_convert_response(None)
+
+    def BatchUpdateUserPost(self, request, context):
+        """批量修改状态
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')

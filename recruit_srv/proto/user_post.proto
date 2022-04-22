@@ -47,7 +47,7 @@ message UserPostResponse{
   string remark = 6;
   int64 review_id = 7;
   int32 status = 8;
-
+  int64 company_id = 9;
 
   google.protobuf.Timestamp created_at = 16;
   google.protobuf.Timestamp updated_at = 17;
@@ -74,6 +74,8 @@ message CreateUserPostRequest{
   string remark = 6;
   int64 review_id = 7;
   int32 status = 8;
+
+  int64 company_id = 9;
 }
 
 message UpdateUserPostRequest{
@@ -85,6 +87,8 @@ message UpdateUserPostRequest{
   string remark = 6;
   int64 review_id = 7;
   int32 status = 8;
+
+  int64 company_id = 9;
 }
 
 message DeleteUserPostRequest{
