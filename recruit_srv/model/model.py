@@ -1,5 +1,12 @@
 from common.model.ext import *
 
+from recruit_srv.config import config
+
+
+class BaseModel(BaseModel):
+    class Meta:
+        database = config.DB
+
 
 # 岗位
 class Post(BaseModel, DeletedModel):
@@ -26,7 +33,7 @@ class Post(BaseModel, DeletedModel):
 
 
 #  投递记录,批量修改状态(短期内只能投递一次,避免重复投递)
-class UserPost(BaseModel):
+class UserPost(BaseModel,DeletedModel):
     company_id = IntegerField(verbose_name='公司id,用于快速查询')
     post_id = IntegerField(verbose_name='岗位id')
     user_id = IntegerField(verbose_name='投递人id')

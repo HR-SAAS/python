@@ -14,7 +14,7 @@ sys.path.insert(0, BASEDIR)
 # 配置引入路径
 from common.utils import get_free_tcp_port, get_ip_addr
 from recruit_srv.handler.counter import CounterService
-from recruit_srv.proto import post_pb2_grpc,user_post_pb2_grpc
+from recruit_srv.proto import post_pb2_grpc,user_post_pb2_grpc,counter_pb2_grpc
 from common.health_check.proto import health_pb2_grpc
 from common.register.consul import ConsulRegister
 from recruit_srv.handler.post import PostService
@@ -60,8 +60,7 @@ if __name__ == '__main__':
     post_pb2_grpc.add_PostServicer_to_server(PostService(), server)
     user_post_pb2_grpc.add_UserPostServicer_to_server(UserPostService(),server)
     # 统计服务
-
-
+    counter_pb2_grpc.add_RecruitCounterServiceServicer_to_server(CounterService(),server)
     # 健康
     health_pb2_grpc.add_HealthServicer_to_server(HealthService(), server)
     server.add_insecure_port(f"{host}:{port}")
