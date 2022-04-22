@@ -70,8 +70,16 @@ class PostService(post_pb2_grpc.PostServicer):
 
         if req.search is not None:
             search = req.search
-            if search['user_id']:
-                model = model.where(Post.user_id == search['user_id'])
+            if search['company_id']:
+                model = model.where(Post.company_id == search['company_id'])
+            if search['name']:
+                model = model.where(Post.name << f"%{search['name']}%")
+            if search['creator_id']:
+                model = model.where(Post.creator_id == search['creator_id'])
+            if search['start_at']:
+                model = model.where(Post.start_at >= search['start_at'])
+            if search['end_at']:
+                model = model.where(Post.end_at <= search['end_at'])
 
         if req.sort is not None:
             for i, v in dict(req.sort).items():

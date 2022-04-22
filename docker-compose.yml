@@ -68,3 +68,19 @@ services:
       NACOS_GROUP: "${MESSAGE_NACOS_GROUP}"
     volumes:
       - ./common:/code/common
+
+  recruit-srv:
+    build:
+      context: ./recruit_srv
+    environment:
+      GRPC_POLL_STRATEGY: poll
+      NACOS_HOST: "${NACOS_HOST}"
+      NACOS_PORT: "${NACOS_PORT}"
+      NACOS_USERNAME: "${NACOS_USERNAME}"
+      NACOS_PASSWORD: "${NACOS_PASSWORD}"
+
+      NACOS_NAMESPACE: "${RECRUIT_NACOS_NAMESPACE}"
+      NACOS_DATA_ID: "${RECRUIT_NACOS_DATA_ID}"
+      NACOS_GROUP: "${RECRUIT_NACOS_GROUP}"
+    volumes:
+      - ./common:/code/common

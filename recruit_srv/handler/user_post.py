@@ -70,6 +70,12 @@ class UserPostService(user_post_pb2_grpc.UserPostServicer):
             search = req.search
             if search['user_id']:
                 model = model.where(UserPost.user_id == search['user_id'])
+            if search['company_id']:
+                model = model.where(UserPost.company_id == search['company_id'])
+            if search['resume_id']:
+                model = model.where(UserPost.resume_id == search['resume_id'])
+            if search['status']:
+                model = model.where(UserPost.status == search['status'])
 
         if req.sort is not None:
             for i, v in dict(req.sort).items():

@@ -31,7 +31,7 @@ message ResumeResponse{
   int64 id = 1;
   int64 user_id = 2;
   string name = 3;
-  int32 type = 4;
+  string type = 4;
   repeated string tag = 5;
   string content = 6;
   int32 status = 7;
@@ -57,7 +57,7 @@ message ResumeListResponse{
 message CreateResumeRequest{
   int64 user_id = 1;
   string name = 2;
-  int32 type = 3;
+  string type = 3;
   repeated string tag = 4;
   string content = 5;
   int32 status = 6;
@@ -67,7 +67,7 @@ message UpdateResumeRequest{
   int64 id = 1;
   int64 user_id = 2;
   string name = 3;
-  int32 type = 4;
+  string type = 4;
   repeated string tag = 5;
   string content = 6;
   int32 status = 7;

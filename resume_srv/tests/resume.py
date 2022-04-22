@@ -28,13 +28,13 @@ class ResumeTest:
         status = EnumField(verbose_name='状态', default=1)
         '''
         res = self.stub.CreateResume(
-            resume_pb2.CreateResumeRequest(user_id=1, name="测试简历", type=1, content="www.baidu.com", status=1))
+            resume_pb2.CreateResumeRequest(user_id=1, name="测试简历", type="file", content="www.baidu.com", status=1))
         print(res)
         return res.id
 
     def Update(self,id):
         res = self.stub.UpdateResume(
-            resume_pb2.UpdateResumeRequest(id=id,user_id=2, name="测试简历", type=1, content="www.baidu.com", status=1))
+            resume_pb2.UpdateResumeRequest(id=id,user_id=2, name="测试简历", type="pdf", content="www.baidu.com", status=1))
         print(res)
 
     def Delete(self,id):

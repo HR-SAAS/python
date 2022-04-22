@@ -33,11 +33,12 @@ class Post(BaseModel, DeletedModel):
 
 
 #  投递记录,批量修改状态(短期内只能投递一次,避免重复投递)
-class UserPost(BaseModel,DeletedModel):
+class UserPost(BaseModel, DeletedModel):
     company_id = IntegerField(verbose_name='公司id,用于快速查询')
     post_id = IntegerField(verbose_name='岗位id')
     user_id = IntegerField(verbose_name='投递人id')
     resume_id = IntegerField(verbose_name='简历id')
+    resume_type = CharField(verbose_name='简历类型:')
     resume = TextField(verbose_name='简历内容:直接把对应的resume放入')
     remark = CharField(verbose_name='投递简历审核后的反馈')
     review_id = IntegerField(verbose_name='审核人')
