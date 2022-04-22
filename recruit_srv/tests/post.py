@@ -6,7 +6,7 @@ from recruit_srv.model.model import Post
 from recruit_srv.proto import post_pb2, post_pb2_grpc
 
 
-class ResumeTest:
+class PostTest:
     def __init__(self, host, port=3300):
         # 得用filter/dns发现了
         channel = grpc.insecure_channel(f"{host}:{port}")
@@ -90,7 +90,7 @@ class ResumeTest:
 
 
 if __name__ == '__main__':
-    test = ResumeTest('192.168.50.1', 8010)
+    test = PostTest('192.168.50.1', 8010)
     print("--------------create")
     id = test.Create()
 
