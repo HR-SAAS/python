@@ -5,9 +5,9 @@ from company_srv.proto import department_pb2, department_pb2_grpc
 
 
 class DepartmentTest:
-    def __init__(self, port=3300):
+    def __init__(self, host='', port=3300):
         # 得用filter/dns发现了
-        channel = grpc.insecure_channel(f"192.168.50.1:{port}")
+        channel = grpc.insecure_channel(f"{host}:{port}")
         self.stub = department_pb2_grpc.DepartmentStub(channel)
 
     def GetDepartmentList(self):
@@ -70,8 +70,13 @@ class DepartmentTest:
         # print(res)
         pass
 
+    def GetListByIds(self):
+        res = self.stub.GetCompanyListByIds(department_pb2.GetDepartmentListByIdsRequest(ids=[1,2,3,4]))
+        # print(res)
+        pass
+
 if __name__ == '__main__':
-    test = DepartmentTest(7702)
+    test = DepartmentTest('192.168.50.1', 8003)
     print("--------------create")
     test.CreateDepartment()
 
@@ -90,3 +95,5 @@ if __name__ == '__main__':
 
     test.UpdateUserDepartment()
     test.DeleteUserDepartment()
+
+    test.GetListByIds()

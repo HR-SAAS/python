@@ -5,9 +5,10 @@ from company_srv.proto import company_pb2, company_pb2_grpc
 
 
 class CompanyTest:
-    def __init__(self,port=3300):
+    def __init__(self,host='192.168.50.1',port=3300):
         # 得用filter/dns发现了
-        channel = grpc.insecure_channel(f"192.168.50.1:{port}")
+        print(f'{host}:{port}')
+        channel = grpc.insecure_channel(f"{host}:{port}")
         self.stub = company_pb2_grpc.CompanyStub(channel)
 
     def GetList(self):
@@ -68,9 +69,13 @@ class CompanyTest:
         res = self.stub.DeleteUserCompany(company_pb2.DeleteUserCompanyRequest(company_id=3, user_id=2))
         print(res)
 
+    def GetListByIds(self):
+        res = self.stub.GetCompanyListByIds(company_pb2.GetCompanyListByIdsRequest(ids=[1,2,3,4]))
+        print(res)
+
 
 if __name__ == '__main__':
-    test = CompanyTest(8003)
+    test = CompanyTest('192.168.50.1',8003)
     print("--------------create")
     id = test.Create()
 
@@ -89,3 +94,5 @@ if __name__ == '__main__':
 
     test.UpdateUserCompany()
     test.DeleteUserCompany()
+
+    test.GetListByIds()
