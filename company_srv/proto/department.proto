@@ -6,7 +6,7 @@ option go_package = '../proto';
 // 部门
 service Department {
   // 获取部门列表
-  rpc GetDepartmentList(GetDepartmentListRequest) returns (GetDepartmentListResponse);
+  rpc GetDepartmentList(GetDepartmentListRequest) returns (DepartmentListResponse);
   // 获取部门详情
   rpc GetDepartmentDetail(GetDepartmentDetailRequest) returns (DepartmentResponse);
   // 创建部门
@@ -16,7 +16,7 @@ service Department {
   // 删除部门
   rpc DeleteDepartment(DeleteDepartmentRequest) returns (google.protobuf.Empty);
   // 只需要判断creator_id是否相同,即可确定主要角色
-  rpc GetMyDepartmentList(GetMyDepartmentListRequest) returns(GetDepartmentListResponse);
+  rpc GetMyDepartmentList(GetMyDepartmentListRequest) returns(DepartmentListResponse);
   // 全部人员分页
   rpc GetDepartmentUserIdList(GetDepartmentUserListRequest) returns(GetDepartmentUserIdListResponse);
   // 加入部门
@@ -25,6 +25,12 @@ service Department {
   rpc UpdateUserDepartment(SaveUserDepartmentRequest) returns(google.protobuf.Empty);
   // 人员部门删除(软删除)
   rpc DeleteUserDepartment(DeleteUserDepartmentRequest) returns (google.protobuf.Empty);
+
+  rpc GetCompanyListByIds(GetDepartmentListByIdsRequest) returns(DepartmentListResponse);
+}
+
+message GetDepartmentListByIdsRequest{
+    repeated int64 ids = 1;
 }
 
 message UserDepartmentResponse{
@@ -141,7 +147,7 @@ message GetDepartmentListRequest{
   map<string,string> sort = 5;
 }
 
-message GetDepartmentListResponse{
+message DepartmentListResponse{
   repeated DepartmentResponse data = 1;
   int32 total = 2;
 }

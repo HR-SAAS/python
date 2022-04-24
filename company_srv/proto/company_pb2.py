@@ -16,10 +16,11 @@ from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rcompany.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\"\xf2\x01\n\x13UserCompanyResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x12\n\ncompany_id\x18\x02 \x01(\x03\x12\x0e\n\x06status\x18\x03 \x01(\x05\x12\x15\n\rdepartment_id\x18\x04 \x01(\x03\x12\x11\n\tnick_name\x18\x05 \x01(\t\x12\x0e\n\x06remark\x18\x06 \x01(\t\x12\x0c\n\x04info\x18\x07 \x01(\t\x12.\n\ncreated_at\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nupdated_at\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"Q\n\x1cGetCompanyUserIdListResponse\x12\"\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x14.UserCompanyResponse\x12\r\n\x05total\x18\x02 \x01(\x05\"\x95\x01\n\x16SaveUserCompanyRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x12\n\ncompany_id\x18\x02 \x01(\x03\x12\x0e\n\x06status\x18\x03 \x01(\x05\x12\x15\n\rdepartment_id\x18\x04 \x01(\x03\x12\x11\n\tnick_name\x18\x05 \x01(\t\x12\x0e\n\x06remark\x18\x06 \x01(\t\x12\x0c\n\x04info\x18\x07 \x01(\t\"?\n\x18\x44\x65leteUserCompanyRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x12\n\ncompany_id\x18\x02 \x01(\x03\"\xad\x01\n\x19GetCompanyUserListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x12\n\ncompany_id\x18\x03 \x01(\x03\x12\x32\n\x04sort\x18\x05 \x03(\x0b\x32$.GetCompanyUserListRequest.SortEntry\x1a+\n\tSortEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xa6\x01\n\x17GetMyCompanyListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x0f\n\x07user_id\x18\x03 \x01(\x03\x12\x30\n\x04sort\x18\x05 \x03(\x0b\x32\".GetMyCompanyListRequest.SortEntry\x1a+\n\tSortEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"%\n\x17GetCompanyDetailRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"\xf4\x01\n\x15GetCompanyListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x32\n\x06search\x18\x03 \x03(\x0b\x32\".GetCompanyListRequest.SearchEntry\x12.\n\x04sort\x18\x04 \x03(\x0b\x32 .GetCompanyListRequest.SortEntry\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a+\n\tSortEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"D\n\x13\x43ompanyListResponse\x12\x1e\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x10.CompanyResponse\x12\r\n\x05total\x18\x02 \x01(\x05\"\"\n\x14\x44\x65leteCompanyRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"\xdf\x01\n\x14UpdateCompanyRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x65sc\x18\x03 \x01(\t\x12\x0f\n\x07website\x18\x04 \x01(\t\x12\x0e\n\x06\x63onfig\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x07 \x01(\t\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ncreator_id\x18\t \x01(\x03\x12\x11\n\tparent_id\x18\n \x01(\x03\x12\x0e\n\x06status\x18\x0b \x01(\x05\x12\x0c\n\x04size\x18\x0c \x01(\x05\x12\x0c\n\x04logo\x18\r \x01(\t\"\xba\x02\n\x0f\x43ompanyResponse\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x65sc\x18\x03 \x01(\t\x12\x0f\n\x07website\x18\x04 \x01(\t\x12\x0e\n\x06\x63onfig\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x07 \x01(\t\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ncreator_id\x18\t \x01(\x03\x12\x11\n\tparent_id\x18\n \x01(\x03\x12\x0e\n\x06status\x18\x0b \x01(\x05\x12\x0c\n\x04size\x18\x0c \x01(\x05\x12\x0c\n\x04logo\x18\r \x01(\t\x12.\n\ncreated_at\x18\x0e \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nupdated_at\x18\x0f \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xd3\x01\n\x14\x43reateCompanyRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04\x64\x65sc\x18\x02 \x01(\t\x12\x0f\n\x07website\x18\x03 \x01(\t\x12\x0e\n\x06\x63onfig\x18\x04 \x01(\t\x12\x0c\n\x04tags\x18\x05 \x03(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x06 \x01(\t\x12\x0c\n\x04info\x18\x07 \x01(\t\x12\x12\n\ncreator_id\x18\x08 \x01(\x03\x12\x11\n\tparent_id\x18\t \x01(\x03\x12\x0e\n\x06status\x18\n \x01(\x05\x12\x0c\n\x04size\x18\x0c \x01(\x05\x12\x0c\n\x04logo\x18\r \x01(\t2\xae\x05\n\x07\x43ompany\x12>\n\x0eGetCompanyList\x12\x16.GetCompanyListRequest\x1a\x14.CompanyListResponse\x12>\n\x10GetCompanyDetail\x12\x18.GetCompanyDetailRequest\x1a\x10.CompanyResponse\x12\x38\n\rCreateCompany\x12\x15.CreateCompanyRequest\x1a\x10.CompanyResponse\x12>\n\rUpdateCompany\x12\x15.UpdateCompanyRequest\x1a\x16.google.protobuf.Empty\x12>\n\rDeleteCompany\x12\x15.DeleteCompanyRequest\x1a\x16.google.protobuf.Empty\x12\x42\n\x10GetMyCompanyList\x12\x18.GetMyCompanyListRequest\x1a\x14.CompanyListResponse\x12Q\n\x14GetCompanyUserIdList\x12\x1a.GetCompanyUserListRequest\x1a\x1d.GetCompanyUserIdListResponse\x12\x44\n\x11\x43reateUserCompany\x12\x17.SaveUserCompanyRequest\x1a\x16.google.protobuf.Empty\x12\x44\n\x11UpdateUserCompany\x12\x17.SaveUserCompanyRequest\x1a\x16.google.protobuf.Empty\x12\x46\n\x11\x44\x65leteUserCompany\x12\x19.DeleteUserCompanyRequest\x1a\x16.google.protobuf.EmptyB\nZ\x08../protob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rcompany.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\")\n\x1aGetCompanyListByIdsRequest\x12\x0b\n\x03ids\x18\x01 \x03(\x03\"\xf2\x01\n\x13UserCompanyResponse\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x12\n\ncompany_id\x18\x02 \x01(\x03\x12\x0e\n\x06status\x18\x03 \x01(\x05\x12\x15\n\rdepartment_id\x18\x04 \x01(\x03\x12\x11\n\tnick_name\x18\x05 \x01(\t\x12\x0e\n\x06remark\x18\x06 \x01(\t\x12\x0c\n\x04info\x18\x07 \x01(\t\x12.\n\ncreated_at\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nupdated_at\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"Q\n\x1cGetCompanyUserIdListResponse\x12\"\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x14.UserCompanyResponse\x12\r\n\x05total\x18\x02 \x01(\x05\"\x95\x01\n\x16SaveUserCompanyRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x12\n\ncompany_id\x18\x02 \x01(\x03\x12\x0e\n\x06status\x18\x03 \x01(\x05\x12\x15\n\rdepartment_id\x18\x04 \x01(\x03\x12\x11\n\tnick_name\x18\x05 \x01(\t\x12\x0e\n\x06remark\x18\x06 \x01(\t\x12\x0c\n\x04info\x18\x07 \x01(\t\"?\n\x18\x44\x65leteUserCompanyRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x03\x12\x12\n\ncompany_id\x18\x02 \x01(\x03\"\xad\x01\n\x19GetCompanyUserListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x12\n\ncompany_id\x18\x03 \x01(\x03\x12\x32\n\x04sort\x18\x05 \x03(\x0b\x32$.GetCompanyUserListRequest.SortEntry\x1a+\n\tSortEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"\xa6\x01\n\x17GetMyCompanyListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x0f\n\x07user_id\x18\x03 \x01(\x03\x12\x30\n\x04sort\x18\x05 \x03(\x0b\x32\".GetMyCompanyListRequest.SortEntry\x1a+\n\tSortEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"%\n\x17GetCompanyDetailRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"\xf4\x01\n\x15GetCompanyListRequest\x12\x0c\n\x04page\x18\x01 \x01(\x05\x12\r\n\x05limit\x18\x02 \x01(\x05\x12\x32\n\x06search\x18\x03 \x03(\x0b\x32\".GetCompanyListRequest.SearchEntry\x12.\n\x04sort\x18\x04 \x03(\x0b\x32 .GetCompanyListRequest.SortEntry\x1a-\n\x0bSearchEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x1a+\n\tSortEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\"D\n\x13\x43ompanyListResponse\x12\x1e\n\x04\x64\x61ta\x18\x01 \x03(\x0b\x32\x10.CompanyResponse\x12\r\n\x05total\x18\x02 \x01(\x05\"\"\n\x14\x44\x65leteCompanyRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"\xdf\x01\n\x14UpdateCompanyRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x65sc\x18\x03 \x01(\t\x12\x0f\n\x07website\x18\x04 \x01(\t\x12\x0e\n\x06\x63onfig\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x07 \x01(\t\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ncreator_id\x18\t \x01(\x03\x12\x11\n\tparent_id\x18\n \x01(\x03\x12\x0e\n\x06status\x18\x0b \x01(\x05\x12\x0c\n\x04size\x18\x0c \x01(\x05\x12\x0c\n\x04logo\x18\r \x01(\t\"\xba\x02\n\x0f\x43ompanyResponse\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x65sc\x18\x03 \x01(\t\x12\x0f\n\x07website\x18\x04 \x01(\t\x12\x0e\n\x06\x63onfig\x18\x05 \x01(\t\x12\x0c\n\x04tags\x18\x06 \x03(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x07 \x01(\t\x12\x0c\n\x04info\x18\x08 \x01(\t\x12\x12\n\ncreator_id\x18\t \x01(\x03\x12\x11\n\tparent_id\x18\n \x01(\x03\x12\x0e\n\x06status\x18\x0b \x01(\x05\x12\x0c\n\x04size\x18\x0c \x01(\x05\x12\x0c\n\x04logo\x18\r \x01(\t\x12.\n\ncreated_at\x18\x0e \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12.\n\nupdated_at\x18\x0f \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xd3\x01\n\x14\x43reateCompanyRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x0c\n\x04\x64\x65sc\x18\x02 \x01(\t\x12\x0f\n\x07website\x18\x03 \x01(\t\x12\x0e\n\x06\x63onfig\x18\x04 \x01(\t\x12\x0c\n\x04tags\x18\x05 \x03(\t\x12\x0f\n\x07\x61\x64\x64ress\x18\x06 \x01(\t\x12\x0c\n\x04info\x18\x07 \x01(\t\x12\x12\n\ncreator_id\x18\x08 \x01(\x03\x12\x11\n\tparent_id\x18\t \x01(\x03\x12\x0e\n\x06status\x18\n \x01(\x05\x12\x0c\n\x04size\x18\x0c \x01(\x05\x12\x0c\n\x04logo\x18\r \x01(\t2\xf8\x05\n\x07\x43ompany\x12>\n\x0eGetCompanyList\x12\x16.GetCompanyListRequest\x1a\x14.CompanyListResponse\x12>\n\x10GetCompanyDetail\x12\x18.GetCompanyDetailRequest\x1a\x10.CompanyResponse\x12\x38\n\rCreateCompany\x12\x15.CreateCompanyRequest\x1a\x10.CompanyResponse\x12>\n\rUpdateCompany\x12\x15.UpdateCompanyRequest\x1a\x16.google.protobuf.Empty\x12>\n\rDeleteCompany\x12\x15.DeleteCompanyRequest\x1a\x16.google.protobuf.Empty\x12\x42\n\x10GetMyCompanyList\x12\x18.GetMyCompanyListRequest\x1a\x14.CompanyListResponse\x12Q\n\x14GetCompanyUserIdList\x12\x1a.GetCompanyUserListRequest\x1a\x1d.GetCompanyUserIdListResponse\x12\x44\n\x11\x43reateUserCompany\x12\x17.SaveUserCompanyRequest\x1a\x16.google.protobuf.Empty\x12\x44\n\x11UpdateUserCompany\x12\x17.SaveUserCompanyRequest\x1a\x16.google.protobuf.Empty\x12\x46\n\x11\x44\x65leteUserCompany\x12\x19.DeleteUserCompanyRequest\x1a\x16.google.protobuf.Empty\x12H\n\x13GetCompanyListByIds\x12\x1b.GetCompanyListByIdsRequest\x1a\x14.CompanyListResponseB\nZ\x08../protob\x06proto3')
 
 
 
+_GETCOMPANYLISTBYIDSREQUEST = DESCRIPTOR.message_types_by_name['GetCompanyListByIdsRequest']
 _USERCOMPANYRESPONSE = DESCRIPTOR.message_types_by_name['UserCompanyResponse']
 _GETCOMPANYUSERIDLISTRESPONSE = DESCRIPTOR.message_types_by_name['GetCompanyUserIdListResponse']
 _SAVEUSERCOMPANYREQUEST = DESCRIPTOR.message_types_by_name['SaveUserCompanyRequest']
@@ -37,6 +38,13 @@ _DELETECOMPANYREQUEST = DESCRIPTOR.message_types_by_name['DeleteCompanyRequest']
 _UPDATECOMPANYREQUEST = DESCRIPTOR.message_types_by_name['UpdateCompanyRequest']
 _COMPANYRESPONSE = DESCRIPTOR.message_types_by_name['CompanyResponse']
 _CREATECOMPANYREQUEST = DESCRIPTOR.message_types_by_name['CreateCompanyRequest']
+GetCompanyListByIdsRequest = _reflection.GeneratedProtocolMessageType('GetCompanyListByIdsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETCOMPANYLISTBYIDSREQUEST,
+  '__module__' : 'company_pb2'
+  # @@protoc_insertion_point(class_scope:GetCompanyListByIdsRequest)
+  })
+_sym_db.RegisterMessage(GetCompanyListByIdsRequest)
+
 UserCompanyResponse = _reflection.GeneratedProtocolMessageType('UserCompanyResponse', (_message.Message,), {
   'DESCRIPTOR' : _USERCOMPANYRESPONSE,
   '__module__' : 'company_pb2'
@@ -173,40 +181,42 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _GETCOMPANYLISTREQUEST_SEARCHENTRY._serialized_options = b'8\001'
   _GETCOMPANYLISTREQUEST_SORTENTRY._options = None
   _GETCOMPANYLISTREQUEST_SORTENTRY._serialized_options = b'8\001'
-  _USERCOMPANYRESPONSE._serialized_start=80
-  _USERCOMPANYRESPONSE._serialized_end=322
-  _GETCOMPANYUSERIDLISTRESPONSE._serialized_start=324
-  _GETCOMPANYUSERIDLISTRESPONSE._serialized_end=405
-  _SAVEUSERCOMPANYREQUEST._serialized_start=408
-  _SAVEUSERCOMPANYREQUEST._serialized_end=557
-  _DELETEUSERCOMPANYREQUEST._serialized_start=559
-  _DELETEUSERCOMPANYREQUEST._serialized_end=622
-  _GETCOMPANYUSERLISTREQUEST._serialized_start=625
-  _GETCOMPANYUSERLISTREQUEST._serialized_end=798
-  _GETCOMPANYUSERLISTREQUEST_SORTENTRY._serialized_start=755
-  _GETCOMPANYUSERLISTREQUEST_SORTENTRY._serialized_end=798
-  _GETMYCOMPANYLISTREQUEST._serialized_start=801
-  _GETMYCOMPANYLISTREQUEST._serialized_end=967
-  _GETMYCOMPANYLISTREQUEST_SORTENTRY._serialized_start=755
-  _GETMYCOMPANYLISTREQUEST_SORTENTRY._serialized_end=798
-  _GETCOMPANYDETAILREQUEST._serialized_start=969
-  _GETCOMPANYDETAILREQUEST._serialized_end=1006
-  _GETCOMPANYLISTREQUEST._serialized_start=1009
-  _GETCOMPANYLISTREQUEST._serialized_end=1253
-  _GETCOMPANYLISTREQUEST_SEARCHENTRY._serialized_start=1163
-  _GETCOMPANYLISTREQUEST_SEARCHENTRY._serialized_end=1208
-  _GETCOMPANYLISTREQUEST_SORTENTRY._serialized_start=755
-  _GETCOMPANYLISTREQUEST_SORTENTRY._serialized_end=798
-  _COMPANYLISTRESPONSE._serialized_start=1255
-  _COMPANYLISTRESPONSE._serialized_end=1323
-  _DELETECOMPANYREQUEST._serialized_start=1325
-  _DELETECOMPANYREQUEST._serialized_end=1359
-  _UPDATECOMPANYREQUEST._serialized_start=1362
-  _UPDATECOMPANYREQUEST._serialized_end=1585
-  _COMPANYRESPONSE._serialized_start=1588
-  _COMPANYRESPONSE._serialized_end=1902
-  _CREATECOMPANYREQUEST._serialized_start=1905
-  _CREATECOMPANYREQUEST._serialized_end=2116
-  _COMPANY._serialized_start=2119
-  _COMPANY._serialized_end=2805
+  _GETCOMPANYLISTBYIDSREQUEST._serialized_start=79
+  _GETCOMPANYLISTBYIDSREQUEST._serialized_end=120
+  _USERCOMPANYRESPONSE._serialized_start=123
+  _USERCOMPANYRESPONSE._serialized_end=365
+  _GETCOMPANYUSERIDLISTRESPONSE._serialized_start=367
+  _GETCOMPANYUSERIDLISTRESPONSE._serialized_end=448
+  _SAVEUSERCOMPANYREQUEST._serialized_start=451
+  _SAVEUSERCOMPANYREQUEST._serialized_end=600
+  _DELETEUSERCOMPANYREQUEST._serialized_start=602
+  _DELETEUSERCOMPANYREQUEST._serialized_end=665
+  _GETCOMPANYUSERLISTREQUEST._serialized_start=668
+  _GETCOMPANYUSERLISTREQUEST._serialized_end=841
+  _GETCOMPANYUSERLISTREQUEST_SORTENTRY._serialized_start=798
+  _GETCOMPANYUSERLISTREQUEST_SORTENTRY._serialized_end=841
+  _GETMYCOMPANYLISTREQUEST._serialized_start=844
+  _GETMYCOMPANYLISTREQUEST._serialized_end=1010
+  _GETMYCOMPANYLISTREQUEST_SORTENTRY._serialized_start=798
+  _GETMYCOMPANYLISTREQUEST_SORTENTRY._serialized_end=841
+  _GETCOMPANYDETAILREQUEST._serialized_start=1012
+  _GETCOMPANYDETAILREQUEST._serialized_end=1049
+  _GETCOMPANYLISTREQUEST._serialized_start=1052
+  _GETCOMPANYLISTREQUEST._serialized_end=1296
+  _GETCOMPANYLISTREQUEST_SEARCHENTRY._serialized_start=1206
+  _GETCOMPANYLISTREQUEST_SEARCHENTRY._serialized_end=1251
+  _GETCOMPANYLISTREQUEST_SORTENTRY._serialized_start=798
+  _GETCOMPANYLISTREQUEST_SORTENTRY._serialized_end=841
+  _COMPANYLISTRESPONSE._serialized_start=1298
+  _COMPANYLISTRESPONSE._serialized_end=1366
+  _DELETECOMPANYREQUEST._serialized_start=1368
+  _DELETECOMPANYREQUEST._serialized_end=1402
+  _UPDATECOMPANYREQUEST._serialized_start=1405
+  _UPDATECOMPANYREQUEST._serialized_end=1628
+  _COMPANYRESPONSE._serialized_start=1631
+  _COMPANYRESPONSE._serialized_end=1945
+  _CREATECOMPANYREQUEST._serialized_start=1948
+  _CREATECOMPANYREQUEST._serialized_end=2159
+  _COMPANY._serialized_start=2162
+  _COMPANY._serialized_end=2922
 # @@protoc_insertion_point(module_scope)

@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-from . import company_pb2 as company__pb2
+import company_pb2 as company__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
@@ -64,6 +64,11 @@ class CompanyStub(object):
                 '/Company/DeleteUserCompany',
                 request_serializer=company__pb2.DeleteUserCompanyRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.GetCompanyListByIds = channel.unary_unary(
+                '/Company/GetCompanyListByIds',
+                request_serializer=company__pb2.GetCompanyListByIdsRequest.SerializeToString,
+                response_deserializer=company__pb2.CompanyListResponse.FromString,
                 )
 
 
@@ -140,6 +145,12 @@ class CompanyServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetCompanyListByIds(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_CompanyServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -192,6 +203,11 @@ def add_CompanyServicer_to_server(servicer, server):
                     servicer.DeleteUserCompany,
                     request_deserializer=company__pb2.DeleteUserCompanyRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'GetCompanyListByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetCompanyListByIds,
+                    request_deserializer=company__pb2.GetCompanyListByIdsRequest.FromString,
+                    response_serializer=company__pb2.CompanyListResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -370,5 +386,22 @@ class Company(object):
         return grpc.experimental.unary_unary(request, target, '/Company/DeleteUserCompany',
             company__pb2.DeleteUserCompanyRequest.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetCompanyListByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Company/GetCompanyListByIds',
+            company__pb2.GetCompanyListByIdsRequest.SerializeToString,
+            company__pb2.CompanyListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

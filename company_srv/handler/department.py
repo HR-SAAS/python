@@ -56,7 +56,7 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
         if req.company_id:
             departments = departments.where(Department.company_id == req.company_id)
 
-        rsp = department_pb2.GetDepartmentListResponse()
+        rsp = department_pb2.DepartmentListResponse()
         rsp.total = departments.count()
         departments = departments.limit(limit).offset(stat)
         print(departments)
@@ -142,7 +142,7 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
         for i in companyIds:
             idList.append(i.department_id)
         departments = Department.select().where(Department.id << idList)
-        rsp = department_pb2.GetDepartmentListResponse()
+        rsp = department_pb2.DepartmentListResponse()
         rsp.total = model.count()
         for departments in departments:
             rsp.data.append(department_convert_response(departments))
@@ -225,3 +225,11 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
             context.set_details("内部错误")
         finally:
             return google.protobuf.empty_pb2.Empty()
+
+    def GetCompanyListByIds(self, req:department_pb2.GetDepartmentListByIdsRequest, context):
+        """Missing associated documentation comment in .proto file."""
+        data = Department.select().where(Department.id.in_(list(req.ids)))
+        rsp = department_pb2.DepartmentListResponse()
+        for datum in data:
+            rsp.data.append(department_convert_response(datum))
+        return rsp

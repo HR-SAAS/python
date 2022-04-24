@@ -25,6 +25,15 @@ service Company {
   rpc UpdateUserCompany(SaveUserCompanyRequest)returns(google.protobuf.Empty);
   // 删除用户公司
   rpc DeleteUserCompany(DeleteUserCompanyRequest)returns(google.protobuf.Empty);
+
+
+  rpc GetCompanyListByIds(GetCompanyListByIdsRequest)returns(CompanyListResponse);
+
+}
+
+
+message GetCompanyListByIdsRequest{
+    repeated int64 ids = 1;
 }
 
 message UserCompanyResponse{
