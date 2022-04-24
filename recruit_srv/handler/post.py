@@ -151,3 +151,14 @@ class PostService(post_pb2_grpc.PostServicer):
             context.set_code(grpc.StatusCode.NOT_FOUND)
             context.set_details("找不到数据")
             return post_convert_response(None)
+
+    def GetPostListByIds(self, req:post_pb2.GetPostListByIdsRequest, context):
+        """根据id获取数据
+        """
+        data = Post.select().where(Post.id << list(req.ids))
+        res = post_pb2.PostListResponse()
+        for datum in data:
+            res.data.append(post_convert_response(datum))
+
+        return res
+

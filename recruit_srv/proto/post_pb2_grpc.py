@@ -40,6 +40,11 @@ class PostStub(object):
                 request_serializer=post__pb2.GetPostDetailRequest.SerializeToString,
                 response_deserializer=post__pb2.PostResponse.FromString,
                 )
+        self.GetPostListByIds = channel.unary_unary(
+                '/Post/GetPostListByIds',
+                request_serializer=post__pb2.GetPostListByIdsRequest.SerializeToString,
+                response_deserializer=post__pb2.PostListResponse.FromString,
+                )
 
 
 class PostServicer(object):
@@ -80,6 +85,13 @@ class PostServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetPostListByIds(self, request, context):
+        """根据id获取数据
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_PostServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -107,6 +119,11 @@ def add_PostServicer_to_server(servicer, server):
                     servicer.GetPostDetail,
                     request_deserializer=post__pb2.GetPostDetailRequest.FromString,
                     response_serializer=post__pb2.PostResponse.SerializeToString,
+            ),
+            'GetPostListByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPostListByIds,
+                    request_deserializer=post__pb2.GetPostListByIdsRequest.FromString,
+                    response_serializer=post__pb2.PostListResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -200,5 +217,22 @@ class Post(object):
         return grpc.experimental.unary_unary(request, target, '/Post/GetPostDetail',
             post__pb2.GetPostDetailRequest.SerializeToString,
             post__pb2.PostResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetPostListByIds(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Post/GetPostListByIds',
+            post__pb2.GetPostListByIdsRequest.SerializeToString,
+            post__pb2.PostListResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

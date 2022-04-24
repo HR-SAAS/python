@@ -88,6 +88,10 @@ class PostTest:
         res = self.stub.GetPostDetail(post_pb2.GetPostDetailRequest(id=id))
         print(res)
 
+    def GetListByIds(self):
+        res = self.stub.GetPostListByIds(post_pb2.GetPostListByIdsRequest(ids=[1,2,3]))
+        print(res)
+
 
 if __name__ == '__main__':
     test = PostTest('192.168.50.1', 8010)
@@ -102,4 +106,5 @@ if __name__ == '__main__':
     test.GetList()
     test.Get(id)
     test.Delete(id)
-    test.Get(id)
+    # test.Get(id)
+    test.GetListByIds()

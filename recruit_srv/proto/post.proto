@@ -20,6 +20,13 @@ service Post{
 
   // 获取岗位详情
   rpc GetPostDetail(GetPostDetailRequest) returns (PostResponse);
+
+  //根据id获取数据
+  rpc GetPostListByIds(GetPostListByIdsRequest)returns(PostListResponse);
+}
+
+message GetPostListByIdsRequest{
+  repeated int64 ids = 1;
 }
 
 
