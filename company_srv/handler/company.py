@@ -227,7 +227,7 @@ class CompanyService(company_pb2_grpc.CompanyServicer):
         finally:
             return google.protobuf.empty_pb2.Empty()
 
-    def GetCompanyListByIds(self, req:company_pb2.GetCompanyListByIdsRequest, context):
+    def GetCompanyListByIds(self, req: company_pb2.GetCompanyListByIdsRequest, context):
         """Missing associated documentation comment in .proto file."""
         data = Company.select().where(Company.id.in_(list(req.ids)))
         rsp = company_pb2.CompanyListResponse()

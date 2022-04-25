@@ -226,7 +226,7 @@ class DepartmentService(department_pb2_grpc.DepartmentServicer):
         finally:
             return google.protobuf.empty_pb2.Empty()
 
-    def GetCompanyListByIds(self, req:department_pb2.GetDepartmentListByIdsRequest, context):
+    def GetDepartmentListByIds(self, req:department_pb2.GetDepartmentListByIdsRequest, context):
         """Missing associated documentation comment in .proto file."""
         data = Department.select().where(Department.id.in_(list(req.ids)))
         rsp = department_pb2.DepartmentListResponse()

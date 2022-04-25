@@ -45,7 +45,8 @@ def convert_post(source, to):
         "content",
         "experience",
         "education",
-        "address"
+        "address",
+        "status"
     ]:
         temp = getattr(source, i)
         if temp is not None and temp != -1 and temp != "":
