@@ -66,8 +66,8 @@ class DepartmentStub(object):
                 request_serializer=department__pb2.DeleteUserDepartmentRequest.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
-        self.GetCompanyListByIds = channel.unary_unary(
-                '/Department/GetCompanyListByIds',
+        self.GetDepartmentListByIds = channel.unary_unary(
+                '/Department/GetDepartmentListByIds',
                 request_serializer=department__pb2.GetDepartmentListByIdsRequest.SerializeToString,
                 response_deserializer=department__pb2.DepartmentListResponse.FromString,
                 )
@@ -147,7 +147,7 @@ class DepartmentServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetCompanyListByIds(self, request, context):
+    def GetDepartmentListByIds(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -206,8 +206,8 @@ def add_DepartmentServicer_to_server(servicer, server):
                     request_deserializer=department__pb2.DeleteUserDepartmentRequest.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
-            'GetCompanyListByIds': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetCompanyListByIds,
+            'GetDepartmentListByIds': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetDepartmentListByIds,
                     request_deserializer=department__pb2.GetDepartmentListByIdsRequest.FromString,
                     response_serializer=department__pb2.DepartmentListResponse.SerializeToString,
             ),
@@ -393,7 +393,7 @@ class Department(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetCompanyListByIds(request,
+    def GetDepartmentListByIds(request,
             target,
             options=(),
             channel_credentials=None,
@@ -403,7 +403,7 @@ class Department(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Department/GetCompanyListByIds',
+        return grpc.experimental.unary_unary(request, target, '/Department/GetDepartmentListByIds',
             department__pb2.GetDepartmentListByIdsRequest.SerializeToString,
             department__pb2.DepartmentListResponse.FromString,
             options, channel_credentials,
