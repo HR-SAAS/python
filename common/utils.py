@@ -1,6 +1,15 @@
 import socket
 
 
+def sortByMap(model, m):
+    if m is not None:
+        sort = []
+        for i, v in dict(m).items():
+            sort.append(f"{i} {v}")
+        model.order_by(",".join(sort))
+    return model
+
+
 def get_free_tcp_port():
     # 获取
     tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

@@ -24,6 +24,9 @@ class Post(BaseModel, DeletedModel):
     education = EnumField(verbose_name='学历:0不限 1: 高中 2:大专 3:本科 4:研究生 5:其他', default=0)
     address = CharField(verbose_name='地址')
 
+    # min_salary = IntegerField(verbose_name='工资范围')
+    # max_salary = IntegerField(verbose_name='工资范围')
+
     view_count = IntegerField(verbose_name='浏览记录', default=0)
     like_count = IntegerField(verbose_name='收藏', default=0)
 

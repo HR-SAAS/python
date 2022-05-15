@@ -3,11 +3,12 @@ import json
 import google.protobuf.empty_pb2
 import grpc
 
+import common.utils
 from recruit_srv.proto import post_pb2, post_pb2_grpc
 from recruit_srv.model.model import Post
 
 from loguru import logger
-from peewee import DoesNotExist
+from peewee import DoesNotExist, SQL
 
 
 def post_convert_response(post):
@@ -81,16 +82,11 @@ class PostService(post_pb2_grpc.PostServicer):
                 model = model.where(Post.start_at >= search['start_at'])
             if search['end_at']:
                 model = model.where(Post.end_at <= search['end_at'])
-
-        if req.sort is not None:
-            for i, v in dict(req.sort).items():
-                model = model.order_by(i, v)
-        # 动态search
+        model = common.utils.sortByMap(model, req.sort)
         rsp = post_pb2.PostListResponse()
 
         rsp.total = model.count()
         data = model.limit(limit).offset(start)
-        print(data)
         for item in data:
             rsp.data.append(post_convert_response(item))
         return rsp

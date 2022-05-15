@@ -3,7 +3,7 @@ import json
 import google.protobuf.empty_pb2
 import grpc
 
-from common.utils import build_model_filters
+from common.utils import build_model_filters,sortByMap
 from message_srv.proto import user_message_pb2, user_message_pb2_grpc
 from message_srv.model.model import UserMessage
 
@@ -65,9 +65,8 @@ class UserMessageService(user_message_pb2_grpc.UserMessageServicer):
             if search['user_id']:
                 model = model.where(UserMessage.user_id == search['user_id'])
 
-        if req.sort is not None:
-            for i, v in dict(req.sort).items():
-                model = model.order_by(i, v)
+        model = sortByMap(model, req.sort)
+
         # 动态search
         rsp = user_message_pb2.MessageListResponse()
 

@@ -48,6 +48,7 @@ class DeletedModel(Model):
         return super().select().where(cls.deleted_at == None)
 
 
+
 class JSONField(TextField):
     def db_value(self, value):
         if isinstance(value,RepeatedScalarContainer):

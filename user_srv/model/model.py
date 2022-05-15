@@ -22,6 +22,7 @@ class User(BaseModel):
     avatar = CharField(max_length=255, null=True, verbose_name="头像")
     sex = EnumField(verbose_name="性别", choices=SEX_ENUM)
     password = CharField(max_length=255, null=True, verbose_name="密码")
+    group = IntegerField(verbose_name='权限组')
     current_role = EnumField(verbose_name='当前用户角色')
     status = EnumField(verbose_name='状态')
 

@@ -3,7 +3,7 @@ import json
 import google.protobuf.empty_pb2
 import grpc
 
-from common.utils import build_model_filters
+from common.utils import build_model_filters,sortByMap
 from resume_srv.proto import resume_pb2, resume_pb2_grpc
 from resume_srv.model.model import Resume
 
@@ -66,9 +66,8 @@ class ResumeService(resume_pb2_grpc.ResumeServicer):
             if search['user_id']:
                 model = model.where(Resume.user_id == search['user_id'])
 
-        if req.sort is not None:
-            for i, v in dict(req.sort).items():
-                model = model.order_by(i, v)
+        model = sortByMap(model, req.sort)
+
         # 动态search
         rsp = resume_pb2.ResumeListResponse()
 

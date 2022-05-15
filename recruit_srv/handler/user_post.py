@@ -3,6 +3,7 @@ import json
 import google.protobuf.empty_pb2
 import grpc
 
+import common.utils
 from recruit_srv.proto import user_post_pb2, user_post_pb2_grpc
 from recruit_srv.model.model import UserPost
 
@@ -37,7 +38,8 @@ def convert_user_post(source, to):
         "remark",
         "review_id",
         "status",
-        "resume_name"
+        "resume_name",
+        "resume_type"
     ]:
         temp = getattr(source, i)
         if temp is not None and temp != -1 and temp != "":
@@ -71,9 +73,8 @@ class UserPostService(user_post_pb2_grpc.UserPostServicer):
             if search['status']:
                 model = model.where(UserPost.status == search['status'])
 
-        if req.sort is not None:
-            for i, v in dict(req.sort).items():
-                model = model.order_by(i, v)
+        model = common.utils.sortByMap(model, req.sort)
+
         # 动态search
         rsp = user_post_pb2.UserPostListResponse()
 

@@ -31,13 +31,17 @@ class CounterService(counter_pb2_grpc.RecruitCounterServiceServicer):
     def CountUserPost(self, req: counter_pb2.CountUserPostRequest, context):
         """Missing associated documentation comment in .proto file."""
         model = UserPost.select()
+        if req.company_id:
+            model = model.where(UserPost.company_id == req.company_id)
+
+        if req.post_id:
+            model = model.where(UserPost.post_id == req.post_id)
 
         if req.search is not None:
             search = req.search
             if search['user_id']:
                 model = model.where(UserPost.user_id == search['user_id'])
-            if search['company_id']:
-                model = model.where(UserPost.company_id == search['company_id'])
+
             if search['resume_id']:
                 model = model.where(UserPost.resume_id == search['resume_id'])
             if search['status']:
